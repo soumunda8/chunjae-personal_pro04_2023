@@ -1,0 +1,19 @@
+@charset "UTF-8";
+
+/*모바일*/
+@media all and (max-width:768px) {
+}
+
+/* 태블릿 */
+@media all and (min-width:769px) and (max-width:1024px) {
+
+}
+
+@media all and (min-width:1025px) and (max-width:1199px) {
+
+}
+
+/* PC */
+@media all and (min-width:1200px) {
+
+}
