@@ -40,7 +40,6 @@ public class WebConfig extends AbstractAnnotationConfigDispatcherServletInitiali
         return new Filter[] { characterEncodingFilter };
     }
 
-
     @Bean
     public SimpleMappingExceptionResolver getExceptionResolver() {
         SimpleMappingExceptionResolver smer = new SimpleMappingExceptionResolver();
