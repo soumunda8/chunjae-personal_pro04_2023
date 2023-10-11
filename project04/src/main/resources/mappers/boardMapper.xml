@@ -2,6 +2,43 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.ed.haebeop.persistence.BoardMapper">
     <select id="boardList" resultType="kr.ed.haebeop.domain.Board">
-        SELECT * FROM board
+        <![CDATA[
+        select * from board
+        ]]>
+        <where>
+            bmNo = #{bmNo}
+            <if test="searchType != null">
+                <choose>
+                    <when test="searchType == 'title'.toString()">
+                        and title LIKE concat('%', #{searchKeyword}, '%')
+                    </when>
+                    <when test="searchType == 'author'.toString()">
+                        and author LIKE concat('%', #{searchKeyword}, '%')
+                    </when>
+                </choose>
+            </if>
+        </where>
+        <![CDATA[
+        order by resDate desc LIMIT #{postStart}, #{postCount}
+        ]]>
+    </select>
+
+    <select id="boardCount" resultType="integer">
+        <![CDATA[
+        select count(*) from board
+        ]]>
+        <where>
+            bmNo = #{bmNo}
+            <if test="searchType != null">
+                <choose>
+                    <when test="searchType == 'title'.toString()">
+                        and title LIKE concat('%', #{searchKeyword}, '%')
+                    </when>
+                    <when test="searchType == 'author'.toString()">
+                        and author LIKE concat('%', #{searchKeyword}, '%')
+                    </when>
+                </choose>
+            </if>
+        </where>
     </select>
 </mapper>

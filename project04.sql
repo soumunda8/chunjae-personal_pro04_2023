@@ -19,8 +19,10 @@ CREATE TABLE member(
 	grade INT DEFAULT 2										-- 회원 등급 [ 0 : 관리자, 1 : 미정, 2 : 일반사용자]
 );
 
+INSERT INTO MEMBER VALUES('admin', '1234', '관리자', 'admin@haebeop.ed.kr', '010-2121-2121', '', '', '', DEFAULT, NULL, DEFAULT, DEFAULT, DEFAULT, DEFAULT);
+
 CREATE TABLE boardMgn(
-	mNo INT AUTO_INCREMENT PRIMARY KEY,		-- 게시판 번호 : 자동 발생
+	bmNo INT AUTO_INCREMENT PRIMARY KEY,	-- 게시판 번호 : 자동 발생
 	boardNm VARCHAR(100) NOT NULL,			-- 게시판 이름
 	commentUse BOOLEAN DEFAULT FALSE,		-- 게시판 댓글 사용 유무
 	fileUse BOOLEAN DEFAULT FALSE				-- 게시판 파일 사용 유무
@@ -28,7 +30,7 @@ CREATE TABLE boardMgn(
 
 CREATE TABLE board(
 	bno INT PRIMARY KEY AUTO_INCREMENT,   							-- 게시글 번호 : 자동 발생
-	boardType INT NOT NULL,   											-- 게시글 타입 
+	bmNo INT NOT NULL,   												-- 게시글 타입 
 	title VARCHAR(200) NOT NULL,   									-- 게시글 제목
 	content VARCHAR(1000),   											-- 게시글 내용
 	author VARCHAR(20) NOT NULL,   									-- 작성자
@@ -36,7 +38,7 @@ CREATE TABLE board(
 	visited INT DEFAULT 0   											-- 조회수
 );
 
-CREATE VIEW boardList AS (SELECT b.bno AS bno, b.boardType AS boardType, b.title AS title, b.content AS content, b.author AS author, b.resDate AS resDate, b.visited as visited, m.nm AS nm, bm.boardNm AS boardNm, bm.commentUse AS commentUse, bm.fileUse AS fileUse FROM board b, member m, boardMgn bm WHERE b.author = m.id AND bm.mNo = b.boardType order BY b.bno ASC);
+CREATE VIEW boardList AS (SELECT b.bno AS bno, b.bmNo AS bmNo, b.title AS title, b.content AS content, b.author AS author, b.resDate AS resDate, b.visited as visited, m.nm AS nm, bm.boardNm AS boardNm, bm.commentUse AS commentUse, bm.fileUse AS fileUse FROM board b, member m, boardMgn bm WHERE b.author = m.id AND bm.mNo = b.boardType order BY b.bno ASC);
 
 CREATE TABLE comment(
    cno INT PRIMARY KEY AUTO_INCREMENT,   							-- 댓글번호: 자동발생

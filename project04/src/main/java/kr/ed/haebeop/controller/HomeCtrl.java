@@ -12,16 +12,13 @@ import java.util.Locale;
 public class HomeCtrl {
 
     @RequestMapping(value = "/")
-    public String index(Locale locale, Model model) {
-        Date date = new Date();
-        DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-
-        String today = dateFormat.format(date);
-
-        model.addAttribute("today", today);
-        model.addAttribute("title", "해법");
-
+    public String index(Model model) {
         return "/index";
+    }
+
+    @RequestMapping(value = "/sample")
+    public String sample(Model model) {
+        return "/sample";
     }
 
 }

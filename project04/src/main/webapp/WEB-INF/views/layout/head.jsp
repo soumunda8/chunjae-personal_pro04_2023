@@ -46,9 +46,9 @@
 <link rel="icon" href="${path }/resources/image/common/logo_48.png" sizes="48x48">
 <link rel="icon" href="${path }/resources/image/common/logo_64.png" sizes="64x64">
 
-<script src="${path }/resources/js/jquery-3.7.1.js"></script>
 <link rel="stylesheet" href="${path }/resources/css/common.css">
 <link rel="stylesheet" href="${path }/resources/css/all.css">
+<link rel="stylesheet" href="${path }/resources/css/style.css">
 
 <!--
 <script>

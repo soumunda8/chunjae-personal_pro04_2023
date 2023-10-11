@@ -55,9 +55,16 @@
     src: url('../webfonts/NotoSansKR-Black.ttf') format('truetype');
 }
 
+@font-face {
+    font-family: 'Handlee';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../webfonts/IBMPlexSansKR-Regular.ttf') format('truetype');
+}
+
 /* Reset Style */
 * {margin:0;padding:0;}
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {margin:0;padding:0;border:0;font-size:100%;vertical-align:baseline;font-family:'Noto Sans KR', sans-serif;color:#333;}
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {margin:0;padding:0;border:0;font-size:100%;vertical-align:baseline;font-family:'Noto Sans KR', sans-serif;}
 body, html {overflow-x:hidden;-ms-overflow-style:none;scrollbar-width:none;min-height:100vh;}
 body::-webkit-scrollbar, html::-webkit-scrollbar {display:none;}
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {display:block;}
@@ -71,18 +78,20 @@ blockquote:before, blockquote:after, q:before, q:after {content:'';}
 table {border-collapse:collapse;border-spacing:0;}
 
 :root {
-    --main-color:#009142;
     --sub-color:#0380c5;
+    --sub-hover-color:#026397;
+    --main-color:#288a54;
+    --main-hover-color:#0d592f;
     --admin-main-color:#530009;
     --admin-sub-color:#276cda;
 }
 
-.inner {position:relative;}
+/*.inner {position:relative;}*/
 .clearfix::after {display:block;content:'';clear:both;}
 .blind {position:absolute;width:0;height:0;font-size:0;line-height:0;text-indent:-9999px;overflow:hidden;}
 
 /* header */
-.header {position:fixed;top:0;left:0;right:0;z-index:10;background-color:#fff;}
+/*.header {position:fixed;top:0;left:0;right:0;z-index:10;background-color:#fff;}
 .header .hd_top {border-bottom:1px solid #ddd;box-sizing:border-box;height:40px;background-color:rgba(236, 198, 201, 0.4);}
 .header .tnb li {display:block;float:right;}
 .header .tnb li.home {float:left;background-color:#fff;border-left:1px solid #ddd;border-right:1px solid #ddd;}
@@ -92,8 +101,10 @@ table {border-collapse:collapse;border-spacing:0;}
 .header .tnb li a i {padding-right:5px;}
 .header .tnb li a:hover, .header .tnb li a:hover i, .header .tnb li a:active, .header .tnb li a:active i {color:var(--main-color);}
 .header .hd_con {height:70px;border-bottom:1px solid #ddd;box-sizing:border-box;}
-.header .logo {width:274px;height:70px;float:left;line-height:70px;font-size:1.5em;font-weight:700;}
-.header .logo img {width:40px;height:auto;display:inline-block;vertical-align:middle;margin-right:10px;}
+.header .logo {width:274px;height:70px;float:left;line-height:70px;font-size:1.5em;font-weight:700;}*/
+/*.logo span {font-family:'Handlee', cursive;}*/
+.logo img {width:40px;height:auto;display:inline-block;vertical-align:middle;margin-right:10px;}
+/*
 .header .gnb {display:inline-block;width:calc(100% - 300px);height:70px;float:right;}
 .header .gnb .menu {display:table;width:100%;table-layout:fixed;}
 .header .gnb .menu li a {display:block;position:relative;}
@@ -108,7 +119,7 @@ table {border-collapse:collapse;border-spacing:0;}
 .header .gnb .menu .sub li a {display:block;text-align:center;box-sizing:border-box;width:100%;}
 .header .gnb .menu .sub li:hover a:after, .header .gnb .menu .sub li:active a:after {display:block;content:"";top:36px;width:80px;margin-left:-40px;}
 
-/* footer */
+!* footer *!
 .footer {border-top:1px solid #4e4e4e;background-color:#31332d;padding:3vh 0;}
 .footer a, .footer li, .footer p {color:#888;}
 .footer li {display:inline-block;vertical-align:middle;}
@@ -129,41 +140,4 @@ table {border-collapse:collapse;border-spacing:0;}
 .footer .ft_logo img {width:34px;height:auto;display:inline-block;vertical-align:middle;}
 
 .container {margin-top:110px;}
-.container {height:110vh;} /* 삭제 예정 */
-
-/*모바일*/
-@media all and (max-width:768px) {
-    .inner {width:calc(100% - 20px);}
-}
-
-/* 태블릿 */
-@media all and (min-width:769px) and (max-width:1024px) {
-    .inner {width:calc(100% - 20px);}
-}
-
-@media all and (max-width:1024px) {
-
-    .inner {margin:0 10px;}
-    .forPc {display:none;}
-
-}
-
-@media all and (min-width:1025px) {
-
-    .inner {margin:0 auto;}
-    .forMobile {display:none;}
-
-    /* header */
-
-}
-
-@media all and (min-width:1025px) and (max-width:1199px) {
-    .inner {width:1000px;}
-}
-
-/* PC */
-@media all and (min-width:1200px) {
-    .inner {width:1200px;}
-
-    /* header */
-}
+.container {height:110vh;} !* 삭제 예정 *!*/

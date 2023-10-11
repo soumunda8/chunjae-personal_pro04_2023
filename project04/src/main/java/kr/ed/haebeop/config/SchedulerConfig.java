@@ -8,9 +8,11 @@ import org.springframework.scheduling.annotation.Scheduled;
 @EnableScheduling
 public class SchedulerConfig {
 
+    /*
     @Scheduled(cron = "0/10 * * * * *")
     public void test() {
         System.out.println("Hello, World");
     }
+    */
 
 }

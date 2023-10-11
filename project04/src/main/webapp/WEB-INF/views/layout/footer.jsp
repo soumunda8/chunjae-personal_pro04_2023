@@ -4,35 +4,25 @@
 <%@ taglib prefix="fn" uri = "http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath }" />
 
-<footer id="footerArea" class="footer">
-    <div class="ft_top">
-        <div class="inner">
-            <nav class="ft_link inner">
-                <ul class="fnb">
-                    <li><a href="#">개인정보취급방침</a></li>
-                    <li><a href="#">이메일무단수집거부</a></li>
-                    <li><a href="#">오시는길</a></li>
-                </ul>
-            </nav>
-        </div>
+<div class="container-fluid bg-secondary text-white py-3 px-sm-3 px-md-5">
+    <div class="container-fluid text-center">
+        <ul class="btn-group">
+            <li class="col-auto"><a class="text-white mb-2" href="#">회원약관</a></li>
+            <li class="col-auto"><a class="text-white mb-2" href="#">개인정보처리방침</a></li>
+            <li class="col-auto"><a class="text-white mb-2" href="#">이메일수집거부</a></li>
+            <li class="col-auto"><a class="text-white mb-2" href="#">고객센터</a></li>
+        </ul>
     </div>
-    <div class="ft_con">
-        <div class="inner">
-            <div class="ft_list">
-                <ul class="ft_list">
-                    <li>해법</li>
-                    <li>소재지 : 서울시 금천구 가산로9길 54</li>
-                </ul>
-                <ul class="ft_list">
-                    <li>대표전화 : XXX-XXX-XXXX</li>
-                    <li>FAX : XXX-XXX-XXXX</li>
-                    <li>e-mail : admin@haebeop.ed.kr</li>
-                </ul>
-                <p class="cp">COPYRIGHT ©2023 HAEBEOP. ALL RIGHTS RESERVED.</p>
-            </div>
-            <div class="ft_logo">
-                <img src="${path }/resources/image/common/logo_ft.png" alt="해법 푸터 로고"><p>해법</p>
-            </div>
-        </div>
+    <div class="container-fluid" style="border-top: 1px solid rgba(23, 162, 184, 0.2) ;">
+        <p class="m-0 text-center text-white pt-3">©
+            <a class="text-primary font-weight-bold" href="#">Haebeop</a> .All Rights Reserved. Designed by
+            <a class="text-primary font-weight-bold" href="https://htmlcodex.com">HTML Codex</a>
+            <br>Distributed By: <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
+        </p>
     </div>
-</footer>
+</div>
+<a href="#" class="btn btn-primary p-3 back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+<script src="${path }/resources/js/jquery-3.7.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+<script src="${path }/resources/js/common.js"></script>

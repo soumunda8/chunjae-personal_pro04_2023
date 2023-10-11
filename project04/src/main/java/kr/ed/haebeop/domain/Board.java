@@ -8,7 +8,7 @@ import lombok.*;
 public class Board {
 
     private int bno;
-    private int boardType;
+    private int bmNo;
     private String title;
     private String content;
     private String author;
