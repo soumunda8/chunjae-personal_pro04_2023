@@ -16,9 +16,12 @@ public class AdminCtrl {
 
     @GetMapping("/")
     public String home(Model model) throws Exception {
-
-
         return "/admin/home";
+    }
+
+    @GetMapping("/memberConf.do")
+    public String memberList(Model model) throws Exception {
+        return "/admin/memberList";
     }
 
 }

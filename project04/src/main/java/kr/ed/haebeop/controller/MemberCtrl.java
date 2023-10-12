@@ -78,7 +78,7 @@ public class MemberCtrl {
         }
     }
 
-    @GetMapping("/logoutPro.do")
+    @GetMapping("/logout.do")
     public String logout(Model model) throws Exception {
         session.invalidate();
         return "redirect:/";

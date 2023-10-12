@@ -27,9 +27,9 @@
                 <a href="contact.html" class="nav-item nav-link">Contact</a>
             </div>
             <c:if test="${sid != null}">
-                <a href="${path }/user/logoutPro.do" class="btn btn-primary px-4 mr-2"><i class="fas fa-sign-out-alt pr-2" style="color:#ffffff;"></i> 로그아웃</a>
+                <a href="${path }/user/logout.do" class="btn btn-primary px-4 mr-2"><i class="fas fa-sign-out-alt pr-2" style="color:#ffffff;"></i> 로그아웃</a>
                 <c:if test="${sid eq 'admin'}">
-                    <a href="${path }/admin/memberList.do" class="btn btn-success px-4"><i class="fas fa-user-cog pr-2" style="color:#ffffff;"></i></i>관리자페이지</a>
+                    <a href="${path }/admin/" class="btn btn-success px-4"><i class="fas fa-user-cog pr-2" style="color:#ffffff;"></i></i>관리자페이지</a>
                 </c:if>
                 <c:if test="${sid ne 'admin'}">
                     <a href="${path }/user/mypage.do" class="btn btn-success px-4"><i class="fas fa-user-circle pr-2" style="color:#ffffff;"></i></i>마이페이지</a>
@@ -50,7 +50,7 @@
             <ul class="menu clearfix">
                 <li class="home none"><a href="${path }/"><i class="fas fa-home"></i>해법</a></li>
                 <c:if test="${sid != null}">
-                    <li><a href="${path }/user/logoutPro.jsp"><i class="fas fa-sign-out-alt"></i>로그아웃</a></li>
+                    <li><a href="${path }/user/logout.jsp"><i class="fas fa-sign-out-alt"></i>로그아웃</a></li>
 
                     <c:if test="${sid eq 'admin'}">
                         <li><a href="${path }/admin/memberList.jsp"><i class="fas fa-user-cog"></i></i>관리자페이지</a></li>
