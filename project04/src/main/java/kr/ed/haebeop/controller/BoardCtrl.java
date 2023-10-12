@@ -2,6 +2,7 @@ package kr.ed.haebeop.controller;
 
 import kr.ed.haebeop.domain.Board;
 import kr.ed.haebeop.service.BoardService;
+import kr.ed.haebeop.util.BoardPage;
 import kr.ed.haebeop.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,7 +27,7 @@ public class BoardCtrl {
         int curPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
         int bmNo = 0;
 
-        Page page = new Page();
+        BoardPage page = new BoardPage();
         page.setSearchType(type);
         page.setSearchKeyword(keyword);
         page.setBmNo(bmNo);

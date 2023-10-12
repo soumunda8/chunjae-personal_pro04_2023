@@ -16,7 +16,6 @@ public class Page {
     private int totalPageCount = 1;                     // 총 ..?뭐냐..?
     private String searchType = "";                     // 입력된 검색 타입
     private String searchKeyword = "";                  // 입력된 검색 키워드
-    private int bmNo = 0;                               // 게시판 타입
 
     // 전체 페이지 개수 구하는 메소드
     public void makePostStart(int curPage, int total){

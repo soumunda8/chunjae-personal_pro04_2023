@@ -13,24 +13,10 @@
 <meta http-equiv="Copyright" content="Copyright@haebeop.ed.kr">
 
 <!-- 검색엔진 최적화(SEO:Search Engeen) -->
-<meta name="Subject" content="해법">
-<meta name="Keyword" content="해법, 커뮤니티">
-<meta name="Description" content="해법의 커뮤니티">
-<meta name="Robots" content="index, follow">
-
-<!-- 오픈그래프 -->
-<meta property="og:type" content="website">
-<meta property="og:title" content="해법">
-<meta property="og:description" content="앞선 생각으로 더 큰 미래의 교육을 준비하는 기업">
-<meta property="og:image" content="https://soumunda8.github.io/web04/images/haebeop_logo.png">
-<meta property="og:url" content="https://soumunda8.github.io/web04">
-
-<!-- 기타설정 -->
-<!-- 트위터 -->
-<meta name="twitter:card" content="picture">
-<meta name="twitter:title" content="해법">
-<meta name="twitter:description" content="앞선 생각으로 더 큰 미래의 교육을 준비하는 기업">
-<meta name="twitter:image" content="https://soumunda8.github.io/web04/images/haebeop_logo.png">
+<meta name="Subject" content="해법 - 관리자">
+<meta name="Keyword" content="해법 - 관리자">
+<meta name="Description" content="해법 - 관리자 사이트">
+<meta name="robots" content="noindex,nofollow">
 
 <!-- 파비콘 설정 :32X32 자주 사용 -->
 <!-- 표준 파비콘 -->
@@ -48,9 +34,7 @@
 
 <link rel="stylesheet" href="${path }/resources/css/common.css">
 <link rel="stylesheet" href="${path }/resources/css/all.css">
-<link rel="stylesheet" href="${path }/resources/css/style.css">
-
-<script src="${path }/resources/js/jquery-3.7.1.min.js"></script>
+<link rel="stylesheet" href="${path }/resources/css/styleAdmin.css">
 
 <!--
 <script>

@@ -23,6 +23,5 @@
 </div>
 <a href="#" class="btn btn-primary p-3 back-to-top"><i class="fa fa-angle-double-up"></i></a>
 
-<script src="${path }/resources/js/jquery-3.7.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
 <script src="${path }/resources/js/common.js"></script>

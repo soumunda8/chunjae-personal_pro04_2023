@@ -19,7 +19,7 @@ CREATE TABLE member(
 	grade INT DEFAULT 2										-- 회원 등급 [ 0 : 관리자, 1 : 미정, 2 : 일반사용자]
 );
 
-INSERT INTO MEMBER VALUES('admin', '1234', '관리자', 'admin@haebeop.ed.kr', '010-2121-2121', '', '', '', DEFAULT, NULL, DEFAULT, DEFAULT, DEFAULT, DEFAULT);
+INSERT INTO MEMBER VALUES('admin', '$2a$10$HwmRQwO14K/q/8/PeqWrXepqcA9PGnOvhy2uINmX8xi418.JlAvMW', '관리자', 'admin@haebeop.ed.kr', '010-2121-2121', '', '', '', DEFAULT, NULL, DEFAULT, DEFAULT, DEFAULT, DEFAULT);
 
 CREATE TABLE boardMgn(
 	bmNo INT AUTO_INCREMENT PRIMARY KEY,	-- 게시판 번호 : 자동 발생
