@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.ed.haebeop.persistence.BoardMapper">
-    <select id="boardList" resultType="kr.ed.haebeop.domain.Board">
+    <select id="boardList" resultType="kr.ed.haebeop.domain.BoardVO">
         <![CDATA[
-        select * from board
+        select * from boardList
         ]]>
         <where>
             bmNo = #{bmNo}
@@ -13,7 +13,7 @@
                         and title LIKE concat('%', #{searchKeyword}, '%')
                     </when>
                     <when test="searchType == 'author'.toString()">
-                        and author LIKE concat('%', #{searchKeyword}, '%')
+                        and nm LIKE concat('%', #{searchKeyword}, '%')
                     </when>
                 </choose>
             </if>
@@ -25,7 +25,7 @@
 
     <select id="boardCount" resultType="integer">
         <![CDATA[
-        select count(*) from board
+        select count(*) from boardList
         ]]>
         <where>
             bmNo = #{bmNo}
@@ -41,4 +41,12 @@
             </if>
         </where>
     </select>
+
+    <select id="boardGet" resultType="kr.ed.haebeop.domain.BoardVO">
+        select * from boardList where bno = #{bno}
+    </select>
+
+    <insert id="boardInsert">
+        INSERT INTO board VALUES(DEFAULT, #{bmNo}, #{title}, #{content}, #{author}, DEFAULT, DEFAULT)
+    </insert>
 </mapper>

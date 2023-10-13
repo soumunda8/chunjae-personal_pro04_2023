@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.ed.haebeop.persistence.BoardMgnMapper">
+    <select id="listBoardMgn" resultType="kr.ed.haebeop.domain.BoardMgn">
+        select * from boardMgn LIMIT #{postStart}, #{postCount}
+    </select>
+
+    <select id="countBoardMgn" resultType="integer">
+        select count(*) from boardMgn
+    </select>
+
+    <select id="getBoardMgn" resultType="kr.ed.haebeop.domain.BoardMgn">
+        select * from boardMgn where bmNo = #{bmNo}
+    </select>
+
+    <insert id="boardMgnInsert">
+        insert into boardMgn values(default, #{boardNm}, #{aboutAuth}, #{commentUse}, #{fileUse});
+    </insert>
+
+    <update id="">
+        update boardMgn set boardNm = #{boardNm}, boardNm = #{boardNm}, boardNm = #{boardNm}, boardNm = #{boardNm} where bmNo = #{bmNo}
+    </update>
+</mapper>

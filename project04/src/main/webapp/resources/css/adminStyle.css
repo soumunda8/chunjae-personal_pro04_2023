@@ -3741,7 +3741,7 @@ input[type="button"].btn-block {
     position: relative;
     display: block;
     min-height: 1.5rem;
-    padding-left: 1.5rem;
+    /*padding-left: 1.5rem;*/
 }
 
 .custom-control-inline {
@@ -3787,12 +3787,13 @@ input[type="button"].btn-block {
     position: relative;
     margin-bottom: 0;
     vertical-align: top;
+    padding-left: 1.5rem;
 }
 
 .custom-control-label::before {
     position: absolute;
     top: 0.25rem;
-    left: -1.5rem;
+    left: 0rem;
     display: block;
     width: 1rem;
     height: 1rem;
@@ -3805,7 +3806,7 @@ input[type="button"].btn-block {
 .custom-control-label::after {
     position: absolute;
     top: 0.25rem;
-    left: -1.5rem;
+    left: 0rem;
     display: block;
     width: 1rem;
     height: 1rem;

@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>샘플페이지 - 서브</title>
+    <title>HEABEOP::서브</title>
     <jsp:include page="./layout/head.jsp" />
     <link rel="stylesheet" href="${path }/resources/css/sub.css">
 </head>

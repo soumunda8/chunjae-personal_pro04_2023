@@ -20,6 +20,6 @@ public class Member {
     private int pt;
     private int visited;
     private boolean useYn;
-    private int grade;
+    private int grade = 2;
 
 }

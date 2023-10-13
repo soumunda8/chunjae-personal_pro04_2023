@@ -24,6 +24,7 @@ INSERT INTO MEMBER VALUES('admin', '$2a$10$HwmRQwO14K/q/8/PeqWrXepqcA9PGnOvhy2uI
 CREATE TABLE boardMgn(
 	bmNo INT AUTO_INCREMENT PRIMARY KEY,	-- 게시판 번호 : 자동 발생
 	boardNm VARCHAR(100) NOT NULL,			-- 게시판 이름
+	aboutAuth INT NOT NULL,						-- 게시판 글쓰기, 수정, 삭제 관련 권한 (일반사용자 기본)
 	commentUse BOOLEAN DEFAULT FALSE,		-- 게시판 댓글 사용 유무
 	fileUse BOOLEAN DEFAULT FALSE				-- 게시판 파일 사용 유무
 );
@@ -38,7 +39,12 @@ CREATE TABLE board(
 	visited INT DEFAULT 0   											-- 조회수
 );
 
-CREATE VIEW boardList AS (SELECT b.bno AS bno, b.bmNo AS bmNo, b.title AS title, b.content AS content, b.author AS author, b.resDate AS resDate, b.visited as visited, m.nm AS nm, bm.boardNm AS boardNm, bm.commentUse AS commentUse, bm.fileUse AS fileUse FROM board b, member m, boardMgn bm WHERE b.author = m.id AND bm.mNo = b.boardType order BY b.bno ASC);
+CREATE VIEW boardList AS (SELECT b.bno AS bno, b.bmNo AS bmNo, b.title AS title, b.content AS content, b.author AS author, b.resDate AS resDate, b.visited as visited,bm.boardNm AS boardNm, m.nm AS nm, bm.aboutAuth AS aboutAuth, bm.commentUse AS commentUse, bm.fileUse AS fileUse FROM board b, member m, boardMgn bm WHERE b.author = m.id AND bm.bmNo = b.bmNo order BY b.bno ASC);
+
+INSERT INTO board VALUES(DEFAULT, 1, '공지사항입니다.', '공지사항 내역입니다.', 'admin', DEFAULT, DEFAULT)
+
+SELECT * FROM boardMgn
+SELECT * FROM boardList
 
 CREATE TABLE comment(
    cno INT PRIMARY KEY AUTO_INCREMENT,   							-- 댓글번호: 자동발생

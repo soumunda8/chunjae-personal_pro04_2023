@@ -1,6 +1,7 @@
 package kr.ed.haebeop.service;
 
 import kr.ed.haebeop.domain.Board;
+import kr.ed.haebeop.domain.BoardVO;
 import kr.ed.haebeop.persistence.BoardMapper;
 import kr.ed.haebeop.util.BoardPage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +16,22 @@ public class BoardServiceImpl implements BoardService {
     private BoardMapper boardMapper;
 
     @Override
-    public List<Board> boardList(BoardPage page) {
+    public List<BoardVO> boardList(BoardPage page) throws Exception {
         return boardMapper.boardList(page);
     }
 
     @Override
-    public int boardCount(BoardPage page) {
+    public int boardCount(BoardPage page) throws Exception {
         return boardMapper.boardCount(page);
+    }
+
+    @Override
+    public BoardVO boardGet(int bno) throws Exception {
+        return boardMapper.boardGet(bno);
+    }
+
+    @Override
+    public void boardInsert(Board board) throws Exception {
+        boardMapper.boardInsert(board);
     }
 }

@@ -2,6 +2,7 @@ package kr.ed.haebeop.service;
 
 import kr.ed.haebeop.domain.Member;
 import kr.ed.haebeop.persistence.MemberMapper;
+import kr.ed.haebeop.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -17,8 +18,13 @@ public class MemberServiceImpl implements MemberService {
     BCryptPasswordEncoder pwEncoder = new BCryptPasswordEncoder();
 
     @Override
-    public List<Member> memberList() throws Exception {
-        return memberMapper.memberList();
+    public List<Member> memberList(Page page) throws Exception {
+        return memberMapper.memberList(page);
+    }
+
+    @Override
+    public int memberCount(Page page) throws Exception {
+        return memberMapper.memberCount(page);
     }
 
     @Override

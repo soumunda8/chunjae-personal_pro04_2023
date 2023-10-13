@@ -32,13 +32,7 @@
                     <label>게시판 관리</label>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">게시판 설정</span></a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link "><span class="pcoded-micon"><i class="feather icon-file-text"></i></span><span class="pcoded-mtext">공지사항 설정</span></a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link "><span class="pcoded-micon"><i class="feather icon-file-text"></i></span><span class="pcoded-mtext">자유게시판 설정</span></a>
+                    <a href="${path }/admin/boardMgnConf.do" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">게시판 설정</span></a>
                 </li>
             </ul>
         </div>

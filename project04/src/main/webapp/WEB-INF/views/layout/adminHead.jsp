@@ -34,7 +34,7 @@
 
 <link rel="stylesheet" href="${path }/resources/css/common.css">
 <link rel="stylesheet" href="${path }/resources/css/all.css">
-<link rel="stylesheet" href="${path }/resources/css/styleAdmin.css">
+<link rel="stylesheet" href="${path }/resources/css/adminStyle.css">
 
 <!--
 <script>

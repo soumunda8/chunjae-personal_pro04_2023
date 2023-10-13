@@ -6,11 +6,14 @@
         SELECT * FROM member
         ]]>
         <where>
-            id NOT IN ('admin') AND
+            id NOT IN ('admin')
             <if test="searchType != null">
                 <choose>
                     <when test="searchType == 'id'.toString()">
-                        id LIKE concat('%', #{searchKeyword}, '%')
+                        AND id LIKE concat('%', #{searchKeyword}, '%')
+                    </when>
+                    <when test="searchType == 'name'.toString()">
+                        AND nm LIKE concat('%', #{searchKeyword}, '%')
                     </when>
                 </choose>
             </if>
@@ -20,16 +23,19 @@
         ]]>
     </select>
 
-    <select id="boardCount" resultType="integer">
+    <select id="memberCount" resultType="integer">
         <![CDATA[
         SELECT COUNT(*) FROM member
         ]]>
         <where>
-            id NOT IN ('admin') AND
+            id NOT IN ('admin')
             <if test="searchType != null">
                 <choose>
                     <when test="searchType == 'id'.toString()">
-                        id LIKE concat('%', #{searchKeyword}, '%')
+                        AND id LIKE concat('%', #{searchKeyword}, '%')
+                    </when>
+                    <when test="searchType == 'name'.toString()">
+                        AND nm LIKE concat('%', #{searchKeyword}, '%')
                     </when>
                 </choose>
             </if>
