@@ -18,7 +18,7 @@
 .join_agree #in_btn1 {background-color:var(--main-color);color:#fff;padding:0 3.5rem;line-height:3;}
 
 .board_area {border-top:1px solid #c4c6c8;border-bottom:1px solid #c4c6c8;box-sizing:border-box;}
-.board_area .board_top {background:#f8f8fa;}
+.board_area .board_top, .board_area .board_files {background:#f8f8fa;}
 .board_area .board_top .board_title {color:#000;font-size:1.4em;font-weight:500;}
 .board_area .board_top .board_title > span {color:#666;font-size:1rem;right:1.5em;}
 

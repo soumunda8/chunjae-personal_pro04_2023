@@ -40,6 +40,17 @@
                     </p>
                 </div>
                 <div class="board_view pt-3 pl-4">${board.content }</div>
+                <c:if test="${board.fileUse == true && fileList != null}">
+                    <div class="board_files py-3 pl-4">
+                        <ul>
+                            <c:forEach var="files" items="${fileList }">
+                                <li>
+                                    <a href="${path }/util/fileDownload.do?no=${files.fno }"><i class="fas fa-image pr-1"></i>${files.originNm }</a>
+                                </li>
+                            </c:forEach>
+                        </ul>
+                    </div>
+                </c:if>
             </div>
 
             <c:if test="${board.commentUse == true}">

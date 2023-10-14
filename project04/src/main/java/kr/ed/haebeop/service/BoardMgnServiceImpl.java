@@ -15,6 +15,11 @@ public class BoardMgnServiceImpl implements BoardMgnService {
     private BoardMgnMapper boardMgnMapper;
 
     @Override
+    public List<BoardMgn> listBoardMgnForHeader() throws Exception {
+        return boardMgnMapper.listBoardMgnForHeader();
+    }
+
+    @Override
     public List<BoardMgn> listBoardMgn(Page page) throws Exception {
         return boardMgnMapper.listBoardMgn(page);
     }

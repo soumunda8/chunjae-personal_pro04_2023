@@ -1,22 +1,32 @@
 package kr.ed.haebeop.controller;
 
+import kr.ed.haebeop.domain.FileDTO;
+import kr.ed.haebeop.service.FilesService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.net.URLEncoder;
 import java.util.UUID;
 
 @Controller
 @RequestMapping("/util/")
 public class UtilCtrl {
+
+    @Autowired
+    private FilesService filesService;
 
     @RequestMapping(value="imageUpload.do", method = RequestMethod.POST)
     public void imageUpload(HttpServletRequest request, HttpServletResponse response, MultipartHttpServletRequest multiFile, @RequestParam MultipartFile upload) throws Exception{
@@ -121,6 +131,53 @@ public class UtilCtrl {
                 out.close();
             }
         }
+    }
+
+    @GetMapping("fileDownload.do")
+    public String fileDownload(@RequestParam int no, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String urlPath = request.getHeader("referer");
+
+        FileDTO files = filesService.fileListByFno(no);
+
+        String saveFolder = files.getSaveFolder();
+        String originalFile = files.getOriginNm();
+        String saveFile = files.getSaveNm();
+        File file = new File(saveFolder, saveFile);
+
+        response.setContentType("apllication/download; charset=UTF-8");
+        response.setContentLength((int) file.length());
+
+        String header = request.getHeader("User-Agent");
+        boolean isIE = header.indexOf("MSIE") > -1 || header.indexOf("Trident") > -1;
+        String fileName = null;
+        // IE는 다르게 처리
+        if (isIE) {
+            fileName = URLEncoder.encode(originalFile, "UTF-8").replaceAll("\\+", "%20");
+        } else {
+            fileName = new String(originalFile.getBytes("UTF-8"), "ISO-8859-1");
+        }
+        response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\";");
+        response.setHeader("Content-Transfer-Encoding", "binary");
+        OutputStream out = response.getOutputStream();
+        FileInputStream fis = null;
+        try {
+            fis = new FileInputStream(file);
+            FileCopyUtils.copy(fis, out);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if(fis != null) {
+                try {
+                    fis.close();
+                    out.flush();
+                }catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            out.close();
+        }
+
+        return "redirect:" + urlPath;
     }
 
 }

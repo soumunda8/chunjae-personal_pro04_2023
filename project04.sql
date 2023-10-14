@@ -29,6 +29,8 @@ CREATE TABLE boardMgn(
 	fileUse BOOLEAN DEFAULT FALSE				-- 게시판 파일 사용 유무
 );
 
+SELECT * FROM boardmgn;
+
 CREATE TABLE board(
 	bno INT PRIMARY KEY AUTO_INCREMENT,   							-- 게시글 번호 : 자동 발생
 	bmNo INT NOT NULL,   												-- 게시글 타입 
@@ -49,7 +51,7 @@ CREATE TABLE comment(
 	par INT NOT NULL   													-- 해당 게시글 번호
 );
 
-CREATE VIEW commentlist AS (SELECT c.cno AS cno, c.author AS author, c.content AS content, c.resDate AS resDate, c.par AS par, m.nm AS nm FROM comment c, member m WHERE c.author = m.id order BY c.cno ASC);
+CREATE VIEW commentList AS (SELECT c.cno AS cno, c.author AS author, c.content AS content, c.resDate AS resDate, c.par AS par, m.nm AS nm FROM comment c, member m WHERE c.author = m.id order BY c.cno ASC);
 
 CREATE TABLE files(
 	fno INT PRIMARY KEY AUTO_INCREMENT,   							-- 파일번호: 자동발생

@@ -18,10 +18,11 @@
                 <a href="team.html" class="nav-item nav-link">Teachers</a>
                 <a href="gallery.html" class="nav-item nav-link">Gallery</a>
                 <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
+                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">커뮤니티</a>
                     <div class="dropdown-menu rounded-0 m-0">
-                        <a href="blog.html" class="dropdown-item">Blog Grid</a>
-                        <a href="single.html" class="dropdown-item">Blog Detail</a>
+                        <c:forEach var="boardMenu" items="${boardMgnListForHeader }">
+                            <a href="${path }/board/list.do?no=${boardMenu.bmNo }" class="dropdown-item">${boardMenu.boardNm }</a>
+                        </c:forEach>
                     </div>
                 </div>
                 <a href="contact.html" class="nav-item nav-link">Contact</a>

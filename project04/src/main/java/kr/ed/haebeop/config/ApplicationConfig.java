@@ -16,4 +16,6 @@ public class ApplicationConfig {
 
     public BoardMgnService boardMgnService() {return new BoardMgnServiceImpl();}
 
+    public FilesService filesService() {return new FilesServiceImpl();}
+
 }

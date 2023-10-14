@@ -11,6 +11,6 @@ public interface BoardService {
     public List<BoardVO> boardList(BoardPage page) throws Exception;
     public int boardCount(BoardPage page) throws Exception;
     public BoardVO boardGet(int bno) throws Exception;
-    public void boardInsert(Board board) throws Exception;
+    public int boardInsert(Board board) throws Exception;
 
 }

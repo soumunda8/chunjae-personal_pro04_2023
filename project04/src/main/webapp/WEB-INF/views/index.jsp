@@ -56,9 +56,9 @@
                             </div>
                             <div class="row border-bottom">
                                 <div class="col-6 py-1 text-right border-right">
-                                    <strong>교육 시간</strong>
+                                    <strong>교육 강사</strong>
                                 </div>
-                                <div class="col-6 py-1">08:00 - 10:00</div>
+                                <div class="col-6 py-1">김리자 강사</div>
                             </div>
                             <div class="row">
                                 <div class="col-6 py-1 text-right border-right">
@@ -89,9 +89,9 @@
                             </div>
                             <div class="row border-bottom">
                                 <div class="col-6 py-1 text-right border-right">
-                                    <strong>교육 시간</strong>
+                                    <strong>교육 강사</strong>
                                 </div>
-                                <div class="col-6 py-1">08:00 - 10:00</div>
+                                <div class="col-6 py-1">최리자 강사</div>
                             </div>
                             <div class="row">
                                 <div class="col-6 py-1 text-right border-right">
@@ -122,9 +122,9 @@
                             </div>
                             <div class="row border-bottom">
                                 <div class="col-6 py-1 text-right border-right">
-                                    <strong>교육 시간</strong>
+                                    <strong>교육 강사</strong>
                                 </div>
-                                <div class="col-6 py-1">08:00 - 10:00</div>
+                                <div class="col-6 py-1">박리자 강사</div>
                             </div>
                             <div class="row">
                                 <div class="col-6 py-1 text-right border-right">
@@ -146,7 +146,7 @@
                 <p class="section-title px-5">
                     <span class="px-2">Our Teachers</span>
                 </p>
-                <h1 class="mb-4">선생님들을 만나보세요.</h1>
+                <h1 class="mb-4">강사님들을 만나보세요.</h1>
             </div>
             <div class="row">
                 <div class="col-md-6 col-lg-3 text-center team">
@@ -157,8 +157,7 @@
                             <a class="btn btn-outline-light text-center px-0" style="width: 38px; height: 38px" href="#" ><i class="fas fa-envelope"></i></a>
                         </div>
                     </div>
-                    <h4>최리자</h4>
-                    <i>국어 선생님</i>
+                    <h4 class="mb-0">최리자</h4>
                 </div>
                 <div class="col-md-6 col-lg-3 text-center team">
                     <div class="position-relative overflow-hidden mb-4" style="border-radius: 100%">
@@ -168,8 +167,7 @@
                             <a class="btn btn-outline-light text-center px-0" style="width: 38px; height: 38px" href="#" ><i class="fas fa-envelope"></i></a>
                         </div>
                     </div>
-                    <h4>박리자</h4>
-                    <i>영어 선생님</i>
+                    <h4 class="mb-0">박리자</h4>
                 </div>
                 <div class="col-md-6 col-lg-3 text-center team">
                     <div class="position-relative overflow-hidden mb-4" style="border-radius: 100%">
@@ -179,8 +177,7 @@
                             <a class="btn btn-outline-light text-center px-0" style="width: 38px; height: 38px" href="#" ><i class="fas fa-envelope"></i></a>
                         </div>
                     </div>
-                    <h4>김리자</h4>
-                    <i>수학 선생님</i>
+                    <h4 class="mb-0">김리자</h4>
                 </div>
                 <div class="col-md-6 col-lg-3 text-center team">
                     <div class="position-relative overflow-hidden mb-4" style="border-radius: 100%">
@@ -190,8 +187,7 @@
                             <a class="btn btn-outline-light text-center px-0" style="width: 38px; height: 38px" href="#" ><i class="fas fa-envelope"></i></a>
                         </div>
                     </div>
-                    <h4>이리자</h4>
-                    <i>미술 선생님</i>
+                    <h4 class="mb-0">이리자</h4>
                 </div>
             </div>
         </div>
@@ -211,12 +207,9 @@
                         <h3 class="fas fa-quote-left text-primary mr-3"></h3>
                         이걸 내가 쓰면 누간가가 볼까요?내생각엔 안볼것 같은데, 오타작살나도 모르고그냥 이렇게 쓰면되겠ㅈ?
                     </div>
-                    <div class="d-flex align-items-center">
-                        <img class="rounded-circle" src="${path }/resources/image/main/testimonial-1.jpg" style="width: 70px; height: 70px" alt="Image" />
-                        <div class="pl-3">
-                            <h5>작성자</h5>
-                            <i>김이름</i>
-                        </div>
+                    <div class="d-flex align-items-center pl-4">
+                        <h5 class="d-inline mb-0">작성자</h5>
+                        <p class="d-inline pl-4 mb-0" style="font-size:1.25rem;">김이름</p>
                     </div>
                 </div>
                 <div class="testimonial-item px-3">
@@ -224,12 +217,9 @@
                         <h3 class="fas fa-quote-left text-primary mr-3"></h3>
                         이걸 내가 쓰면 누간가가 볼까요?내생각엔 안볼것 같은데, 오타작살나도 모르고그냥 이렇게 쓰면되겠ㅈ?
                     </div>
-                    <div class="d-flex align-items-center">
-                        <img class="rounded-circle" src="${path }/resources/image/main/testimonial-2.jpg" style="width: 70px; height: 70px" alt="Image" />
-                        <div class="pl-3">
-                            <h5>작성자</h5>
-                            <i>박이름</i>
-                        </div>
+                    <div class="d-flex align-items-center pl-4">
+                        <h5 class="d-inline mb-0">작성자</h5>
+                        <p class="d-inline pl-4 mb-0" style="font-size:1.25rem;">박이름</p>
                     </div>
                 </div>
                 <div class="testimonial-item px-3">
@@ -237,12 +227,9 @@
                         <h3 class="fas fa-quote-left text-primary mr-3"></h3>
                         이걸 내가 쓰면 누간가가 볼까요?내생각엔 안볼것 같은데, 오타작살나도 모르고그냥 이렇게 쓰면되겠ㅈ?
                     </div>
-                    <div class="d-flex align-items-center">
-                        <img class="rounded-circle" src="${path }/resources/image/main/testimonial-3.jpg" style="width: 70px; height: 70px" alt="Image" />
-                        <div class="pl-3">
-                            <h5>작성자</h5>
-                            <i>최이름</i>
-                        </div>
+                    <div class="d-flex align-items-center pl-4">
+                        <h5 class="d-inline mb-0">작성자</h5>
+                        <p class="d-inline pl-4 mb-0" style="font-size:1.25rem;">최이름</p>
                     </div>
                 </div>
                 <div class="testimonial-item px-3">
@@ -250,12 +237,9 @@
                         <h3 class="fas fa-quote-left text-primary mr-3"></h3>
                         이걸 내가 쓰면 누간가가 볼까요?내생각엔 안볼것 같은데, 오타작살나도 모르고그냥 이렇게 쓰면되겠ㅈ?
                     </div>
-                    <div class="d-flex align-items-center">
-                        <img class="rounded-circle" src="${path }/resources/image/main/testimonial-4.jpg" style="width: 70px; height: 70px" alt="Image" />
-                        <div class="pl-3">
-                            <h5>작성자</h5>
-                            <i>이이름</i>
-                        </div>
+                    <div class="d-flex align-items-center pl-4">
+                        <h5 class="d-inline mb-0">작성자</h5>
+                        <p class="d-inline pl-4 mb-0" style="font-size:1.25rem;">이이름</p>
                     </div>
                 </div>
             </div>

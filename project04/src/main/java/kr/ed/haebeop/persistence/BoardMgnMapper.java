@@ -9,6 +9,7 @@ import java.util.List;
 @Mapper
 public interface BoardMgnMapper {
 
+    public List<BoardMgn> listBoardMgnForHeader() throws Exception;
     public List<BoardMgn> listBoardMgn(Page page) throws Exception;
     public int countBoardMgn(Page page) throws Exception;
     public BoardMgn getBoardMgn(int bmNo) throws Exception;
