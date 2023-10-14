@@ -32,6 +32,8 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public void boardInsert(Board board) throws Exception {
-        boardMapper.boardInsert(board);
+        //boardMapper.boardInsert(board);
+        int bno = boardMapper.boardGetLast();
+        System.out.println("bno : " + bno);
     }
 }

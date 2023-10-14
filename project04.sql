@@ -19,7 +19,7 @@ CREATE TABLE member(
 	grade INT DEFAULT 2										-- 회원 등급 [ 0 : 관리자, 1 : 미정, 2 : 일반사용자]
 );
 
-INSERT INTO MEMBER VALUES('admin', '$2a$10$HwmRQwO14K/q/8/PeqWrXepqcA9PGnOvhy2uINmX8xi418.JlAvMW', '관리자', 'admin@haebeop.ed.kr', '010-2121-2121', '', '', '', DEFAULT, NULL, DEFAULT, DEFAULT, DEFAULT, DEFAULT);
+INSERT INTO MEMBER VALUES('admin', '$2a$10$HwmRQwO14K/q/8/PeqWrXepqcA9PGnOvhy2uINmX8xi418.JlAvMW', '관리자', 'admin@haebeop.ed.kr', '010-2121-2121', '', '', '', DEFAULT, NULL, DEFAULT, DEFAULT, DEFAULT, 0);
 
 CREATE TABLE boardMgn(
 	bmNo INT AUTO_INCREMENT PRIMARY KEY,	-- 게시판 번호 : 자동 발생
@@ -40,11 +40,6 @@ CREATE TABLE board(
 );
 
 CREATE VIEW boardList AS (SELECT b.bno AS bno, b.bmNo AS bmNo, b.title AS title, b.content AS content, b.author AS author, b.resDate AS resDate, b.visited as visited,bm.boardNm AS boardNm, m.nm AS nm, bm.aboutAuth AS aboutAuth, bm.commentUse AS commentUse, bm.fileUse AS fileUse FROM board b, member m, boardMgn bm WHERE b.author = m.id AND bm.bmNo = b.bmNo order BY b.bno ASC);
-
-INSERT INTO board VALUES(DEFAULT, 1, '공지사항입니다.', '공지사항 내역입니다.', 'admin', DEFAULT, DEFAULT)
-
-SELECT * FROM boardMgn
-SELECT * FROM boardList
 
 CREATE TABLE comment(
    cno INT PRIMARY KEY AUTO_INCREMENT,   							-- 댓글번호: 자동발생

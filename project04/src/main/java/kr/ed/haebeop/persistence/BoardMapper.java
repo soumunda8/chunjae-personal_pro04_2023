@@ -13,6 +13,7 @@ public interface BoardMapper {
     public List<BoardVO> boardList(BoardPage page) throws Exception;
     public int boardCount(BoardPage page) throws Exception;
     public BoardVO boardGet(int bno) throws Exception;
+    public int boardGetLast() throws Exception;
     public void boardInsert(Board board) throws Exception;
 
 }

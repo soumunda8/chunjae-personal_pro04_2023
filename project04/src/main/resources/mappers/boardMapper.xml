@@ -46,6 +46,10 @@
         select * from boardList where bno = #{bno}
     </select>
 
+    <select id="boardGetLast" resultType="integer">
+        select * from boardList order by resDate desc limit 1
+    </select>
+
     <insert id="boardInsert">
         INSERT INTO board VALUES(DEFAULT, #{bmNo}, #{title}, #{content}, #{author}, DEFAULT, DEFAULT)
     </insert>

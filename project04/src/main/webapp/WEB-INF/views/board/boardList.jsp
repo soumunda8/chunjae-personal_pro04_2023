@@ -48,7 +48,7 @@
             </div>
             <c:if test="${!empty boardList }">
                 <div class="d-flex flex-column align-items-center justify-content-center">
-                    <table class="table mb-0">
+                    <table class="table mb-5">
                         <thead>
                         <tr>
                             <th colspan="text-center" scope="col">#</th>
@@ -73,6 +73,26 @@
                         </c:forEach>
                         </tbody>
                     </table>
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-center">
+                            <c:if test="${curPage > page.pageCount }">
+                                <li class="page-item"><a class="page-link" href="${path }/admin/memberList.do?page=${page.blockStartNum - 1 }<c:if test="${!empty keyword }">&type=${type }&keyword=${keyword }</c:if>" aria-label="Previous"><span aria-hidden="true">«</span><span class="sr-only">Previous</span></a></li>
+                            </c:if>
+                            <c:forEach var="i" begin="${page.blockStartNum }" end="${page.blockLastNum }">
+                                <c:choose>
+                                    <c:when test="${i == curPage }">
+                                        <li class="page-item active"><a class="page-link" href="${path }/admin/memberList.do?page=${i }<c:if test="${!empty keyword }">&type=${type }&keyword=${keyword }</c:if>">1</a></li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li class="page-item"><a class="page-link" href="${path }/admin/memberList.do?page=${i }<c:if test="${!empty keyword }">&type=${type }&keyword=${keyword }</c:if>">1</a></li>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:forEach>
+                            <c:if test="${page.blockLastNum < page.totalPageCount }">
+                                <li class="page-item"><a class="page-link" href="${path }/admin/memberList.do?page=${page.blockLastNum + 1 }<c:if test="${!empty keyword }">&type=${type }&keyword=${keyword }</c:if>" aria-label="Next"><span aria-hidden="true">»</span><span class="sr-only">Next</span></a></li>
+                            </c:if>
+                        </ul>
+                    </nav>
                 </div>
             </c:if>
             <c:if test="${empty boardList }">
@@ -81,8 +101,8 @@
                 </div>
             </c:if>
 
-            <c:if test="${addCheck == true || (sid ne null && sid eq 'admin')}">
-                <div class="btn-group d-block text-right mt-5">
+            <c:if test="${addCheck == true}">
+                <div class="btn-group d-block text-right mt-3">
                     <a href="${path }/board/add.do?no=${boardMgn.bmNo }" class="btn btn-primary px-4">등록</a>
                 </div>
             </c:if>

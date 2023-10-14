@@ -43,7 +43,7 @@ public class BoardCtrl {
         String type = request.getParameter("type");
         String keyword = request.getParameter("keyword");
         int curPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
-        int bmNo = Integer.parseInt(request.getParameter("no"));
+        int bmNo = request.getParameter("no") != null ? Integer.parseInt(request.getParameter("no")) : 1;
 
         BoardPage page = new BoardPage();
         page.setSearchType(type);
@@ -67,7 +67,7 @@ public class BoardCtrl {
 
         // 권한 관련 - 등록
         boolean addCheck = false;
-        if(sid != "" && boardMgn.getAboutAuth() == 2) {
+        if(sid != "" && (boardMgn.getAboutAuth() == 2 || sid.equals("admin"))) {
             addCheck = true;
         }
 
@@ -89,7 +89,7 @@ public class BoardCtrl {
 
     @PostMapping("/add.do")
     public String boardAddPro(HttpServletRequest request, Board board, Model model) throws Exception {
-        String author = (String) session.getAttribute("sid");
+        String author = session.getAttribute("sid") != null ? (String) session.getAttribute("sid") : "";
         int bmNo = Integer.parseInt(request.getParameter("no"));
 
         board.setAuthor(author);
@@ -101,10 +101,20 @@ public class BoardCtrl {
 
     @GetMapping("/get.do")
     public String boardDetail(HttpServletRequest request, Model model) throws Exception {
+
+        String sid = session.getAttribute("sid") != null ? (String) session.getAttribute("sid") : "";
         int bno = Integer.parseInt(request.getParameter("bno"));
 
         BoardVO board = boardService.boardGet(bno);
         model.addAttribute("board", board);
+
+        // 권한 관련 - 등록
+        boolean addCheck = false;
+        if(sid != "" && board.getAuthor().equals(sid)) {
+            addCheck = true;
+        }
+
+        model.addAttribute("addCheck", addCheck);
 
         return "/board/boardGet";
     }

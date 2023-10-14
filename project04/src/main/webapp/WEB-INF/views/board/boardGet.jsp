@@ -29,10 +29,29 @@
         <div class="container">
             <h3 class="mb-5 text-center py-2">${board.boardNm } 자세히보기</h3>
 
+            <div class="mb-5 board_area">
+                <div class="board_top py-3 pl-4">
+                    <p class="board_title position-relative mb-0">${board.title }<span class="view ico position-absolute"><i class="fas fa-eye"></i>&nbsp;${board.visited }</span></p>
+                    <p class="board_info position-relative mb-0 mt-3">
+                        <fmt:parseDate value="${board.resDate }" var="resDate" pattern="yyyy-MM-dd HH:mm:ss" />
+                        <span class="date"><fmt:formatDate value="${resDate }" pattern="yyyy-MM-dd" /></span>
+                        <span class="m-0 px-2">&#124;</span>
+                        <span class="writer">${board.nm }</span>
+                    </p>
+                </div>
+                <div class="board_view pt-3 pl-4">${board.content }</div>
+            </div>
+
+            <c:if test="${board.commentUse == true}">
+                댓글 사용 설정함
+            </c:if>
+
             <div class="btn-group d-block text-right mt-5">
                 <a href="${path }/board/list.do?no=${board.bmNo }" class="btn btn-primary px-4">목록</a>
-                <a href="${path }/board/update.do?bno=${board.bno }" class="btn btn-danger px-4">수정</a>
-                <a href="${path }/board/delete.do?bno=${board.bno }" class="btn btn-primary px-4">삭제</a>
+                <c:if test="${addCheck == true || (sid ne null && sid eq 'admin')}">
+                    <a href="${path }/board/update.do?bno=${board.bno }" class="btn btn-danger px-4">수정</a>
+                    <a href="${path }/board/delete.do?bno=${board.bno }" class="btn btn-primary px-4">삭제</a>
+                </c:if>
             </div>
         </div>
     </div>
