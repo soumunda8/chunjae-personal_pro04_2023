@@ -30,7 +30,6 @@
         <form action="${path }/board/update.do" method="post" enctype="multipart/form-data">
             <div class="container">
                 <h3 class="mb-5 text-center py-2">${board.boardNm }글 수정</h3>
-                <input type="hidden" name="no" value="${board.bmNo }" />
                 <input type="hidden" name="bno" value="${board.bno }" />
 
                 <div class="form-group">
@@ -49,8 +48,8 @@
                 <c:if test="${board.fileUse == true }">
                     <div class="form-group file_area">
                         <label>파일 업로드(10MB 이하) <span class="btn pt-0 px-0" onclick="addFile()">(<i class="fas fa-plus px-1"></i>)</span></label>
-                        <c:forEach var="files" items="${fileList }">
-                            <p>파일 이름 <button type="button">삭제</button></p>
+                        <c:forEach var="files" items="${fileList }" varStatus="status">
+                            <p id="files${status.count}">${files.originNm } <button type="button" class="btn btn-primary px-2 py-0 ml-2" onclick="removeFiles(${files.fno }, ${status.count })" style="font-size:0.8rem;">삭제</button></p>
                         </c:forEach>
                         <input type="file" class="form-control uploadFiles" name="uploadFiles" id="formFileMultiple" multiple>
                     </div>
@@ -69,6 +68,24 @@
         function addFile() {
             let num = $(".uploadFiles").length + 1;
             $(".form-group.file_area").append("<input type='file' class='form-control uploadFiles mt-1' name='uploadFiles' id='uploadFiles" + num + "' multiple>");
+        }
+
+        function removeFiles(fno, cnt) {
+            if(!confirm("해당 파일을 삭제하시겠습니까?")) {return false;}
+
+            let params = {"fno" : fno};
+            $.ajax({
+                url:"${path }/util/fileRemove.do",
+                type:"post",
+                data:JSON.stringify(params),
+                dataType:"json",
+                contentType:"application/json",
+                success : function(result) {
+                    if(result === true) {
+                        $("#files" + cnt).remove();
+                    }
+                },
+            });
         }
     </script>
 </body>

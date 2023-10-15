@@ -14,5 +14,6 @@ public class FileDTO {
     private String saveNm;
     private String fileType;
     private String uploadDate;
+    private String toUse;
 
 }

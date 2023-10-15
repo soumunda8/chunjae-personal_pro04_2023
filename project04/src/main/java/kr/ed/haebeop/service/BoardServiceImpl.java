@@ -26,13 +26,28 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public BoardVO boardGet(int bno) throws Exception {
-        return boardMapper.boardGet(bno);
+    public BoardVO boardGet(int bno, String sid) throws Exception {
+        BoardVO boardVO = boardMapper.boardGet(bno);
+        if(!sid.equals(boardVO.getAuthor()) && !sid.equals("admin")) {
+            boardMapper.boardVisitedUpdate(bno);
+            boardVO.setVisited(boardVO.getVisited() + 1);
+        }
+        return boardVO;
     }
 
     @Override
     public int boardInsert(Board board) throws Exception {
         boardMapper.boardInsert(board);
         return boardMapper.boardGetLast();
+    }
+
+    @Override
+    public void boardUpdate(Board board) throws Exception {
+        boardMapper.boardUpdate(board);
+    }
+
+    @Override
+    public void boardDelete(int bno) throws Exception {
+        boardMapper.boardDelete(bno);
     }
 }

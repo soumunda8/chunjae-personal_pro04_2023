@@ -46,6 +46,11 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    public Member memberGet(String id) throws Exception {
+        return memberMapper.getMember(id);
+    }
+
+    @Override
     public void insert(Member member) throws Exception {
         String ppw = member.getPw();
         String pw = pwEncoder.encode(ppw);

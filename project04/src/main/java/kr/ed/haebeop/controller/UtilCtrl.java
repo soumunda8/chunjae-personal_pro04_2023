@@ -1,14 +1,14 @@
 package kr.ed.haebeop.controller;
 
 import kr.ed.haebeop.domain.FileDTO;
+import kr.ed.haebeop.domain.Member;
 import kr.ed.haebeop.service.FilesService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -137,7 +137,7 @@ public class UtilCtrl {
     public String fileDownload(@RequestParam int no, HttpServletRequest request, HttpServletResponse response) throws Exception {
         String urlPath = request.getHeader("referer");
 
-        FileDTO files = filesService.fileListByFno(no);
+        FileDTO files = filesService.fileByFno(no);
 
         String saveFolder = files.getSaveFolder();
         String originalFile = files.getOriginNm();
@@ -178,6 +178,20 @@ public class UtilCtrl {
         }
 
         return "redirect:" + urlPath;
+    }
+
+    @RequestMapping(value="fileRemove.do", method=RequestMethod.POST)
+    public ResponseEntity fileRemove(@RequestBody FileDTO fileDTO) throws Exception {
+        boolean result = false;
+        int fno = fileDTO.getFno();
+        FileDTO files = filesService.fileByFno(fno);
+        File file = new File(files.getSaveFolder() + File.separator + files.getSaveNm());
+        if (file.exists()) { // 해당 파일이 존재하면
+            file.delete(); // 파일 삭제
+            filesService.filesDelete(fno);
+            result = true;
+        }
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
 }

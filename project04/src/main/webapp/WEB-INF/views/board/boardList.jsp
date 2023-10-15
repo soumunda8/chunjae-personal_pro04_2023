@@ -51,24 +51,24 @@
                     <table class="table mb-5">
                         <thead>
                         <tr>
-                            <th colspan="text-center" scope="col">#</th>
-                            <th colspan="text-center" scope="col">제목</th>
-                            <th colspan="text-center" scope="col">작성자</th>
-                            <th colspan="text-center" scope="col">등록일</th>
-                            <th colspan="text-center" scope="col">조회수</th>
+                            <th class="text-center" scope="col">#</th>
+                            <th class="text-center" scope="col">제목</th>
+                            <th class="text-center" scope="col">작성자</th>
+                            <th class="text-center" scope="col">등록일</th>
+                            <th class="text-center" scope="col">조회수</th>
                         </tr>
                         </thead>
                         <tbody>
                         <c:forEach var="board" items="${boardList }" varStatus="status">
                             <tr>
-                                <td colspan="text-center">${status.count }</td>
-                                <td colspan="text-center"><a href="${path }/board/get.do?bno=${board.bno }">${board.title }</a></td>
-                                <td colspan="text-center">${board.nm }</td>
-                                <td>
+                                <td class="text-center">${status.count }</td>
+                                <td class="text-center"><a href="${path }/board/get.do?bno=${board.bno }">${board.title }</a></td>
+                                <td class="text-center">${board.nm }</td>
+                                <td class="text-center">
                                     <fmt:parseDate value="${board.resDate }" var="resDate" pattern="yyyy-MM-dd HH:mm:ss" />
                                     <fmt:formatDate value="${resDate }" pattern="yyyy-MM-dd" />
                                 </td>
-                                <td colspan="text-center">${board.visited }</td>
+                                <td class="text-center">${board.visited }</td>
                             </tr>
                         </c:forEach>
                         </tbody>

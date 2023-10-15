@@ -1,9 +1,12 @@
 package kr.ed.haebeop.controller;
 
 import kr.ed.haebeop.domain.BoardMgn;
+import kr.ed.haebeop.domain.LectureVO;
 import kr.ed.haebeop.domain.Member;
 import kr.ed.haebeop.service.BoardMgnService;
+import kr.ed.haebeop.service.LectureService;
 import kr.ed.haebeop.service.MemberService;
+import kr.ed.haebeop.util.BoardPage;
 import kr.ed.haebeop.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,6 +31,9 @@ public class AdminCtrl {
 
     @Autowired
     private BoardMgnService boardMgnService;
+
+    @Autowired
+    private LectureService lectureService;
 
     @GetMapping("/")
     public String home(Model model) throws Exception {
@@ -78,6 +84,16 @@ public class AdminCtrl {
         return "/admin/boardTypeList";
     }
 
+    @GetMapping("/getBoardMgn.do")
+    public String boardMgnGet(HttpServletRequest request, Model model) throws Exception {
+        int bmNo = Integer.parseInt(request.getParameter("no"));
+
+        BoardMgn boardMgn = boardMgnService.getBoardMgn(bmNo);
+        model.addAttribute("boardMgn", boardMgn);
+
+        return "/admin/boardTypeGet";
+    }
+
     @GetMapping("/boardMgnAdd.do")
     public String boardMgnAdd(Model model) throws Exception {
 
@@ -86,17 +102,61 @@ public class AdminCtrl {
 
     @PostMapping("/boardMgnAdd.do")
     public String boardMgnAddPro(BoardMgn boardMgn, Model model) throws Exception {
-
-        /*
-        System.out.println("boardNm : " + boardMgn.getBoardNm());
-        System.out.println("aboutAuth : " + boardMgn.getAboutAuth());
-        System.out.println("commentUse : " + boardMgn.isCommentUse());
-        System.out.println("fileUse : " + boardMgn.isFileUse() );
-        */
-
         boardMgnService.boardMgnInsert(boardMgn);
 
         return "redirect:/admin/boardMgnConf.do";
+    }
+
+    @GetMapping("/boardMgnModify.do")
+    public String boardMgnModify(HttpServletRequest request, Model model) throws Exception {
+        int bmNo = Integer.parseInt(request.getParameter("no"));
+
+        BoardMgn boardMgn = boardMgnService.getBoardMgn(bmNo);
+        model.addAttribute("boardMgn", boardMgn);
+
+        return "/admin/boardTypeUpdate";
+    }
+
+    @PostMapping("/boardMgnModify.do")
+    public String boardMgnModifyPro(BoardMgn boardMgn, Model model) throws Exception {
+        System.out.println(boardMgn.toString());
+
+        boardMgnService.boardMgnUpdate(boardMgn);
+
+        return "redirect:/admin/getBoardMgn.do?no="+boardMgn.getBmNo();
+    }
+
+    @GetMapping("/boardMgnDel.do")
+    public String boardMgnDeletePro(HttpServletRequest request, Model model) throws Exception {
+        int bmNo = Integer.parseInt(request.getParameter("no"));
+
+        return "redirect:/admin/boardMgnConf.do";
+    }
+
+    @GetMapping("/lectureConf.do")
+    public String lectureList(HttpServletRequest request, Model model) throws Exception {
+        String type = request.getParameter("type");
+        String keyword = request.getParameter("keyword");
+        int curPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
+
+        Page page = new Page();
+        page.setSearchType(type);
+        page.setSearchKeyword(keyword);
+        int total = lectureService.lectureCount(page);
+
+        page.makeBlock(curPage, total);
+        page.makeLastPageNum(total);
+        page.makePostStart(curPage, total);
+
+        model.addAttribute("type", type);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("page", page);
+        model.addAttribute("curPage", curPage);
+
+        List<LectureVO> lectureList = lectureService.lectureList(page);
+        model.addAttribute("lectureList", lectureList);
+
+        return "/admin/lectureList";
     }
 
 }

@@ -14,17 +14,33 @@ public class FilesServiceImpl implements FilesService{
     private FilesMapper filesMapper;
 
     @Override
-    public List<FileDTO> fileListByPar(int par) throws Exception {
-        return filesMapper.fileListByPar(par);
+    public List<FileDTO> fileListByPar(FileDTO fileDTO) throws Exception {
+        return filesMapper.fileListByPar(fileDTO);
     }
 
     @Override
-    public FileDTO fileListByFno(int fno) throws Exception {
-        return filesMapper.fileListByFno(fno);
+    public FileDTO fileByFno(int fno) throws Exception {
+        return filesMapper.fileByFno(fno);
     }
 
     @Override
     public void filesInsert(FileDTO fileDTO) throws Exception {
         filesMapper.filesInsert(fileDTO);
     }
+
+    @Override
+    public void filesUpdateForTeacher(FileDTO fileDTO) throws Exception {
+        filesMapper.filesUpdateForTeacher(fileDTO);
+    }
+
+    @Override
+    public void filesDelete(int fno) throws Exception {
+        filesMapper.filesDelete(fno);
+    }
+
+    @Override
+    public void filesDeleteAll(int par) throws Exception {
+        filesMapper.filesDeleteAll(par);
+    }
+
 }

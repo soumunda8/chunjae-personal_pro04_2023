@@ -17,12 +17,21 @@
 .join_agree .agree_fr {border:2px solid #eee;height:300px;overflow-y:auto;white-space:pre-wrap;padding:24px;}
 .join_agree #in_btn1 {background-color:var(--main-color);color:#fff;padding:0 3.5rem;line-height:3;}
 
-.board_area {border-top:1px solid #c4c6c8;border-bottom:1px solid #c4c6c8;box-sizing:border-box;}
+.board_area, .comment_area {border-top:1px solid #c4c6c8;border-bottom:1px solid #c4c6c8;box-sizing:border-box;}
 .board_area .board_top, .board_area .board_files {background:#f8f8fa;}
 .board_area .board_top .board_title {color:#000;font-size:1.4em;font-weight:500;}
 .board_area .board_top .board_title > span {color:#666;font-size:1rem;right:1.5em;}
 
 .file_area label > span:active, .file_area label > span:focus {border:none;}
+
+.comment_area .comment_input {width:calc(100% - 120px);margin-right:6px;}
+.comment_area .comment_btn {width:110px;vertical-align:top;text-align:center;}
+
+.comment_top {position:relative;}
+.comment_top > button {position:absolute;top:0;}
+.comment_top .deleteBtn {right:0}
+.comment_top .modifyBtn {right:40px}
+.comment_top > button:hover, .comment_top > button:active {text-decoration:underline;}
 
 /*모바일*/
 @media all and (max-width:768px) {

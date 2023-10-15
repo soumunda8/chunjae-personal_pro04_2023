@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.ed.haebeop.persistence.LectureMapper">
+    <select id="lectureList" resultType="kr.ed.haebeop.domain.LectureVO">
+        <![CDATA[
+        select * from lectureView
+        ]]>
+        <where>
+            <if test="searchType != null">
+                <choose>
+                    <when test="searchType == 'title'.toString()">
+                        title LIKE concat('%', #{searchKeyword}, '%')
+                    </when>
+                    <when test="searchType == 'name'.toString()">
+                        nm LIKE concat('%', #{searchKeyword}, '%')
+                    </when>
+                </choose>
+            </if>
+        </where>
+        <![CDATA[
+        ORDER BY useYn DESC, lno ASC LIMIT #{postStart}, #{postCount}
+        ]]>
+    </select>
+
+    <select id="lectureCount" resultType="integer">
+        <![CDATA[
+        select count(*) from lectureView
+        ]]>
+        <where>
+            <if test="searchType != null">
+                <choose>
+                    <when test="searchType == 'title'.toString()">
+                        title LIKE concat('%', #{searchKeyword}, '%')
+                    </when>
+                    <when test="searchType == 'name'.toString()">
+                        nm LIKE concat('%', #{searchKeyword}, '%')
+                    </when>
+                </choose>
+            </if>
+        </where>
+    </select>
+</mapper>

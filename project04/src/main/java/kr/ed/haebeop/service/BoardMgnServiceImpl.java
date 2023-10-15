@@ -39,4 +39,8 @@ public class BoardMgnServiceImpl implements BoardMgnService {
         boardMgnMapper.boardMgnInsert(boardMgn);
     }
 
+    @Override
+    public void boardMgnUpdate(BoardMgn boardMgn) throws Exception {
+        boardMgnMapper.boardMgnUpdate(boardMgn);
+    }
 }

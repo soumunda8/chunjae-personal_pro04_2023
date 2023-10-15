@@ -40,9 +40,9 @@
                     </p>
                 </div>
                 <div class="board_view pt-3 pl-4">${board.content }</div>
-                <c:if test="${board.fileUse == true && fileList != null}">
+                <c:if test="${board.fileUse && !empty fileList }">
                     <div class="board_files py-3 pl-4">
-                        <ul>
+                        <ul class="mb-0">
                             <c:forEach var="files" items="${fileList }">
                                 <li>
                                     <a href="${path }/util/fileDownload.do?no=${files.fno }"><i class="fas fa-image pr-1"></i>${files.originNm }</a>
@@ -53,8 +53,42 @@
                 </c:if>
             </div>
 
-            <c:if test="${board.commentUse == true}">
-                댓글 사용 설정함
+            <c:if test="${board.commentUse }">
+                <div class="mb-5 pt-3 px-4 comment_area">
+                    <c:if test="${!empty sid }">
+                        <div class="mb-3">
+                            <input type="hidden" name="par" id="par" value="${board.bno }"/>
+                            <div class="control-group d-inline-block comment_input">
+                                <textarea class="form-control" rows="2" name="content" id="content" placeholder="댓글을 입력하세요." required></textarea>
+                            </div>
+                            <div class="d-inline-block comment_btn">
+                                <button class="btn btn-primary py-2 px-4" type="button" onclick="commentAdd()">등록하기</button>
+                            </div>
+                        </div>
+                    </c:if>
+
+                    <c:if test="${!empty commentList }">
+                        <ul id="commentListArea" class="mb-0">
+                            <c:forEach var="comment" items="${commentList }" varStatus="status">
+                                <li id="comm${status.count }" class="mb-3">
+                                    <div class="comment_top">
+                                        <p class="comment_writer mb-0">${status.count}. ${comment.nm }<span class="comment_date ml-2">${comment.resDate }</span></p>
+                                        <c:if test="${!empty sid && (sid.equals('admin') || sid.equals(comment.author))}">
+                                            <button class="btn p-0 mr-1 deleteBtn" onclick="commentDelete(${comment.cno }, ${status.count })">삭제</button>
+                                            <%--<button class="btn p-0 modifyBtn" onclick="commentModify(${comment.cno }, ${status.count })">수정</button>--%>
+                                        </c:if>
+                                    </div>
+                                    <div class="comment_con">
+                                        ${comment.content }
+                                    </div>
+                                </li>
+                            </c:forEach>
+                        </ul>
+                    </c:if>
+                    <c:if test="${empty commentList }">
+                        <div class="text-center">등록된 댓글이 없습니다.</div>
+                    </c:if>
+                </div>
             </c:if>
 
             <div class="btn-group d-block text-right mt-5">
@@ -68,5 +102,51 @@
     </div>
 
     <jsp:include page="../layout/footer.jsp" />
+    <script>
+        function commentAdd() {
+            let par = $("#par").val();
+            let content = $("#content").val();
+            let num = $("#commentListArea > li").length + 1;
+
+            let params = {"par" : par, "content" : content};
+            $.ajax({
+                url:"${path }/board/commentAdd.do",
+                type:"post",
+                data:JSON.stringify(params),
+                dataType:"json",
+                contentType:"application/json",
+                success : function(result) {
+                    $("#content").val("");
+                    let htmlStr = "<li id='comm" + num + "' class='mb-3'>";
+                    htmlStr += "<div class='comment_top'>";
+                    htmlStr += "<p class='comment_writer mb-0'>" + num + ". " + result.nm + "<span class='comment_date ml-2'>" + result.resDate + "</span></p>";
+                    htmlStr += "<button class='btn p-0 mr-1 deleteBtn' onclick='commentDelete(" + result.cno + ")'>삭제</button>";
+                    /*htmlStr += "<button class='btn p-0 modifyBtn' onclick='commentModify(" + result.cno + ")'>수정</button>";*/
+                    htmlStr += "</div>";
+                    htmlStr += "<div class='comment_con'>";
+                    htmlStr += result.content;
+                    htmlStr += "</div>";
+                    htmlStr += "</li>";
+                    $("#commentListArea").append(htmlStr);
+                },
+            });
+        }
+
+        function commentDelete(cno, cnt){
+            let params = {"cno" : cno};
+            $.ajax({
+                url:"${path }/board/commentRemove.do",
+                type:"post",
+                data:JSON.stringify(params),
+                dataType:"json",
+                contentType:"application/json",
+                success : function(result) {
+                    $("#comm" + cnt).remove();
+                },
+            });
+        }
+
+        /*function commentModify(cno, cnt){}*/
+    </script>
 </body>
 </html>

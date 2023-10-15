@@ -7,6 +7,7 @@ import lombok.*;
 @NoArgsConstructor
 public class Member {
 
+    private int mno;
     private String id;
     private String pw;
     private String nm;

@@ -34,6 +34,12 @@
                 <li class="nav-item">
                     <a href="${path }/admin/boardMgnConf.do" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">게시판 설정</span></a>
                 </li>
+                <li class="nav-item pcoded-menu-caption">
+                    <label>강의 관리</label>
+                </li>
+                <li class="nav-item">
+                    <a href="${path }/admin/lectureConf.do" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">강의 설정</span></a>
+                </li>
             </ul>
         </div>
     </div>

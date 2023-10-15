@@ -53,4 +53,16 @@
     <insert id="boardInsert">
         INSERT INTO board VALUES(DEFAULT, #{bmNo}, #{title}, #{content}, #{author}, DEFAULT, DEFAULT)
     </insert>
+
+    <update id="boardUpdate">
+        UPDATE board SET title = #{title}, content = #{content} WHERE bno = #{bno}
+    </update>
+
+    <update id="boardVisitedUpdate">
+        UPDATE board SET visited = visited + 1 WHERE bno = #{bno}
+    </update>
+
+    <delete id="boardDelete">
+        DELETE FROM board WHERE bno = #{bno}
+    </delete>
 </mapper>

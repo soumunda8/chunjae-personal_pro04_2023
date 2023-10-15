@@ -15,5 +15,8 @@ public interface BoardMapper {
     public BoardVO boardGet(int bno) throws Exception;
     public int boardGetLast() throws Exception;
     public void boardInsert(Board board) throws Exception;
+    public void boardUpdate(Board board) throws Exception;
+    public void boardVisitedUpdate(int bno) throws Exception;
+    public void boardDelete(int bno) throws Exception;
 
 }

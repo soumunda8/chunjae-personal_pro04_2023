@@ -15,6 +15,8 @@ public interface MemberService {
 
     public boolean idCheck(String id) throws Exception;
 
+    public Member memberGet(String id) throws Exception;
+
     public void insert(Member member) throws Exception;
 
 }

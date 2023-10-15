@@ -12,10 +12,19 @@ public class ApplicationConfig {
     @Bean
     public BoardService boardService() {return new BoardServiceImpl();}
 
+    @Bean
     public MemberService memberService() {return new MemberServiceImpl();}
 
+    @Bean
     public BoardMgnService boardMgnService() {return new BoardMgnServiceImpl();}
 
+    @Bean
     public FilesService filesService() {return new FilesServiceImpl();}
+
+    @Bean
+    public CommentService commentService() {return new CommentServiceImpl();}
+
+    @Bean
+    public LectureService lectureService() {return new LectureServiceImpl();}
 
 }

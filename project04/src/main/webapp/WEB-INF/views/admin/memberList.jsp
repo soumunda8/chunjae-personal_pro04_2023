@@ -65,6 +65,7 @@
                                             <th class="text-center">#</th>
                                             <th class="text-center">아이디</th>
                                             <th class="text-center">이름</th>
+                                            <th class="text-center">등급</th>
                                             <th class="text-center">탈퇴여부</th>
                                             <th class="text-center">비고</th>
                                         </tr>
@@ -75,6 +76,13 @@
                                                 <td class="text-center">${status.count }</td>
                                                 <td class="text-center">${member.id }</td>
                                                 <td class="text-center">${member.nm }</td>
+                                                <td class="text-center">
+                                                    <c:choose>
+                                                        <c:when test="${member.grade == 1 }">선생님</c:when>
+                                                        <c:when test="${member.grade == 2 }">회원</c:when>
+                                                        <c:otherwise>관리자</c:otherwise>
+                                                    </c:choose>
+                                                </td>
                                                 <td class="text-center">
                                                     <c:if test="${member.useYn == true}">사용중</c:if>
                                                     <c:if test="${member.useYn == false}">사용중지</c:if>

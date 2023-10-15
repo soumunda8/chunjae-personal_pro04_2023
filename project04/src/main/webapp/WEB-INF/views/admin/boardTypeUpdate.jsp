@@ -20,7 +20,7 @@
                     <div class="row align-items-center">
                         <div class="col-md-12">
                             <div class="page-header-title">
-                                <h5 class="m-b-10">게시판 등록</h5>
+                                <h5 class="m-b-10">게시판 수정</h5>
                             </div>
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="${path }/admin/"><i class="feather icon-home"></i></a></li>
@@ -32,19 +32,20 @@
             </div>
             <!-- [ breadcrumb ] end -->
             <!-- [ Main Content ] start -->
-            <form action="${path }/admin/boardMgnAdd.do" method="post">
+            <form action="${path }/admin/boardMgnModify.do" method="post">
+                <input type="hidden" name="bmNo" value="${boardMgn.bmNo }" />
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="card">
                             <div class="card-header">
-                                <h5>게시판 등록</h5>
+                                <h5>게시판 수정</h5>
                             </div>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col">
                                         <div class="form-group">
                                             <label class="floating-label" for="boardNm">게시판 이름</label>
-                                            <input type="text" class="form-control" name="boardNm" id="boardNm" aria-describedby="게시판 이름 도움" required>
+                                            <input type="text" class="form-control" name="boardNm" value="${boardMgn.boardNm }" id="boardNm" aria-describedby="게시판 이름 도움" required>
                                         </div>
                                     </div>
                                 </div>
@@ -53,15 +54,15 @@
                                         <div class="form-group">
                                             <label class="floating-label d-block">게시판 글 설정</label>
                                             <div class="custom-control custom-radio custom-control-inline">
-                                                <input type="radio" id="aboutAuth0" name="aboutAuth" class="custom-control-input" value="0">
+                                                <input type="radio" id="aboutAuth0" name="aboutAuth" class="custom-control-input" value="0" <c:if test="${boardMgn.aboutAuth == 0 }">checked</c:if>>
                                                 <label class="custom-control-label" for="aboutAuth0">관리자</label>
                                             </div>
                                             <div class="custom-control custom-radio custom-control-inline">
-                                                <input type="radio" id="aboutAuth1" name="aboutAuth" class="custom-control-input" value="1">
+                                                <input type="radio" id="aboutAuth1" name="aboutAuth" class="custom-control-input" value="1" <c:if test="${boardMgn.aboutAuth == 1 }">checked</c:if>>
                                                 <label class="custom-control-label" for="aboutAuth1">선생님</label>
                                             </div>
                                             <div class="custom-control custom-radio custom-control-inline">
-                                                <input type="radio" id="aboutAuth2" name="aboutAuth" class="custom-control-input" value="2">
+                                                <input type="radio" id="aboutAuth2" name="aboutAuth" class="custom-control-input" value="2" <c:if test="${boardMgn.aboutAuth == 2 }">checked</c:if>>
                                                 <label class="custom-control-label" for="aboutAuth2">회원</label>
                                             </div>
                                         </div>
@@ -72,11 +73,11 @@
                                         <div class="form-group">
                                             <label class="floating-label d-block">댓글 설정</label>
                                             <div class="custom-control custom-radio custom-control-inline">
-                                                <input type="radio" id="commentUse1" name="commentUse" class="custom-control-input" value="true">
+                                                <input type="radio" id="commentUse1" name="commentUse" class="custom-control-input" value="true" <c:if test="${boardMgn.commentUse }">checked</c:if>>
                                                 <label class="custom-control-label" for="commentUse1">사용</label>
                                             </div>
                                             <div class="custom-control custom-radio custom-control-inline">
-                                                <input type="radio" id="commentUse2" name="commentUse" class="custom-control-input" value="false">
+                                                <input type="radio" id="commentUse2" name="commentUse" class="custom-control-input" value="false" <c:if test="${!boardMgn.commentUse }">checked</c:if>>
                                                 <label class="custom-control-label" for="commentUse2">사용안함</label>
                                             </div>
                                         </div>
@@ -87,11 +88,11 @@
                                         <div class="form-group">
                                             <label class="floating-label d-block">파일 설정</label>
                                             <div class="custom-control custom-radio custom-control-inline">
-                                                <input type="radio" id="fileUse1" name="fileUse" class="custom-control-input" value="true">
+                                                <input type="radio" id="fileUse1" name="fileUse" class="custom-control-input" value="true" <c:if test="${boardMgn.fileUse }">checked</c:if>>
                                                 <label class="custom-control-label" for="fileUse1">사용</label>
                                             </div>
                                             <div class="custom-control custom-radio custom-control-inline">
-                                                <input type="radio" id="fileUse2" name="fileUse" class="custom-control-input" value="false">
+                                                <input type="radio" id="fileUse2" name="fileUse" class="custom-control-input" value="false" <c:if test="${!boardMgn.fileUse }">checked</c:if>>
                                                 <label class="custom-control-label" for="fileUse2">사용안함</label>
                                             </div>
                                         </div>
@@ -103,7 +104,7 @@
                 </div>
                 <div class="row justify-content-md-end">
                     <div class="col-md-1">
-                        <button type="submit" class="btn btn-primary" style="width:100%;">등록</button>
+                        <button type="submit" class="btn btn-primary" style="width:100%;">수정</button>
                     </div>
                 </div>
             </form>

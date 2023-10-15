@@ -51,6 +51,10 @@
     </select>
 
     <insert id="insert">
-        INSERT INTO member VALUES (#{id}, #{pw}, #{nm}, #{email}, #{tel}, #{addr1}, #{addr2}, #{postcode}, DEFAULT, #{birth}, DEFAULT, DEFAULT, DEFAULT, #{grade})
+        INSERT INTO member VALUES (DEFAULT, #{id}, #{pw}, #{nm}, #{email}, #{tel}, #{addr1}, #{addr2}, #{postcode}, DEFAULT, #{birth}, DEFAULT, DEFAULT, DEFAULT, #{grade})
     </insert>
+
+    <update id="updateMemberForTeacher">
+        UPDATE member SET grade = 1 WHERE id = #{id}
+    </update>
 </mapper>
