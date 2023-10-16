@@ -19,9 +19,9 @@
                 <a href="gallery.html" class="nav-item nav-link">Gallery</a>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">커뮤니티</a>
-                    <div class="dropdown-menu rounded-0 m-0">
+                    <div class="dropdown-menu rounded-0 m-0" id="boardMenuArea">
                         <c:forEach var="boardMenu" items="${boardMgnListForHeader }">
-                            <a href="${path }/board/list.do?no=${boardMenu.bmNo }" class="dropdown-item">${boardMenu.boardNm }</a>
+
                         </c:forEach>
                     </div>
                 </div>
@@ -43,6 +43,22 @@
         </div>
     </nav>
 </div>
+<script>
+    $(function (){
+        $.ajax({
+            url:"${path }/util/getBoardMgnList.do",
+            type:"post",
+            contentType:"application/json",
+            success : function(result) {
+                console.log("성공", result);
+                for(let i in result) {
+                    console.log(result[i].bmNo);
+                    $("#boardMenuArea").append("<a href='${path }/board/list.do?no=" + result[i].bmNo + "' class='dropdown-item'>" + result[i].boardNm + "</a>");
+                }
+            },
+        });
+    });
+</script>
 
 <%--
 <header id="headerArea" class="header">

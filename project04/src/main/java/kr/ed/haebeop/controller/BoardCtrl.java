@@ -78,8 +78,8 @@ public class BoardCtrl {
         BoardMgn boardMgn = boardMgnService.getBoardMgn(bmNo);
         model.addAttribute("boardMgn", boardMgn);
 
-        List<BoardMgn> boardMgnListForHeader = boardMgnService.listBoardMgnForHeader();
-        model.addAttribute("boardMgnListForHeader", boardMgnListForHeader);
+        /*List<BoardMgn> boardMgnListForHeader = boardMgnService.listBoardMgnForHeader();
+        model.addAttribute("boardMgnListForHeader", boardMgnListForHeader);*/
 
         // 권한 관련 - 등록
         boolean addCheck = false;
@@ -99,9 +99,6 @@ public class BoardCtrl {
 
         BoardMgn boardMgn = boardMgnService.getBoardMgn(bmNo);
         model.addAttribute("boardMgn", boardMgn);
-
-        List<BoardMgn> boardMgnListForHeader = boardMgnService.listBoardMgnForHeader();
-        model.addAttribute("boardMgnListForHeader", boardMgnListForHeader);
 
         return "/board/boardAdd";
     }
@@ -137,7 +134,11 @@ public class BoardCtrl {
                 FileDTO fileDTO = new FileDTO();
                 fileDTO.setPar(bno);
                 fileDTO.setSaveFolder(String.valueOf(uploadPath));
-                fileDTO.setFileType(multipartFile.getContentType());
+
+                String fileType = multipartFile.getContentType();
+                String[] fileTypeArr = fileType.split("/");
+                fileDTO.setFileType(fileTypeArr[0]);
+
                 fileDTO.setOriginNm(originalFilename);
                 fileDTO.setSaveNm(uploadFilename);
                 fileDTO.setToUse("board");
@@ -186,9 +187,9 @@ public class BoardCtrl {
         }
         model.addAttribute("commentList", commentList);
 
-        List<BoardMgn> boardMgnListForHeader = boardMgnService.listBoardMgnForHeader();
+        /*List<BoardMgn> boardMgnListForHeader = boardMgnService.listBoardMgnForHeader();
         model.addAttribute("boardMgnListForHeader", boardMgnListForHeader);
-
+*/
         return "/board/boardGet";
     }
 
@@ -214,8 +215,8 @@ public class BoardCtrl {
         List<FileDTO> fileList = filesService.fileListByPar(fileDTO);
         model.addAttribute("fileList", fileList);
 
-        List<BoardMgn> boardMgnListForHeader = boardMgnService.listBoardMgnForHeader();
-        model.addAttribute("boardMgnListForHeader", boardMgnListForHeader);
+        /*List<BoardMgn> boardMgnListForHeader = boardMgnService.listBoardMgnForHeader();
+        model.addAttribute("boardMgnListForHeader", boardMgnListForHeader);*/
 
         return "/board/boardUpdate";
     }
@@ -255,7 +256,11 @@ public class BoardCtrl {
                 FileDTO fileDTO = new FileDTO();
                 fileDTO.setPar(bno);
                 fileDTO.setSaveFolder(String.valueOf(uploadPath));
-                fileDTO.setFileType(multipartFile.getContentType());
+
+                String fileType = multipartFile.getContentType();
+                String[] fileTypeArr = fileType.split("/");
+                fileDTO.setFileType(fileTypeArr[0]);
+
                 fileDTO.setOriginNm(originalFilename);
                 fileDTO.setSaveNm(uploadFilename);
                 fileDTO.setToUse("board");

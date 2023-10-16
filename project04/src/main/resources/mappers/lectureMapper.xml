@@ -11,9 +11,6 @@
                     <when test="searchType == 'title'.toString()">
                         title LIKE concat('%', #{searchKeyword}, '%')
                     </when>
-                    <when test="searchType == 'name'.toString()">
-                        nm LIKE concat('%', #{searchKeyword}, '%')
-                    </when>
                 </choose>
             </if>
         </where>
@@ -32,11 +29,16 @@
                     <when test="searchType == 'title'.toString()">
                         title LIKE concat('%', #{searchKeyword}, '%')
                     </when>
-                    <when test="searchType == 'name'.toString()">
-                        nm LIKE concat('%', #{searchKeyword}, '%')
-                    </when>
                 </choose>
             </if>
         </where>
     </select>
+
+    <select id="lectureListLast" resultType="kr.ed.haebeop.domain.Lecture">
+        select * from lecture order by lno desc limit 1
+    </select>
+
+    <insert id="lectureInsert">
+        INSERT INTO lecture VALUES(DEFAULT, #{title}, #{subTitle}, #{content}, #{lectureType}, #{studentCnt}, #{startDate}, #{endDate}, #{daily}, #{prono}, #{teacherId}, #{useYn})
+    </insert>
 </mapper>

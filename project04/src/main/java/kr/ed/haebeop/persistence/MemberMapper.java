@@ -13,6 +13,8 @@ public interface MemberMapper {
 
     public List<Member> memberList(Page page) throws Exception;
     public int memberCount(Page page) throws Exception;
+    public List<Member> memberTeacherList(Page page) throws Exception;
+    public int memberTeacherCount(Page page) throws Exception;
     public Member getMember(String id) throws Exception;
     public int idCheck(String id) throws Exception;
     public void insert(Member member) throws Exception;

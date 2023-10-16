@@ -36,7 +36,7 @@ CREATE TABLE boardMgn(
 	boardNm VARCHAR(100) NOT NULL,			-- 게시판 이름
 	aboutAuth INT NOT NULL,						-- 게시판 글쓰기, 수정, 삭제 관련 권한 (일반사용자 기본)
 	commentUse BOOLEAN DEFAULT FALSE,		-- 게시판 댓글 사용 유무
-	fileUse BOOLEAN DEFAULT FALSE				-- 게시판 파일 사용 유무
+	fileUse BOOLEAN DEFAULT FALSE,			-- 게시판 파일 사용 유무
 );
 
 CREATE TABLE board(
@@ -108,13 +108,14 @@ CREATE TABLE lecture(
 	daily VARCHAR(200),								-- 강의 하루 일정 - 오프라인 사용
 	prono INT,											-- 강의 서적
 	teacherId VARCHAR(20) NOT NULL,				-- 강의 담당 선생 아이디
-   thumbnail INT,                				-- 강의 섬네일 fno 입력
-   useYn BOOLEAN DEFAULT TRUE                -- 판매 여부
+   useYn BOOLEAN DEFAULT TRUE,               -- 판매 여부
+   lPrice INT											-- 강의 가격
 );
 
 CREATE VIEW lectureView AS (SELECT l.lno AS lno, l.title AS title, l.subTitle AS subTitle, l.content AS content, l.lectureType AS lectureType, l.studentCnt AS studentCnt,
-l.startDate AS startDate, l.endDate AS endDate, l.daily AS daily, l.prono AS prono, l.teacherId AS teacherId, l.thumbnail AS thumbnail, l.useYn AS useYn,
-m.nm AS nm FROM lecture l, member m WHERE l.teacherId = m.id order BY l.lno ASC);
+l.startDate AS startDate, l.endDate AS endDate, l.daily AS daily, l.prono AS prono, l.teacherId AS teacherId, l.useYn AS useYn, l.lPrice AS lPrice,
+f.saveFolder AS saveFolder, f.originNm AS originNm, f.saveNm AS saveNm,
+m.nm AS nm FROM lecture l, member m, files f WHERE l.teacherId = m.id AND f.par = l.lno AND f.toUse LIKE 'lecture' order BY l.lno ASC);
 
 CREATE TABLE lectureList(
 	llno INT AUTO_INCREMENT PRIMARY KEY,		-- 온라인 강의 번호 : 자동증가

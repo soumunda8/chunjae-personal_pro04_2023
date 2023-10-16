@@ -42,6 +42,41 @@
         </where>
     </select>
 
+    <select id="memberTeacherList" resultType="kr.ed.haebeop.domain.Member">
+        <![CDATA[
+        SELECT * FROM member
+        ]]>
+        <where>
+            grade = 1 AND useYn = true
+            <if test="searchType != null">
+                <choose>
+                    <when test="searchType == 'name'.toString()">
+                        AND nm LIKE concat('%', #{searchKeyword}, '%')
+                    </when>
+                </choose>
+            </if>
+        </where>
+        <![CDATA[
+        ORDER BY regDate ASC LIMIT #{postStart}, #{postCount}
+        ]]>
+    </select>
+
+    <select id="memberTeacherCount" resultType="integer">
+        <![CDATA[
+        SELECT COUNT(*) FROM member
+        ]]>
+        <where>
+            grade = 1 AND useYn = true
+            <if test="searchType != null">
+                <choose>
+                    <when test="searchType == 'name'.toString()">
+                        AND nm LIKE concat('%', #{searchKeyword}, '%')
+                    </when>
+                </choose>
+            </if>
+        </where>
+    </select>
+
     <select id="getMember" resultType="kr.ed.haebeop.domain.Member">
         SELECT * FROM member WHERE id = #{id} AND useYn = TRUE
     </select>

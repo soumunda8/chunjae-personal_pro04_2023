@@ -45,7 +45,13 @@
                         <ul class="mb-0">
                             <c:forEach var="files" items="${fileList }">
                                 <li>
-                                    <a href="${path }/util/fileDownload.do?no=${files.fno }"><i class="fas fa-image pr-1"></i>${files.originNm }</a>
+                                    <a href="${path }/util/fileDownload.do?no=${files.fno }">
+                                        <c:choose>
+                                            <c:when test="${files.fileType eq 'image' }"><i class="fas fa-image pr-1"></i></c:when>
+                                            <c:when test="${files.fileType eq 'application' }"><i class="fas fa-file-alt pr-1"></i></c:when>
+                                        </c:choose>
+                                        ${files.originNm }
+                                    </a>
                                 </li>
                             </c:forEach>
                         </ul>
