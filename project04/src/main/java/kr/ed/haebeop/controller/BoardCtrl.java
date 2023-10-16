@@ -78,12 +78,9 @@ public class BoardCtrl {
         BoardMgn boardMgn = boardMgnService.getBoardMgn(bmNo);
         model.addAttribute("boardMgn", boardMgn);
 
-        /*List<BoardMgn> boardMgnListForHeader = boardMgnService.listBoardMgnForHeader();
-        model.addAttribute("boardMgnListForHeader", boardMgnListForHeader);*/
-
         // 권한 관련 - 등록
         boolean addCheck = false;
-        if(sid != null && (boardMgn.getAboutAuth() == memberService.memberGet(sid).getGrade() || sid.equals("admin"))) {
+        if(sid != null && (boardMgn.getAboutAuth() >= memberService.memberGet(sid).getGrade() || sid.equals("admin"))) {
             addCheck = true;
         }
 
@@ -187,9 +184,6 @@ public class BoardCtrl {
         }
         model.addAttribute("commentList", commentList);
 
-        /*List<BoardMgn> boardMgnListForHeader = boardMgnService.listBoardMgnForHeader();
-        model.addAttribute("boardMgnListForHeader", boardMgnListForHeader);
-*/
         return "/board/boardGet";
     }
 
@@ -214,9 +208,6 @@ public class BoardCtrl {
 
         List<FileDTO> fileList = filesService.fileListByPar(fileDTO);
         model.addAttribute("fileList", fileList);
-
-        /*List<BoardMgn> boardMgnListForHeader = boardMgnService.listBoardMgnForHeader();
-        model.addAttribute("boardMgnListForHeader", boardMgnListForHeader);*/
 
         return "/board/boardUpdate";
     }

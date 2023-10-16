@@ -42,8 +42,39 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
+                                        <label class="floating-label d-block">게시판 타입 설정</label>
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" id="boardType0" name="boardType" class="custom-control-input" value="0" onClick="return false" <c:if test="${boardMgn.boardType == 0 }">checked</c:if>>
+                                            <label class="custom-control-label" for="boardType0">게시판</label>
+                                        </div>
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" id="boardType1" name="boardType" class="custom-control-input" value="1" onClick="return false" <c:if test="${boardMgn.boardType == 1 }">checked</c:if>>
+                                            <label class="custom-control-label" for="boardType1">문의하기</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
                                         <label class="floating-label" for="boardNm">게시판 이름</label>
                                         <input type="text" class="form-control" name="boardNm" id="boardNm" value="${boardMgn.boardNm }" aria-describedby="게시판 이름 도움" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="floating-label" for="depth">게시판 뎁스</label>
+                                        <input type="number" class="form-control" name="depth" id="depth" value="${boardMgn.depth }" aria-describedby="게시판 뎁스 도움" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="floating-label d-block" for="parNm">게시판 사용 강의 아이디</label>
+                                        <input type="text" class="form-control d-inline-block" name="parNm" id="parNm" value="${boardMgn.parNm }" readonly style="width:calc(100% - 170px)">
                                     </div>
                                 </div>
                             </div>

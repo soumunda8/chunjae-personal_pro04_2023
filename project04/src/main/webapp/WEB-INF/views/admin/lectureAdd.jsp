@@ -73,11 +73,11 @@
                                         <div class="form-group">
                                             <label class="floating-label d-block">강의 설정</label>
                                             <div class="custom-control custom-radio custom-control-inline">
-                                                <input type="radio" id="lectureType0" name="lectureType" class="custom-control-input" value="0" onchange="changeType(this)" checked>
+                                                <input type="radio" id="lectureType0" name="lectureType" class="custom-control-input" value="0" onchange="changeType(this)">
                                                 <label class="custom-control-label" for="lectureType0">온라인</label>
                                             </div>
                                             <div class="custom-control custom-radio custom-control-inline">
-                                                <input type="radio" id="lectureType1" name="lectureType" class="custom-control-input" value="1" onchange="changeType(this)">
+                                                <input type="radio" id="lectureType1" name="lectureType" class="custom-control-input" value="1" onchange="changeType(this)" checked>
                                                 <label class="custom-control-label" for="lectureType1">오프라인</label>
                                             </div>
                                         </div>
@@ -132,6 +132,14 @@
                                         <div class="form-group">
                                             <label class="floating-label d-block">강의 썸네일 업로드(10MB 이하)</label>
                                             <input type="file" class="form-control uploadThumbnail" name="uploadThumbnail" id="uploadThumbnail" multiple required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row forOnline">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="floating-label d-block" for="lPrice">강의 가격</label>
+                                            <input type="number" class="form-control wid-150 d-inline-block" name="lPrice" id="lPrice" aria-describedby="강의 가격 입력" min="0" max="999"><p class="ml-2 d-inline-block">원</p>
                                         </div>
                                     </div>
                                 </div>

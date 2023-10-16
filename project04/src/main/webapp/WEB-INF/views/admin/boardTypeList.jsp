@@ -55,7 +55,15 @@
                                         <c:forEach items="${boardMgnList }" var="boardMgn" varStatus="status">
                                             <tr>
                                                 <td class="text-center">${status.count }</td>
-                                                <td class="text-center"><a href="${path }/admin/getBoardMgn.do?no=${boardMgn.bmNo }">${boardMgn.boardNm }</a></td>
+                                                <td class="text-center">
+                                                    <a href="${path }/admin/getBoardMgn.do?no=${boardMgn.bmNo }">
+                                                    <c:choose>
+                                                        <c:when test="${boardMgn.depth eq 1 }">[메인]</c:when>
+                                                        <c:when test="${boardMgn.depth eq 2 }">[${boardMgn.parNm }]</c:when>
+                                                    </c:choose>
+                                                    ${boardMgn.boardNm }
+                                                    </a>
+                                                </td>
                                                 <td class="text-center">
                                                     <c:choose>
                                                         <c:when test="${boardMgn.aboutAuth == 0}">관리자</c:when>

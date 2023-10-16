@@ -39,6 +39,6 @@
     </select>
 
     <insert id="lectureInsert">
-        INSERT INTO lecture VALUES(DEFAULT, #{title}, #{subTitle}, #{content}, #{lectureType}, #{studentCnt}, #{startDate}, #{endDate}, #{daily}, #{prono}, #{teacherId}, #{useYn})
+        INSERT INTO lecture VALUES(DEFAULT, #{title}, #{subTitle}, #{content}, #{lectureType}, #{studentCnt}, #{startDate}, #{endDate}, #{daily}, #{prono}, #{teacherId}, #{lPrice}, #{useYn})
     </insert>
 </mapper>

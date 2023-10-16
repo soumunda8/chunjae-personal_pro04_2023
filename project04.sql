@@ -33,15 +33,19 @@ CREATE VIEW memberMgnList AS (SELECT mm.mmNo AS mmNo, mm.author AS author,  mm.a
 
 CREATE TABLE boardMgn(
 	bmNo INT AUTO_INCREMENT PRIMARY KEY,	-- 게시판 번호 : 자동 발생
+	boardType INT NOT NULL DEFAULT 0,		-- 게시판 형태 [ 0 : 게시판, 1 : 문의하기]
 	boardNm VARCHAR(100) NOT NULL,			-- 게시판 이름
+	depth INT NOT NULL,							-- 게시판 차수
+	par INT,											-- 2차 게시판 담당 강의 번호
+	parNm VARCHAR(200),							-- 2차 게시판 담당 강의 이름
 	aboutAuth INT NOT NULL,						-- 게시판 글쓰기, 수정, 삭제 관련 권한 (일반사용자 기본)
 	commentUse BOOLEAN DEFAULT FALSE,		-- 게시판 댓글 사용 유무
-	fileUse BOOLEAN DEFAULT FALSE,			-- 게시판 파일 사용 유무
+	fileUse BOOLEAN DEFAULT FALSE				-- 게시판 파일 사용 유무
 );
 
 CREATE TABLE board(
 	bno INT PRIMARY KEY AUTO_INCREMENT,   							-- 게시글 번호 : 자동 발생
-	bmNo INT NOT NULL,   												-- 게시글 타입 
+	bmNo INT NOT NULL,   												-- 게시판 타입 
 	title VARCHAR(200) NOT NULL,   									-- 게시글 제목
 	content VARCHAR(1000),   											-- 게시글 내용
 	author VARCHAR(20) NOT NULL,   									-- 작성자
@@ -49,7 +53,16 @@ CREATE TABLE board(
 	visited INT DEFAULT 0   											-- 조회수
 );
 
-CREATE VIEW boardList AS (SELECT b.bno AS bno, b.bmNo AS bmNo, b.title AS title, b.content AS content, b.author AS author, b.resDate AS resDate, b.visited as visited,bm.boardNm AS boardNm, m.nm AS nm, bm.aboutAuth AS aboutAuth, bm.commentUse AS commentUse, bm.fileUse AS fileUse FROM board b, member m, boardMgn bm WHERE b.author = m.id AND bm.bmNo = b.bmNo order BY b.bno ASC);
+CREATE VIEW boardList AS (SELECT b.bno AS bno, b.bmNo AS bmNo, b.title AS title, b.content AS content, b.author AS author, b.resDate AS resDate, isited as visited, bm.boardNm AS boardNm, m.nm AS nm, bm.aboutAuth AS aboutAuth, bm.commentUse AS commentUse, bm.fileUse AS fileUse FROM board b, member m, boardMgn bm WHERE b.author = m.id AND bm.bmNo = b.bmNo order BY b.bno ASC);
+
+CREATE TABLE qna(
+	qno INT PRIMARY KEY AUTO_INCREMENT,								-- 문의 답글 번호 : 자동 발생
+	par INT NOT NULL,														-- 해당 문의 게시글
+	answerAuthor VARCHAR(20), 				  							-- 문의 작성자
+	answer VARCHAR(1000),												-- 묻고답하기 답변
+	answerDate TIMESTAMP,												-- 묻고답하기 일자
+	answerYn BOOLEAN DEFAULT FALSE 									-- 답변 유무
+);
 
 CREATE TABLE comment(
    cno INT PRIMARY KEY AUTO_INCREMENT,   							-- 댓글번호: 자동발생
@@ -71,19 +84,6 @@ CREATE TABLE files(
 	uploadDate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,	-- 파일 업로드 일자
 	toUse VARCHAR(100) NOT NULL										-- 사용 테이블
 );
-
-CREATE TABLE qna(
-	qno INT PRIMARY KEY AUTO_INCREMENT,   					-- 문의번호 : 자동발생
-	title VARCHAR(100) NOT NULL,   							-- 문의 제목
-	content VARCHAR(1000) NOT NULL,   						-- 문의 내용
-	answer VARCHAR(1000),   									-- 답변 내용
-	author VARCHAR(20) NOT NULL,   							-- 문의 작성자
-	resDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),   	-- 문의 등록일자
-	answerDate TIMESTAMP,   									-- 답변 등록일자
-	answerYn BOOLEAN DEFAULT FALSE 							-- 질문(0), 답변(1)
-);
-
-CREATE VIEW qnaList AS (SELECT q.qno AS qno, q.title AS title, q.content AS content, q.answer AS answer, q.author AS author, q.resDate AS resDate, q.answerDate AS answerDate, q.answerYn AS answerYn, m.nm AS nm FROM qna q, member m WHERE q.author = m.id order BY q.qno ASC);
 
 CREATE TABLE review(
     rno INT PRIMARY KEY AUTO_INCREMENT,             	-- 리뷰 번호 : 자동증가
@@ -108,12 +108,12 @@ CREATE TABLE lecture(
 	daily VARCHAR(200),								-- 강의 하루 일정 - 오프라인 사용
 	prono INT,											-- 강의 서적
 	teacherId VARCHAR(20) NOT NULL,				-- 강의 담당 선생 아이디
-   useYn BOOLEAN DEFAULT TRUE,               -- 판매 여부
-   lPrice INT											-- 강의 가격
+   lPrice INT,											-- 강의 가격
+   useYn BOOLEAN DEFAULT TRUE               	-- 판매 여부
 );
 
 CREATE VIEW lectureView AS (SELECT l.lno AS lno, l.title AS title, l.subTitle AS subTitle, l.content AS content, l.lectureType AS lectureType, l.studentCnt AS studentCnt,
-l.startDate AS startDate, l.endDate AS endDate, l.daily AS daily, l.prono AS prono, l.teacherId AS teacherId, l.useYn AS useYn, l.lPrice AS lPrice,
+l.startDate AS startDate, l.endDate AS endDate, l.daily AS daily, l.prono AS prono, l.teacherId AS teacherId, l.lPrice AS lPrice, l.useYn AS useYn,
 f.saveFolder AS saveFolder, f.originNm AS originNm, f.saveNm AS saveNm,
 m.nm AS nm FROM lecture l, member m, files f WHERE l.teacherId = m.id AND f.par = l.lno AND f.toUse LIKE 'lecture' order BY l.lno ASC);
 

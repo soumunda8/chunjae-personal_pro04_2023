@@ -93,6 +93,8 @@ public class AdminCtrl {
         List<BoardMgn> boardMgnList = boardMgnService.listBoardMgn(page);
         model.addAttribute("boardMgnList", boardMgnList);
 
+
+
         return "/admin/boardTypeList";
     }
 
@@ -131,7 +133,8 @@ public class AdminCtrl {
 
     @PostMapping("/boardMgnModify.do")
     public String boardMgnModifyPro(BoardMgn boardMgn, Model model) throws Exception {
-        System.out.println(boardMgn.toString());
+
+        int par = boardMgn.getPar();
 
         boardMgnService.boardMgnUpdate(boardMgn);
 
@@ -294,6 +297,32 @@ public class AdminCtrl {
         model.addAttribute("teacherList", teacherList);
 
         return "/admin/findTeacher";
+    }
+
+    @GetMapping("/findLecture.do")
+    public String findLecture(HttpServletRequest request, Model model) throws Exception {
+        String type = request.getParameter("type");
+        String keyword = request.getParameter("keyword");
+        int curPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
+
+        Page page = new Page();
+        page.setSearchType(type);
+        page.setSearchKeyword(keyword);
+        int total = lectureService.lectureCount(page);
+
+        page.makeBlock(curPage, total);
+        page.makeLastPageNum(total);
+        page.makePostStart(curPage, total);
+
+        model.addAttribute("type", type);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("page", page);
+        model.addAttribute("curPage", curPage);
+
+        List<LectureVO> lectureList = lectureService.lectureList(page);
+        model.addAttribute("lectureList", lectureList);
+
+        return "/admin/findLecture";
     }
 
 }
