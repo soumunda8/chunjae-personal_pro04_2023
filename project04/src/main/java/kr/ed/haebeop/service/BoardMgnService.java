@@ -13,5 +13,6 @@ public interface BoardMgnService {
     public BoardMgn getBoardMgn(int bmNo) throws Exception;
     public void boardMgnInsert(BoardMgn boardMgn) throws Exception;
     public void boardMgnUpdate(BoardMgn boardMgn) throws Exception;
+    public void boardMgnDelete(int bmNo) throws Exception;
 
 }

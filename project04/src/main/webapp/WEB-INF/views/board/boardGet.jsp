@@ -86,7 +86,7 @@
                         </ul>
                     </c:if>
                     <c:if test="${empty commentList }">
-                        <div class="text-center">등록된 댓글이 없습니다.</div>
+                        <div class="text-center pb-3">등록된 댓글이 없습니다.</div>
                     </c:if>
                 </div>
             </c:if>

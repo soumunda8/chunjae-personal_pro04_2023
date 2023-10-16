@@ -2,10 +2,7 @@ package kr.ed.haebeop.persistence;
 
 import kr.ed.haebeop.domain.BoardMgn;
 import kr.ed.haebeop.util.Page;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -29,5 +26,8 @@ public interface BoardMgnMapper {
 
     @Update("UPDATE boardMgn SET boardNm = #{boardNm}, aboutAuth = #{aboutAuth}, commentUse = #{commentUse}, fileUse = #{fileUse} WHERE bmNo = #{bmNo}")
     public void boardMgnUpdate(BoardMgn boardMgn) throws Exception;
+
+    @Delete("DELETE FROM boardMgn WHERE bmNo = #{bmNo}")
+    public void boardMgnDelete(int bmNo) throws Exception;
 
 }

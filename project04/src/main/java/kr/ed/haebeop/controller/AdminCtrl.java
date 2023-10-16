@@ -1,11 +1,7 @@
 package kr.ed.haebeop.controller;
 
-import kr.ed.haebeop.domain.BoardMgn;
-import kr.ed.haebeop.domain.LectureVO;
-import kr.ed.haebeop.domain.Member;
-import kr.ed.haebeop.service.BoardMgnService;
-import kr.ed.haebeop.service.LectureService;
-import kr.ed.haebeop.service.MemberService;
+import kr.ed.haebeop.domain.*;
+import kr.ed.haebeop.service.*;
 import kr.ed.haebeop.util.BoardPage;
 import kr.ed.haebeop.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.util.List;
 
 @Controller
@@ -31,6 +28,15 @@ public class AdminCtrl {
 
     @Autowired
     private BoardMgnService boardMgnService;
+
+    @Autowired
+    private BoardService boardService;
+
+    @Autowired
+    private FilesService filesService;
+
+    @Autowired
+    private CommentService commentService;
 
     @Autowired
     private LectureService lectureService;
@@ -129,6 +135,28 @@ public class AdminCtrl {
     @GetMapping("/boardMgnDel.do")
     public String boardMgnDeletePro(HttpServletRequest request, Model model) throws Exception {
         int bmNo = Integer.parseInt(request.getParameter("no"));
+
+        List<BoardVO> boardList = boardService.boardListForAdmin(bmNo);
+
+        for (BoardVO board : boardList) {
+            int bno = board.getBno();
+
+            FileDTO fileDTO = new FileDTO();
+            fileDTO.setPar(bno);
+            fileDTO.setToUse("board");
+            List<FileDTO> fileList = filesService.fileListByPar(fileDTO);
+            for(FileDTO files : fileList) {
+                File file = new File(files.getSaveFolder() + File.separator + files.getSaveNm());
+                if (file.exists()) {
+                    file.delete();
+                    filesService.filesDeleteAll(bno);
+                }
+            }
+            commentService.commentDeleteAll(bno);
+            boardService.boardDelete(bno);
+        }
+
+        boardMgnService.boardMgnDelete(bmNo);
 
         return "redirect:/admin/boardMgnConf.do";
     }

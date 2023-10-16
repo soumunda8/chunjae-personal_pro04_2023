@@ -118,7 +118,7 @@ public class BoardCtrl {
         if(uploadFiles != null) {
             ServletContext application = request.getSession().getServletContext();
             //String realPath = application.getRealPath("/resources/upload");                                                             // 운영 서버
-            String realPath = "C:\\Dev\\IdeaProjects\\project\\personal\\project4\\project04\\src\\main\\webapp\\resources\\upload";	  // 개발 서버
+            String realPath = "D:\\park\\project\\personal\\personal_pro04_2023\\project04\\src\\main\\webapp\\resources\\upload";	      // 개발 서버
 
             SimpleDateFormat sdf = new SimpleDateFormat("yyy/MM/dd");
             Date date = new Date();
@@ -236,7 +236,7 @@ public class BoardCtrl {
         if(uploadFiles != null) {
             ServletContext application = request.getSession().getServletContext();
             //String realPath = application.getRealPath("/resources/upload");                                                             // 운영 서버
-            String realPath = "C:\\Dev\\IdeaProjects\\project\\personal\\project4\\project04\\src\\main\\webapp\\resources\\upload";	  // 개발 서버
+            String realPath = "D:\\park\\project\\personal\\personal_pro04_2023\\project04\\src\\main\\webapp\\resources\\upload";	      // 개발 서버
 
             SimpleDateFormat sdf = new SimpleDateFormat("yyy/MM/dd");
             Date date = new Date();

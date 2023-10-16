@@ -42,6 +42,10 @@
         </where>
     </select>
 
+    <select id="boardListForAdmin" resultType="kr.ed.haebeop.domain.BoardVO">
+        select * from boardList where bmNo = #{bmNo}
+    </select>
+
     <select id="boardGet" resultType="kr.ed.haebeop.domain.BoardVO">
         select * from boardList where bno = #{bno}
     </select>

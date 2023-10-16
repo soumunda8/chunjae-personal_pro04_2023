@@ -47,8 +47,8 @@ public class UtilCtrl {
             byte[] bytes = upload.getBytes();
 
             //이미지 경로 생성
-            String path = "C:\\Dev\\IdeaProjects\\project\\personal\\project4\\project04\\src\\main\\webapp\\resources\\upload" + "CkImage/";	// 개발 서버
-            //String path = request.getRealPath("/resource/uploadCkImage/");                                                        // 운영 서버
+            String path = "D:\\park\\project\\personal\\personal_pro04_2023\\project04\\src\\main\\webapp\\resources\\upload" + "CkImage/";	// 개발 서버
+            //String path = request.getRealPath("/resource/uploadCkImage/");                                                                // 운영 서버
             String ckUploadPath = path + uid + "_" + fileName;
             File folder = new File(path);
 
@@ -92,7 +92,7 @@ public class UtilCtrl {
     public void ckSubmit(@RequestParam(value="uid") String uid, @RequestParam(value="fileName") String fileName, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 
         //서버에 저장된 이미지 경로
-        String path = "C:\\Dev\\IdeaProjects\\project\\personal\\project4\\project04\\src\\main\\webapp\\resources\\upload" + "CkImage/";	// 개발 서버
+        String path = "D:\\park\\project\\personal\\personal_pro04_2023\\project04\\src\\main\\webapp\\resources\\upload" + "CkImage/";	// 개발 서버
         //String path = request.getRealPath("/resource/uploadCkImage/");                                                        // 운영 서버
         String sDirPath = path + uid + "_" + fileName;
 

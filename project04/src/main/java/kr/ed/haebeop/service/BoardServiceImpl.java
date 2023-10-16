@@ -26,6 +26,11 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
+    public List<BoardVO> boardListForAdmin(int bmNo) throws Exception {
+        return boardMapper.boardListForAdmin(bmNo);
+    }
+
+    @Override
     public BoardVO boardGet(int bno, String sid) throws Exception {
         BoardVO boardVO = boardMapper.boardGet(bno);
         if(!sid.equals(boardVO.getAuthor()) && !sid.equals("admin")) {
