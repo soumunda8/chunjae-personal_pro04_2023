@@ -44,11 +44,11 @@
                                     <div class="form-group">
                                         <label class="floating-label d-block">게시판 타입 설정</label>
                                         <div class="custom-control custom-radio custom-control-inline">
-                                            <input type="radio" id="boardType0" name="boardType" class="custom-control-input" value="0" onClick="return false" <c:if test="${boardMgn.boardType == 0 }">checked</c:if>>
+                                            <input type="radio" id="boardType0" name="boardType" class="custom-control-input" value="0" onclick="return false" <c:if test="${boardMgn.boardType == 0 }">checked</c:if>>
                                             <label class="custom-control-label" for="boardType0">게시판</label>
                                         </div>
                                         <div class="custom-control custom-radio custom-control-inline">
-                                            <input type="radio" id="boardType1" name="boardType" class="custom-control-input" value="1" onClick="return false" <c:if test="${boardMgn.boardType == 1 }">checked</c:if>>
+                                            <input type="radio" id="boardType1" name="boardType" class="custom-control-input" value="1" onclick="return false" <c:if test="${boardMgn.boardType == 1 }">checked</c:if>>
                                             <label class="custom-control-label" for="boardType1">문의하기</label>
                                         </div>
                                     </div>
@@ -65,34 +65,43 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
-                                        <label class="floating-label" for="depth">게시판 뎁스</label>
-                                        <input type="number" class="form-control" name="depth" id="depth" value="${boardMgn.depth }" aria-describedby="게시판 뎁스 도움" readonly>
+                                        <label class="floating-label d-block">게시판 뎁스</label>
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" id="depth0" name="depth" class="custom-control-input" value="1" onclick="return false"<c:if test="${boardMgn.depth == 1 }"> checked</c:if>>
+                                            <label class="custom-control-label" for="depth0">메인</label>
+                                        </div>
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" id="depth1" name="depth" class="custom-control-input" value="2" onclick="return false"<c:if test="${boardMgn.depth == 2 }"> checked</c:if>>
+                                            <label class="custom-control-label" for="depth1">서브</label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            <c:if test="${boardMgn.depth == 2 }">
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
                                         <label class="floating-label d-block" for="parNm">게시판 사용 강의 아이디</label>
-                                        <input type="text" class="form-control d-inline-block" name="parNm" id="parNm" value="${boardMgn.parNm }" readonly style="width:calc(100% - 170px)">
+                                        <input type="text" class="form-control d-inline-block" name="parNm" id="parNm" value="${boardMgn.parNm }" readonly>
                                     </div>
                                 </div>
                             </div>
+                            </c:if>
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
                                         <label class="floating-label d-block">게시판 글 설정</label>
                                         <div class="custom-control custom-radio custom-control-inline">
-                                            <input type="radio" id="aboutAuth0" name="aboutAuth" class="custom-control-input" value="0" onClick="return false" <c:if test="${boardMgn.aboutAuth == 0 }">checked</c:if>>
-                                            <label class="custom-control-label" for="aboutAuth0" onClick="return false">관리자</label>
+                                            <input type="radio" id="aboutAuth0" name="aboutAuth" class="custom-control-input" value="0" onclick="return false" <c:if test="${boardMgn.aboutAuth == 0 }">checked</c:if>>
+                                            <label class="custom-control-label" for="aboutAuth0" onclick="return false">관리자</label>
                                         </div>
                                         <div class="custom-control custom-radio custom-control-inline">
-                                            <input type="radio" id="aboutAuth1" name="aboutAuth" class="custom-control-input" value="1" onClick="return false" <c:if test="${boardMgn.aboutAuth == 1 }">checked</c:if>>
-                                            <label class="custom-control-label" for="aboutAuth1" onClick="return false">선생님</label>
+                                            <input type="radio" id="aboutAuth1" name="aboutAuth" class="custom-control-input" value="1" onclick="return false" <c:if test="${boardMgn.aboutAuth == 1 }">checked</c:if>>
+                                            <label class="custom-control-label" for="aboutAuth1" onclick="return false">선생님</label>
                                         </div>
                                         <div class="custom-control custom-radio custom-control-inline">
-                                            <input type="radio" id="aboutAuth2" name="aboutAuth" class="custom-control-input" value="2" onClick="return false" <c:if test="${boardMgn.aboutAuth == 2 }">checked</c:if>>
-                                            <label class="custom-control-label" for="aboutAuth2" onClick="return false">회원</label>
+                                            <input type="radio" id="aboutAuth2" name="aboutAuth" class="custom-control-input" value="2" onclick="return false" <c:if test="${boardMgn.aboutAuth == 2 }">checked</c:if>>
+                                            <label class="custom-control-label" for="aboutAuth2" onclick="return false">회원</label>
                                         </div>
                                     </div>
                                 </div>
@@ -102,12 +111,12 @@
                                     <div class="form-group">
                                         <label class="floating-label d-block">댓글 설정</label>
                                         <div class="custom-control custom-radio custom-control-inline">
-                                            <input type="radio" id="commentUse1" name="commentUse" class="custom-control-input" value="true" onClick="return false" <c:if test="${boardMgn.commentUse }">checked</c:if>>
-                                            <label class="custom-control-label" for="commentUse1" onClick="return false">사용</label>
+                                            <input type="radio" id="commentUse1" name="commentUse" class="custom-control-input" value="true" onclick="return false" <c:if test="${boardMgn.commentUse }">checked</c:if>>
+                                            <label class="custom-control-label" for="commentUse1" onclick="return false">사용</label>
                                         </div>
                                         <div class="custom-control custom-radio custom-control-inline">
-                                            <input type="radio" id="commentUse2" name="commentUse" class="custom-control-input" value="false" onClick="return false" <c:if test="${!boardMgn.commentUse }">checked</c:if>>
-                                            <label class="custom-control-label" for="commentUse2" onClick="return false">사용안함</label>
+                                            <input type="radio" id="commentUse2" name="commentUse" class="custom-control-input" value="false" onclick="return false" <c:if test="${!boardMgn.commentUse }">checked</c:if>>
+                                            <label class="custom-control-label" for="commentUse2" onclick="return false">사용안함</label>
                                         </div>
                                     </div>
                                 </div>
@@ -117,12 +126,12 @@
                                     <div class="form-group">
                                         <label class="floating-label d-block">파일 설정</label>
                                         <div class="custom-control custom-radio custom-control-inline">
-                                            <input type="radio" id="fileUse1" name="fileUse" class="custom-control-input" value="true" onClick="return false" <c:if test="${boardMgn.fileUse }">checked</c:if>>
-                                            <label class="custom-control-label" for="fileUse1" onClick="return false">사용</label>
+                                            <input type="radio" id="fileUse1" name="fileUse" class="custom-control-input" value="true" onclick="return false" <c:if test="${boardMgn.fileUse }">checked</c:if>>
+                                            <label class="custom-control-label" for="fileUse1" onclick="return false">사용</label>
                                         </div>
                                         <div class="custom-control custom-radio custom-control-inline">
-                                            <input type="radio" id="fileUse2" name="fileUse" class="custom-control-input" value="false" onClick="return false" <c:if test="${!boardMgn.fileUse }">checked</c:if>>
-                                            <label class="custom-control-label" for="fileUse2" onClick="return false">사용안함</label>
+                                            <input type="radio" id="fileUse2" name="fileUse" class="custom-control-input" value="false" onclick="return false" <c:if test="${!boardMgn.fileUse }">checked</c:if>>
+                                            <label class="custom-control-label" for="fileUse2" onclick="return false">사용안함</label>
                                         </div>
                                     </div>
                                 </div>

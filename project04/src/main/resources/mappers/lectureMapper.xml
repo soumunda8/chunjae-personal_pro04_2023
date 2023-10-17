@@ -38,6 +38,10 @@
         select * from lecture order by lno desc limit 1
     </select>
 
+    <select id="lectureGet" resultType="kr.ed.haebeop.domain.Lecture">
+        select * from lecture where lno = #{lno}
+    </select>
+
     <insert id="lectureInsert">
         INSERT INTO lecture VALUES(DEFAULT, #{title}, #{subTitle}, #{content}, #{lectureType}, #{studentCnt}, #{startDate}, #{endDate}, #{daily}, #{prono}, #{teacherId}, #{lPrice}, #{useYn})
     </insert>

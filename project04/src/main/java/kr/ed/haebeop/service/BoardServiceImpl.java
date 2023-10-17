@@ -52,6 +52,11 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
+    public void qnaUpdate(Board board) throws Exception {
+        boardMapper.qnaUpdate(board);
+    }
+
+    @Override
     public void boardDelete(int bno) throws Exception {
         boardMapper.boardDelete(bno);
     }

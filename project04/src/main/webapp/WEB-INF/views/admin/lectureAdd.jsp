@@ -83,7 +83,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row forOnline">
+                                <div class="row forOffline">
                                     <div class="col">
                                         <div class="form-group">
                                             <label class="floating-label d-block" for="studentCnt">강의 인원수</label>
@@ -91,7 +91,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row forOnline">
+                                <div class="row forOffline">
                                     <div class="col">
                                         <div class="form-group">
                                             <label class="floating-label d-block">강의 일정</label>
@@ -99,7 +99,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row forOnline">
+                                <div class="row forOffline">
                                     <div class="col">
                                         <div class="form-group">
                                             <label class="floating-label" for="daily">강의 하루 일정</label>
@@ -135,7 +135,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row forOnline">
+                                <div class="row">
                                     <div class="col">
                                         <div class="form-group">
                                             <label class="floating-label d-block" for="lPrice">강의 가격</label>
@@ -177,11 +177,11 @@
             let type = $(obj).val();
             if(type == 0) {
                 $("#studentCnt").val(999);
-                $(".forOnline").hide();
+                $(".forOffline").hide();
                 $('input[type="date"]').val(new Date().toISOString().substring(0, 10));
             } else {
                 $("#studentCnt").val(0);
-                $(".forOnline").show();
+                $(".forOffline").show();
                 $('input[type="date"]').val("");
             }
         }

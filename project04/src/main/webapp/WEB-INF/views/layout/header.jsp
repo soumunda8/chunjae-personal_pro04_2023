@@ -16,14 +16,10 @@
                 <a href="about.html" class="nav-item nav-link">About</a>
                 <a href="class.html" class="nav-item nav-link">Classes</a>
                 <a href="team.html" class="nav-item nav-link">Teachers</a>
-                <a href="gallery.html" class="nav-item nav-link">Gallery</a>
+                <a href="${path }/lecture/list.do?no=4" class="nav-item nav-link">강의테스트</a>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">커뮤니티</a>
-                    <div class="dropdown-menu rounded-0 m-0" id="boardMenuArea">
-                        <c:forEach var="boardMenu" items="${boardMgnListForHeader }">
-
-                        </c:forEach>
-                    </div>
+                    <div class="dropdown-menu rounded-0 m-0" id="boardMenuArea"></div>
                 </div>
                 <a href="contact.html" class="nav-item nav-link">Contact</a>
             </div>
@@ -50,9 +46,7 @@
             type:"post",
             contentType:"application/json",
             success : function(result) {
-                console.log("성공", result);
                 for(let i in result) {
-                    console.log(result[i].bmNo);
                     $("#boardMenuArea").append("<a href='${path }/board/list.do?no=" + result[i].bmNo + "' class='dropdown-item'>" + result[i].boardNm + "</a>");
                 }
             },

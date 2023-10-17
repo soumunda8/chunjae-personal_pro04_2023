@@ -26,6 +26,11 @@ public class LectureServiceImpl implements LectureService {
     }
 
     @Override
+    public Lecture lectureGet(int lno) throws Exception {
+        return lectureMapper.lectureGet(lno);
+    }
+
+    @Override
     public Lecture lectureInsert(Lecture lecture) throws Exception {
         lectureMapper.lectureInsert(lecture);
         Lecture lec = lectureMapper.lectureListLast();

@@ -67,12 +67,19 @@
                                 <div class="row">
                                     <div class="col">
                                         <div class="form-group">
-                                            <label class="floating-label" for="depth">게시판 뎁스</label>
-                                            <input type="number" class="form-control wid-150" name="depth" id="depth" value="${boardMgn.depth }" aria-describedby="게시판 뎁스 도움" required>
+                                            <label class="floating-label d-block">게시판 뎁스</label>
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                                <input type="radio" id="depth0" name="depth" class="custom-control-input" value="1" onchange="changeType(this)"<c:if test="${boardMgn.depth == 1 }"> checked</c:if>>
+                                                <label class="custom-control-label" for="depth0">메인</label>
+                                            </div>
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                                <input type="radio" id="depth1" name="depth" class="custom-control-input" value="2" onchange="changeType(this)"<c:if test="${boardMgn.depth == 2 }"> checked</c:if>>
+                                                <label class="custom-control-label" for="depth1">서브</label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row forSub"<c:if test="${boardMgn.depth == 1 }"> style="display:none"</c:if>>
                                     <div class="col">
                                         <div class="form-group">
                                             <label class="floating-label d-block" for="parNm">게시판 사용 강의 아이디</label>
@@ -146,11 +153,25 @@
     </div>
     <jsp:include page="../layout/adminFooter.jsp" />
     <script>
+
         function findLecture() {
             let popupOption = "width=650px, height=550px, top=150px, left=300px, scrollbar=yes";
             let popupUrl = "${path }/admin/findLecture.do";
             window.open(popupUrl, 'child', popupOption);
         }
+
+        function changeType(obj){
+            let type = $(obj).val();
+
+            if(type == 1) {
+                $("#par").val(0);
+                $("#parNm").val("");
+                $(".forSub").hide();
+            } else {
+                $(".forSub").show();
+            }
+        }
+
         function checkVal(obj) {
 
             if(obj.depth.value == 1) {

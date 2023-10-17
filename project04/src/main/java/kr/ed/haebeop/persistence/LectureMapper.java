@@ -13,6 +13,7 @@ public interface LectureMapper {
     public List<LectureVO> lectureList(Page page) throws Exception;
     public int lectureCount(Page page) throws Exception;
     public Lecture lectureListLast() throws Exception;
+    public Lecture lectureGet(int lno) throws Exception;
     public void lectureInsert(Lecture lecture) throws Exception;
 
 }

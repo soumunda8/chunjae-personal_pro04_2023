@@ -14,6 +14,7 @@ public interface BoardService {
     public BoardVO boardGet(int bno, String sid) throws Exception;
     public int boardInsert(Board board) throws Exception;
     public void boardUpdate(Board board) throws Exception;
+    public void qnaUpdate(Board board) throws Exception;
     public void boardDelete(int bno) throws Exception;
 
 }
