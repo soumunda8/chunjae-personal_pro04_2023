@@ -8,7 +8,6 @@
     <title>HEABEOP::${board.boardNm }</title>
     <jsp:include page="../layout/head.jsp" />
     <link rel="stylesheet" href="${path }/resources/css/sub.css">
-    <script type="text/javascript" src="${path }/resources/ckeditor/ckeditor.js"></script>
 </head>
 <body>
     <jsp:include page="../layout/header.jsp" />

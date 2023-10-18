@@ -46,6 +46,9 @@
             type:"post",
             contentType:"application/json",
             success : function(result) {
+                if(result == "") {
+                    $(".board_drop_menu").remove();
+                }
                 for(let i in result) {
                     $("#boardMenuArea").append("<a href='${path }/board/list.do?no=" + result[i].bmNo + "' class='dropdown-item'>" + result[i].boardNm + "</a>");
                 }

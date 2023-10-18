@@ -3,6 +3,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="path" value="${pageContext.request.contextPath }" />
 
+<script type="text/javascript" src="${path }/resources/cleditor/jquery.cleditor.js"></script>
+<link rel="stylesheet" href="${path }/resources/cleditor/jquery.cleditor.css">
 <div class="container-fluid mb-5">
     <form action="${path }/board/update.do" method="post" enctype="multipart/form-data">
         <div class="container">
@@ -18,7 +20,9 @@
                 <label for="content">내용</label>
                 <textarea name="content" id="content" class="textarea" rows="8" cols="100" maxlength="1400" required>${board.content}</textarea>
                 <script>
-                    CKEDITOR.replace('content',	{filebrowserUploadUrl:'${path }/util/imageUpload.do'});
+                    $(document).ready(function() {
+                        $("#content").cleditor();
+                    });
                 </script>
             </div>
 

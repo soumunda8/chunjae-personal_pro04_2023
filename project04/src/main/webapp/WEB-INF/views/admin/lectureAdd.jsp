@@ -9,7 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <jsp:include page="../layout/adminHead.jsp" />
     <link rel="stylesheet" href="${path }/resources/css/admin.css" />
-    <script type="text/javascript" src="${path }/resources/ckeditor/ckeditor.js"></script>
+    <link rel="stylesheet" href="${path }/resources/cleditor/jquery.cleditor.css">
 </head>
 <body>
     <jsp:include page="../layout/adminHeader.jsp" />
@@ -62,9 +62,6 @@
                                         <div class="form-group">
                                             <label class="floating-label" for="content">내용</label>
                                             <textarea name="content" id="content" class="form-control" rows="8" cols="100" maxlength="1400" required></textarea>
-                                            <script>
-                                                CKEDITOR.replace('content',	{filebrowserUploadUrl:'${path }/util/imageUpload.do'});
-                                            </script>
                                         </div>
                                     </div>
                                 </div>
@@ -139,7 +136,7 @@
                                     <div class="col">
                                         <div class="form-group">
                                             <label class="floating-label d-block" for="lPrice">강의 가격</label>
-                                            <input type="number" class="form-control wid-150 d-inline-block" name="lPrice" id="lPrice" aria-describedby="강의 가격 입력" min="0" max="999"><p class="ml-2 d-inline-block">원</p>
+                                            <input type="number" class="form-control wid-150 d-inline-block" name="lPrice" id="lPrice" aria-describedby="강의 가격 입력" min="0"><p class="ml-2 d-inline-block">원</p>
                                         </div>
                                     </div>
                                 </div>
@@ -172,7 +169,12 @@
         </div>
     </div>
     <jsp:include page="../layout/adminFooter.jsp" />
+    <script type="text/javascript" src="${path }/resources/cleditor/jquery.cleditor.js"></script>
     <script>
+        $(document).ready(function() {
+            $("#content").cleditor();
+        });
+
         function changeType(obj){
             let type = $(obj).val();
             if(type == 0) {

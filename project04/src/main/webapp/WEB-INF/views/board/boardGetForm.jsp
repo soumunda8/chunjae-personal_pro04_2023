@@ -17,7 +17,7 @@
                     <span class="writer">${board.nm }</span>
                 </p>
             </div>
-            <div class="board_view pt-3 pl-4">${board.content }</div>
+            <div class="board_view py-3 pl-4">${board.content }</div>
             <c:if test="${board.fileUse && !empty fileList }">
                 <div class="board_files py-3 pl-4">
                     <ul class="mb-0">

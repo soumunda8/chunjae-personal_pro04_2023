@@ -8,6 +8,34 @@
     <title>HEABEOP::강의</title>
     <jsp:include page="../layout/head.jsp" />
     <link rel="stylesheet" href="${path }/resources/css/sub.css">
+    <style>
+        .lectureSubCon {display:none;}
+
+        .star-icon {
+            background-image:url("${path }/resources/image/common/heart0.png");
+            background-repeat:no-repeat;
+            width:20px;
+            height:20px;
+            background-size:cover;
+        }
+        .star-icon.click-star {
+            cursor:pointer;
+        }
+        /* 색칠된 상태 */
+        .star-icon.filled {
+            background-image:url("${path }/resources/image/common/heart1.png");
+        }
+        .star-rating {
+            display:flex;
+            align-items:center;
+        }
+        .star-rating label {
+            margin-right:10px;
+        }
+        .star-icons {
+            display:flex;
+        }
+    </style>
 </head>
 <body>
     <jsp:include page="../layout/header.jsp" />
@@ -34,18 +62,18 @@
                     </tr>
                     <tr>
                         <th class="text-center" scope="col">내용</th>
-                        <td class="text-center">${lecture.content }</td>
+                        <td class="text-center">${lecture.subTitle }</td>
                     </tr>
                     </tbody>
                 </table>
             </div>
             <div class="d-flex flex-column align-items-center justify-content-center mb-5">
-                <ul class="nav nav-tabs justify-content-center">
+                <ul class="nav nav-tabs justify-content-center subTab">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#detail">상세보기</a>
+                        <a href="#detail" class="nav-link detailTab active" aria-current="page" data-status="detail">상세보기</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#notice">공지사항</a>
+                        <a href="#notice" class="nav-link detailTab" data-status="notice">공지사항</a>
                     </li>
                     <%--<li class="nav-item">
                         <a class="nav-link" href="#">Link</a>
@@ -55,15 +83,27 @@
                     </li>--%>
                 </ul>
             </div>
-            <div id="detail" class="d-flex flex-column align-items-center justify-content-center">
-                ㅣ삽;ㅓ이ㅏ런ㅁ;ㅣ아ㅓㄹ;ㅁ니ㅏㅇ러;ㄴㅁㅇ러;지ㅏㅇ;ㄻ넝ㄹ;ㅓ;ㅣㅏㅇ너
+            <div class="flex-column align-items-center justify-content-center lectureSubCon" id="detail">
+                ${lecture.content }
             </div>
-            <div id="notice" class="d-flex flex-column align-items-center justify-content-center">
+            <div class="flex-column align-items-center justify-content-center lectureSubCon" id="notice">
                 <jsp:include page="../board/boardListForm.jsp" />
             </div>
         </div>
     </div>
-
     <jsp:include page="../layout/footer.jsp" />
+    <script>
+        $(function(){
+            $("#detail").show();
+
+            $(".detailTab").on("click", function(){
+                $(".subTab a").removeClass("active");
+                $(".lectureSubCon").hide();
+                $(this).addClass("active");
+                let status = $(this).data('status');
+                $("#" + status).show();
+            });
+        });
+    </script>
 </body>
 </html>
