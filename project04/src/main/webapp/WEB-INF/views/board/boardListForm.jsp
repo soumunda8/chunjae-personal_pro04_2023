@@ -4,7 +4,7 @@
 <c:set var="path" value="${pageContext.request.contextPath }" />
 
 <div class="container">
-    <h3 class="mb-5 text-center py-2"${testBlock }>${boardMgn.boardNm }</h3>
+    <h3 class="mb-5 text-center py-2"${h2Block }>${boardMgn.boardNm }</h3>
     <div class="row justify-content-md-end mb-5">
         <div class="col-md-4 searchArea">
             <form action="${path }/board/list.do" method="get" class="field has-addons has-addons-right">

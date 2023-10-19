@@ -72,9 +72,11 @@
                     <li class="nav-item">
                         <a href="#detail" class="nav-link detailTab active" aria-current="page" data-status="detail">상세보기</a>
                     </li>
-                    <li class="nav-item">
-                        <a href="#notice" class="nav-link detailTab" data-status="notice">공지사항</a>
-                    </li>
+                    <c:if test="${!empty boardMgn }">
+                        <li class="nav-item">
+                            <a href="#board${boardMgn.bmNo }" class="nav-link detailTab" data-status="board${boardMgn.bmNo }">${boardMgn.title }</a>
+                        </li>
+                    </c:if>
                     <%--<li class="nav-item">
                         <a class="nav-link" href="#">Link</a>
                     </li>
@@ -86,9 +88,11 @@
             <div class="flex-column align-items-center justify-content-center lectureSubCon" id="detail">
                 ${lecture.content }
             </div>
-            <div class="flex-column align-items-center justify-content-center lectureSubCon" id="notice">
+            <c:if test="${!empty boardMgn }">
+            <div class="flex-column align-items-center justify-content-center lectureSubCon" id="#board${boardMgn.bmNo }">
                 <jsp:include page="../board/boardListForm.jsp" />
             </div>
+            </c:if>
         </div>
     </div>
     <jsp:include page="../layout/footer.jsp" />
