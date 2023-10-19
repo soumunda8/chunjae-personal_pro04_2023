@@ -48,6 +48,8 @@ public class lectureCtrl {
         
         BoardMgn boardMgn = boardMgnService.getSubBoardMgn(lno);
 
+        System.out.println(boardMgn.toString());
+
         if(boardMgn != null) {
             String type = request.getParameter("type");
             String keyword = request.getParameter("keyword");
@@ -69,6 +71,12 @@ public class lectureCtrl {
             model.addAttribute("curPage", curPage);
             List<BoardVO> boardList = boardService.boardList(page);
 
+            for(BoardVO board : boardList){
+                System.out.println("-------------------------");
+                System.out.println(board.toString());
+            }
+            System.out.println("-------------------------");
+
             for(BoardVO boardVO : boardList) {
                 String authorNm = boardVO.getNm();
                 if(!authorNm.equals("관리자")) {
@@ -89,7 +97,6 @@ public class lectureCtrl {
             if(sid != null && (boardMgn.getAboutAuth() >= memberService.memberGet(sid).getGrade() || sid.equals("admin"))) {
                 addCheck = true;
             }
-
             model.addAttribute("addCheck", addCheck);
 
             model.addAttribute("h2Block", " style='display:none'");

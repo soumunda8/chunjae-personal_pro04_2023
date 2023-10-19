@@ -72,9 +72,9 @@
                     <li class="nav-item">
                         <a href="#detail" class="nav-link detailTab active" aria-current="page" data-status="detail">상세보기</a>
                     </li>
-                    <c:if test="${!empty boardMgn }">
+                    <c:if test="${!empty boardList }">
                         <li class="nav-item">
-                            <a href="#board${boardMgn.bmNo }" class="nav-link detailTab" data-status="board${boardMgn.bmNo }">${boardMgn.title }</a>
+                            <a href="#board${boardMgn.bmNo }" class="nav-link detailTab board${boardMgn.bmNo }Tab" data-status="board${boardMgn.bmNo }">${boardMgn.boardNm }</a>
                         </li>
                     </c:if>
                     <%--<li class="nav-item">
@@ -88,8 +88,8 @@
             <div class="flex-column align-items-center justify-content-center lectureSubCon" id="detail">
                 ${lecture.content }
             </div>
-            <c:if test="${!empty boardMgn }">
-            <div class="flex-column align-items-center justify-content-center lectureSubCon" id="#board${boardMgn.bmNo }">
+            <c:if test="${!empty boardList }">
+            <div class="flex-column align-items-center justify-content-center lectureSubCon" id="board${boardMgn.bmNo }">
                 <jsp:include page="../board/boardListForm.jsp" />
             </div>
             </c:if>
@@ -98,7 +98,14 @@
     <jsp:include page="../layout/footer.jsp" />
     <script>
         $(function(){
-            $("#detail").show();
+            let urlTag = window.location.href.split("#");
+            if(urlTag[1] == null || urlTag[1] == "detail") {
+                $("#detail").show();
+            } else {
+                $(".subTab a").removeClass("active");
+                $("." + urlTag[1] + "Tab").addClass("active");
+                $("#" + urlTag[1]).show();
+            }
 
             $(".detailTab").on("click", function(){
                 $(".subTab a").removeClass("active");
