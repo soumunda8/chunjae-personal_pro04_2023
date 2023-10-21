@@ -42,6 +42,10 @@
         </where>
     </select>
 
+    <select id="boardListForAdmin" resultType="kr.ed.haebeop.domain.BoardVO">
+        select * from boardList where bmNo = #{bmNo}
+    </select>
+
     <select id="boardGet" resultType="kr.ed.haebeop.domain.BoardVO">
         select * from boardList where bno = #{bno}
     </select>
@@ -51,11 +55,15 @@
     </select>
 
     <insert id="boardInsert">
-        INSERT INTO board VALUES(DEFAULT, #{bmNo}, #{title}, #{content}, #{author}, DEFAULT, DEFAULT)
+        INSERT INTO board() VALUES(DEFAULT, #{bmNo}, #{title}, #{content}, #{author}, DEFAULT, '', DEFAULT, DEFAULT, DEFAULT)
     </insert>
 
     <update id="boardUpdate">
         UPDATE board SET title = #{title}, content = #{content} WHERE bno = #{bno}
+    </update>
+
+    <update id="qnaUpdate">
+        UPDATE board SET answer = #{answer}, answerDate = CURRENT_TIMESTAMP, answerYn = TRUE WHERE bno = #{bno}
     </update>
 
     <update id="boardVisitedUpdate">

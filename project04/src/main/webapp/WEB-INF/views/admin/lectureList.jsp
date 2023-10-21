@@ -38,8 +38,7 @@
                         <div class="input-group">
                             <div class="input-group-append">
                                 <select id="inputState" name="type" class="form-control">
-                                    <option value="title"<c:if test="${type eq 'title'}"> selected="selected"</c:if>>제목</option>
-                                    <option value="name"<c:if test="${type eq 'name'}"> selected="selected"</c:if>>이름</option>
+                                    <option value="title"<c:if test="${type eq 'title'}"> selected="selected"</c:if>>강의명</option>
                                 </select>
                             </div>
                             <input type="text" class="form-control" id="keyword" name="keyword" placeholder="검색어를 입력하세요" value="${keyword }" aria-label="Recipient's username" aria-describedby="basic-addon2">

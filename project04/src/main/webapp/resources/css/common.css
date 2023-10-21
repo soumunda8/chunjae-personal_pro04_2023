@@ -78,10 +78,10 @@ blockquote:before, blockquote:after, q:before, q:after {content:'';}
 table {border-collapse:collapse;border-spacing:0;}
 
 :root {
-    --sub-color:#0380c5;
-    --sub-hover-color:#026397;
     --main-color:#288a54;
     --main-hover-color:#0d592f;
+    --sub-color:#0380c5;
+    --sub-hover-color:#026397;
     --admin-main-color:#530009;
     --admin-sub-color:#276cda;
 }

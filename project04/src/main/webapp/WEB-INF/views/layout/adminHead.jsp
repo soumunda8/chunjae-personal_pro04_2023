@@ -36,6 +36,8 @@
 <link rel="stylesheet" href="${path }/resources/css/all.css">
 <link rel="stylesheet" href="${path }/resources/css/adminStyle.css">
 
+<script src="${path }/resources/js/jquery-3.7.1.min.js"></script>
+
 <!--
 <script>
     document.oncontextmenu = function () {return false;}

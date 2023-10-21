@@ -28,6 +28,16 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    public List<Member> memberTeacherList(Page page) throws Exception {
+        return memberMapper.memberTeacherList(page);
+    }
+
+    @Override
+    public int memberTeacherCount(Page page) throws Exception {
+        return memberMapper.memberTeacherCount(page);
+    }
+
+    @Override
     public boolean loginPro(String id, String pw) throws Exception {
         boolean pass = false;
         Member member = memberMapper.getMember(id);

@@ -15,7 +15,11 @@ public class BoardVO {
     private String content;
     private String author;
     private String resDate;
+    private String answer;
+    private String answerDate;
+    private boolean answerYn;
     private int visited;
+    private int boardType;
     private String boardNm;
     private String nm;
     private int aboutAuth;

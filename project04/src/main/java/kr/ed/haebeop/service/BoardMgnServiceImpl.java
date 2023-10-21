@@ -35,6 +35,11 @@ public class BoardMgnServiceImpl implements BoardMgnService {
     }
 
     @Override
+    public BoardMgn getSubBoardMgn(int par) throws Exception {
+        return boardMgnMapper.getSubBoardMgn(par);
+    }
+
+    @Override
     public void boardMgnInsert(BoardMgn boardMgn) throws Exception {
         boardMgnMapper.boardMgnInsert(boardMgn);
     }
@@ -42,5 +47,10 @@ public class BoardMgnServiceImpl implements BoardMgnService {
     @Override
     public void boardMgnUpdate(BoardMgn boardMgn) throws Exception {
         boardMgnMapper.boardMgnUpdate(boardMgn);
+    }
+
+    @Override
+    public void boardMgnDelete(int bmNo) throws Exception {
+        boardMgnMapper.boardMgnDelete(bmNo);
     }
 }

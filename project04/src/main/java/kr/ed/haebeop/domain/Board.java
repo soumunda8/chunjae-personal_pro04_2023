@@ -13,6 +13,10 @@ public class Board {
     private String content;
     private String author;
     private String resDate;
+    private String answerAuthor;
+    private String answer;
+    private String answerDate;
+    private boolean answerYn;
     private int visited;
 
 }

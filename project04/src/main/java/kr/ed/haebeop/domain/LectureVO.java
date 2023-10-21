@@ -18,8 +18,11 @@ public class LectureVO {
     private String daily;
     private int prono;
     private String teacherId;
-    private int thumbnail;
+    private int lPrice;
     private boolean useYn;
+    private String saveFolder;
+    private String originNm;
+    private String saveNm;
     private String nm;
 
 }

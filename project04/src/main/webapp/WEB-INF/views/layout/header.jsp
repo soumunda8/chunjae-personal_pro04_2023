@@ -16,14 +16,10 @@
                 <a href="about.html" class="nav-item nav-link">About</a>
                 <a href="class.html" class="nav-item nav-link">Classes</a>
                 <a href="team.html" class="nav-item nav-link">Teachers</a>
-                <a href="gallery.html" class="nav-item nav-link">Gallery</a>
+                <a href="${path }/lecture/list.do?no=4" class="nav-item nav-link">강의테스트</a>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">커뮤니티</a>
-                    <div class="dropdown-menu rounded-0 m-0">
-                        <c:forEach var="boardMenu" items="${boardMgnListForHeader }">
-                            <a href="${path }/board/list.do?no=${boardMenu.bmNo }" class="dropdown-item">${boardMenu.boardNm }</a>
-                        </c:forEach>
-                    </div>
+                    <div class="dropdown-menu rounded-0 m-0" id="boardMenuArea"></div>
                 </div>
                 <a href="contact.html" class="nav-item nav-link">Contact</a>
             </div>
@@ -43,6 +39,23 @@
         </div>
     </nav>
 </div>
+<script>
+    $(function (){
+        $.ajax({
+            url:"${path }/util/getBoardMgnList.do",
+            type:"post",
+            contentType:"application/json",
+            success : function(result) {
+                if(result == "") {
+                    $(".board_drop_menu").remove();
+                }
+                for(let i in result) {
+                    $("#boardMenuArea").append("<a href='${path }/board/list.do?no=" + result[i].bmNo + "' class='dropdown-item'>" + result[i].boardNm + "</a>");
+                }
+            },
+        });
+    });
+</script>
 
 <%--
 <header id="headerArea" class="header">
