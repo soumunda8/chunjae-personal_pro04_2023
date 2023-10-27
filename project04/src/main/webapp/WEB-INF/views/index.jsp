@@ -235,7 +235,7 @@
                 <div class="testimonial-item px-3">
                     <div class="bg-light shadow-sm rounded mb-4 p-4">
                         <h3 class="fas fa-quote-left text-primary mr-3"></h3>
-                        이걸 내가 쓰면 누간가가 볼까요?내생각엔 안볼것 같은데, 오타작살나도 모르고그냥 이렇게 쓰면되겠ㅈ?
+                        언제하지 개인프로젝트..?ㅎㅎ
                     </div>
                     <div class="d-flex align-items-center pl-4">
                         <h5 class="d-inline mb-0">작성자</h5>
