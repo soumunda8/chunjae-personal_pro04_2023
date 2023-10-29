@@ -11,6 +11,7 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
@@ -33,7 +34,11 @@ public class UtilCtrl {
 
         FileDTO files = filesService.fileByFno(no);
 
-        String saveFolder = files.getSaveFolder();
+        ServletContext application = request.getSession().getServletContext();
+        //String realPath = application.getRealPath("/resources/upload/");                                                            // 운영 서버
+        String realPath = "C:\\Dev\\IdeaProjects\\project\\personal\\project4\\project04\\src\\main\\webapp\\resources\\upload/";	  // 개발 서버
+
+        String saveFolder = realPath + files.getSaveFolder();
         String originalFile = files.getOriginNm();
         String saveFile = files.getSaveNm();
         File file = new File(saveFolder, saveFile);
@@ -75,11 +80,16 @@ public class UtilCtrl {
     }
 
     @RequestMapping(value="fileRemove.do", method=RequestMethod.POST)
-    public ResponseEntity fileRemove(@RequestBody FileDTO fileDTO) throws Exception {
+    public ResponseEntity fileRemove(@RequestBody FileDTO fileDTO, HttpServletRequest request) throws Exception {
         boolean result = false;
         int fno = fileDTO.getFno();
+
+        ServletContext application = request.getSession().getServletContext();
+        //String realPath = application.getRealPath("/resources/upload/");                                                            // 운영 서버
+        String realPath = "C:\\Dev\\IdeaProjects\\project\\personal\\project4\\project04\\src\\main\\webapp\\resources\\upload";	  // 개발 서버
+
         FileDTO files = filesService.fileByFno(fno);
-        File file = new File(files.getSaveFolder() + File.separator + files.getSaveNm());
+        File file = new File( realPath + File.separator + files.getSaveFolder() + File.separator + files.getSaveNm());
         if (file.exists()) { // 해당 파일이 존재하면
             file.delete(); // 파일 삭제
             filesService.filesDelete(fno);

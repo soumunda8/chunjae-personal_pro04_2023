@@ -19,7 +19,7 @@
             </if>
         </where>
         <![CDATA[
-        ORDER BY useYn DESC, regDate ASC LIMIT #{postStart}, #{postCount}
+        ORDER BY useYn DESC, grade DESC, regDate ASC LIMIT #{postStart}, #{postCount}
         ]]>
     </select>
 
@@ -85,6 +85,10 @@
         SELECT COUNT(*) FROM member WHERE id = #{id}
     </select>
 
+    <select id="getTeacherMain" resultType="kr.ed.haebeop.domain.Member">
+        select * from member where grade = 1 limit 4;
+    </select>
+
     <insert id="insert">
         INSERT INTO member VALUES (DEFAULT, #{id}, #{pw}, #{nm}, #{email}, #{tel}, #{addr1}, #{addr2}, #{postcode}, DEFAULT, #{birth}, DEFAULT, DEFAULT, DEFAULT, #{grade})
     </insert>
@@ -92,4 +96,20 @@
     <update id="updateMemberForTeacher">
         UPDATE member SET grade = 1 WHERE id = #{id}
     </update>
+
+    <update id="firepoint">
+        UPDATE member SET pt= pt + #{pt} WHERE id = #{id}
+    </update>
+
+    <update id="updateMember">
+        UPDATE member SET email = #{email}, tel = #{tel}, addr1 = #{addr1}, addr2 = #{addr2}, postcode = #{postcode}, birth = #{birth} WHERE id = #{id}
+    </update>
+
+    <update id="updatePw">
+        UPDATE member SET pw = #{pw} WHERE id = #{id}
+    </update>
+
+    <delete id="removeMember">
+        delete from member where id = #{id}
+    </delete>
 </mapper>

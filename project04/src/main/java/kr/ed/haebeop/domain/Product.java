@@ -7,13 +7,9 @@ import lombok.*;
 @NoArgsConstructor
 public class Product {
 
-    private int prono;
+    private int proNo;
     private String proNm;
     private int proPrice;
-    private String proComment;
-    private String proList;
-    private int thumbnail;
-    private boolean useyn;
     private String resDate;
 
 }

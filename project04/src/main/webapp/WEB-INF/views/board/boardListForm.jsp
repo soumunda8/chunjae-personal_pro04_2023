@@ -7,8 +7,11 @@
     <h3 class="mb-5 text-center py-2"${h2Block }>${boardMgn.boardNm }</h3>
     <div class="row justify-content-md-end mb-5">
         <div class="col-md-4 searchArea">
-            <form action="${path }/board/list.do" method="get" class="field has-addons has-addons-right">
+            <form action="${path }${pathUrl }" method="get" class="field has-addons has-addons-right">
                 <input type="hidden" name="no" value="${boardMgn.bmNo }" />
+                <c:if test="${lno != 0}">
+                    <input type="hidden" name="lno" value="${lno }">
+                </c:if>
                 <div class="input-group">
                     <div class="input-group-append">
                         <select id="inputState" name="type" class="form-control rounded-0 border-right-0">
@@ -41,7 +44,7 @@
                     <tr>
                         <td class="text-center">${status.count }</td>
                         <td>
-                            <a href="${path }/board/get.do?bno=${board.bno }">
+                            <a href="${path }${board.pathGetUrl }">
                                 <c:if test="${board.boardType == 1 }"><span class="pr-3">[답변 <c:if test="${board.answerYn }">완료</c:if><c:if test="${!board.answerYn }">대기</c:if>]</span></c:if>${board.title }
                             </a>
                         </td>
@@ -58,20 +61,20 @@
             <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-center">
                     <c:if test="${curPage > page.pageCount }">
-                        <li class="page-item"><a class="page-link" href="${path }/admin/memberList.do?page=${page.blockStartNum - 1 }<c:if test="${!empty keyword }">&type=${type }&keyword=${keyword }</c:if>" aria-label="Previous"><span aria-hidden="true">«</span><span class="sr-only">Previous</span></a></li>
+                        <li class="page-item"><a class="page-link" href="${path }${pathPageUrl }&page=${page.blockStartNum - 1 }<c:if test="${!empty keyword }">&type=${type }&keyword=${keyword }</c:if>" aria-label="Previous"><span aria-hidden="true">«</span><span class="sr-only">Previous</span></a></li>
                     </c:if>
                     <c:forEach var="i" begin="${page.blockStartNum }" end="${page.blockLastNum }">
                         <c:choose>
                             <c:when test="${i == curPage }">
-                                <li class="page-item active"><a class="page-link" href="${path }/admin/memberList.do?page=${i }<c:if test="${!empty keyword }">&type=${type }&keyword=${keyword }</c:if>">1</a></li>
+                                <li class="page-item active"><a class="page-link" href="${path }${pathPageUrl }&page=${i }<c:if test="${!empty keyword }">&type=${type }&keyword=${keyword }</c:if>">1</a></li>
                             </c:when>
                             <c:otherwise>
-                                <li class="page-item"><a class="page-link" href="${path }/admin/memberList.do?page=${i }<c:if test="${!empty keyword }">&type=${type }&keyword=${keyword }</c:if>">1</a></li>
+                                <li class="page-item"><a class="page-link" href="${path }${pathPageUrl }&page=${i }<c:if test="${!empty keyword }">&type=${type }&keyword=${keyword }</c:if>">1</a></li>
                             </c:otherwise>
                         </c:choose>
                     </c:forEach>
                     <c:if test="${page.blockLastNum < page.totalPageCount }">
-                        <li class="page-item"><a class="page-link" href="${path }/admin/memberList.do?page=${page.blockLastNum + 1 }<c:if test="${!empty keyword }">&type=${type }&keyword=${keyword }</c:if>" aria-label="Next"><span aria-hidden="true">»</span><span class="sr-only">Next</span></a></li>
+                        <li class="page-item"><a class="page-link" href="${path }${pathPageUrl }&page=${page.blockLastNum + 1 }<c:if test="${!empty keyword }">&type=${type }&keyword=${keyword }</c:if>" aria-label="Next"><span aria-hidden="true">»</span><span class="sr-only">Next</span></a></li>
                     </c:if>
                 </ul>
             </nav>
@@ -85,7 +88,12 @@
 
     <c:if test="${addCheck == true}">
         <div class="btn-group d-block text-right mt-3">
-            <a href="${path }/board/add.do?no=${boardMgn.bmNo }" class="btn btn-primary px-4"><c:if test="${boardMgn.boardType == 0 }">등록</c:if><c:if test="${boardMgn.boardType == 1 }">문의하기</c:if></a>
+            <c:if test="${not empty lno}">
+                <a href="${path }/lecture/boardAdd.do?no=${boardMgn.bmNo }&lno=${lno }" class="btn btn-primary px-4"><c:if test="${boardMgn.boardType == 0 }">등록</c:if><c:if test="${boardMgn.boardType == 1 }">문의하기</c:if></a>
+            </c:if>
+            <c:if test="${empty lno}">
+                <a href="${path }/board/add.do?no=${boardMgn.bmNo }" class="btn btn-primary px-4"><c:if test="${boardMgn.boardType == 0 }">등록</c:if><c:if test="${boardMgn.boardType == 1 }">문의하기</c:if></a>
+            </c:if>
         </div>
     </c:if>
 </div>

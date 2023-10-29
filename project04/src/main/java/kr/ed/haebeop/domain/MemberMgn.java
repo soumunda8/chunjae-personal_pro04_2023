@@ -10,6 +10,7 @@ public class MemberMgn {
     private int mmNo;
     private String author;
     private boolean approveYn;
+    private int mStatus;
     private String content;
 
 }

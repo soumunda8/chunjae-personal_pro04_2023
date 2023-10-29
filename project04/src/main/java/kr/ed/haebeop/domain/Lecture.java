@@ -17,6 +17,7 @@ public class Lecture {
     private String endDate;
     private String daily;
     private int prono;
+    private String cateNo;
     private String teacherId;
     private int lPrice;
     private boolean useYn;

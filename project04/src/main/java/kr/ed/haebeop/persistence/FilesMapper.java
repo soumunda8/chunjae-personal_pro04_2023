@@ -14,6 +14,12 @@ public interface FilesMapper {
     @Select("SELECT * FROM files WHERE fno = #{fno}")
     public FileDTO fileByFno(int fno) throws Exception;
 
+    @Select("SELECT * FROM files WHERE par = #{par} AND fileType NOT IN ('image') AND toUse = 'member' limit 1")
+    public FileDTO fileByParForGrade(int par) throws Exception;
+
+    @Select("SELECT * FROM files WHERE par = #{par} AND fileType IN ('image') AND toUse = 'member' limit 1")
+    public FileDTO fileByParForThumbnail(int par) throws Exception;
+
     @Insert("INSERT INTO files VALUES (DEFAULT, #{par}, #{saveFolder}, #{originNm}, #{saveNm}, #{fileType}, DEFAULT, #{toUse})")
     public void filesInsert(FileDTO fileDTO) throws Exception;
 

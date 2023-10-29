@@ -17,12 +17,14 @@ public class LectureVO {
     private String endDate;
     private String daily;
     private int prono;
+    private String cateNo;
     private String teacherId;
     private int lPrice;
     private boolean useYn;
     private String saveFolder;
     private String originNm;
     private String saveNm;
+    private String cateName;
     private String nm;
 
 }

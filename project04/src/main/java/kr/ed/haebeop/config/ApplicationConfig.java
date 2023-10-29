@@ -16,6 +16,9 @@ public class ApplicationConfig {
     public MemberService memberService() {return new MemberServiceImpl();}
 
     @Bean
+    public MemberMgnService memberMgnService() {return new MemberMgnServiceImpl();}
+
+    @Bean
     public BoardMgnService boardMgnService() {return new BoardMgnServiceImpl();}
 
     @Bean
@@ -26,5 +29,11 @@ public class ApplicationConfig {
 
     @Bean
     public LectureService lectureService() {return new LectureServiceImpl();}
+
+    @Bean
+    public CategoryService categoryService() {return new CategoryServiceImpl();}
+
+    @Bean
+    public ProductService productService() {return new ProductServiceImpl();}
 
 }

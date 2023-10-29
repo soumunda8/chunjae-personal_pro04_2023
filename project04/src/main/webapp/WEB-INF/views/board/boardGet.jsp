@@ -25,5 +25,7 @@
     </div>
 
     <jsp:include page="boardGetForm.jsp" />
+
+    <jsp:include page="../layout/footer.jsp" />
 </body>
 </html>

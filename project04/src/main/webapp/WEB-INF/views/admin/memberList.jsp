@@ -66,7 +66,6 @@
                                             <th class="text-center">아이디</th>
                                             <th class="text-center">이름</th>
                                             <th class="text-center">등급</th>
-                                            <th class="text-center">탈퇴여부</th>
                                             <th class="text-center">비고</th>
                                         </tr>
                                         </thead>
@@ -74,7 +73,7 @@
                                         <c:forEach items="${memberList }" var="member" varStatus="status">
                                             <tr>
                                                 <td class="text-center">${status.count }</td>
-                                                <td class="text-center">${member.id }</td>
+                                                <td class="text-center"><a href="${path}/admin/memberget.do?id=${member.id }">${member.id }</a></td>
                                                 <td class="text-center">${member.nm }</td>
                                                 <td class="text-center">
                                                     <c:choose>
@@ -84,13 +83,9 @@
                                                     </c:choose>
                                                 </td>
                                                 <td class="text-center">
-                                                    <c:if test="${member.useYn == true}">사용중</c:if>
-                                                    <c:if test="${member.useYn == false}">사용중지</c:if>
-                                                </td>
-                                                <td class="text-center">
                                                     <c:if test="${member.useYn == true}">
                                                         <div class="buttons are-small is-centered">
-                                                            <a href="${path }/user/deletePro.do?id=${member.id }" class="btn btn-primary btn-sm">회원탈퇴</a>
+                                                            <a href="${path }/user/mypageRemoveUser.do?id=${member.id }" class="btn btn-primary btn-sm">회원탈퇴</a>
                                                         </div>
                                                     </c:if>
                                                 </td>

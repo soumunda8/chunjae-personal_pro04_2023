@@ -28,11 +28,26 @@
                 <li class="nav-item">
                     <a href="${path }/admin/memberConf.do" class="nav-link "><span class="pcoded-micon"><i class="feather icon-user"></i></span><span class="pcoded-mtext">회원</span></a>
                 </li>
+                <li class="nav-item">
+                    <a href="${path }/admin/memberMgnConf.do" class="nav-link "><span class="pcoded-micon"><i class="feather icon-user"></i></span><span class="pcoded-mtext">회원 등급</span></a>
+                </li>
                 <li class="nav-item pcoded-menu-caption">
                     <label>게시판 관리</label>
                 </li>
                 <li class="nav-item">
                     <a href="${path }/admin/boardMgnConf.do" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">게시판 설정</span></a>
+                </li>
+                <li class="nav-item pcoded-menu-caption">
+                    <label>카테고리 관리</label>
+                </li>
+                <li class="nav-item">
+                    <a href="${path }/admin/categoryConf.do" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">카테고리 설정</span></a>
+                </li>
+                <li class="nav-item pcoded-menu-caption">
+                    <label>제품 관리</label>
+                </li>
+                <li class="nav-item">
+                    <a href="${path }/admin/productConf.do" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">제품 설정</span></a>
                 </li>
                 <li class="nav-item pcoded-menu-caption">
                     <label>강의 관리</label>

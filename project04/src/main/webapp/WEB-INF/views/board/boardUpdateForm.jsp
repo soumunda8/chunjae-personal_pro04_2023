@@ -37,14 +37,12 @@
             </c:if>
 
             <div class="btn-group d-block text-right mt-5">
-                <a href="${path }/board/list.do?no=${board.bmNo }" class="btn btn-primary px-4">목록</a>
+                <a href="${path }${pathUrl }" class="btn btn-primary px-4">목록</a>
                 <button type="submit" class="btn btn-danger px-4">수정</button>
             </div>
         </div>
     </form>
 </div>
-
-<jsp:include page="../layout/footer.jsp" />
 <script>
     function addFile() {
         let num = $(".uploadFiles").length + 1;

@@ -26,10 +26,11 @@ CREATE TABLE memberMgn(
 	mmNo INT AUTO_INCREMENT PRIMARY KEY,				-- 회원 등급 요청 번호 : 자동 발생
 	author VARCHAR(20) NOT NULL,							-- 회원 아이디
 	approveYn BOOLEAN DEFAULT FALSE,						-- 회원 등급 승인 여부
+	mStatus INT DEFAULT 0,									-- 회원 상태 [0 : 미신청, 1 : 승인 대기, 2 : 승인 취소, 3 : 승인 완료, 4 : 재 신청]
 	content VARCHAR(2000)									-- 등급 승인 거절 사유
 );
 
-CREATE VIEW memberMgnList AS (SELECT mm.mmNo AS mmNo, mm.author AS author,  mm.approveYn AS approveYn, mm.content AS content, m.nm AS nm FROM memberMgn mm, member m WHERE mm.author = m.id order BY mm.mmNo ASC);
+CREATE VIEW memberMgnList AS (SELECT mm.mmNo AS mmNo, mm.author AS author,  mm.approveYn AS approveYn, mm.mStatus AS mStatus, mm.content AS content, m.nm AS nm FROM memberMgn mm, member m WHERE mm.author = m.id order BY mm.mmNo ASC);
 
 CREATE TABLE boardMgn(
 	bmNo INT AUTO_INCREMENT PRIMARY KEY,	-- 게시판 번호 : 자동 발생
@@ -79,6 +80,11 @@ CREATE TABLE files(
 	toUse VARCHAR(100) NOT NULL										-- 사용 테이블
 );
 
+create table category(
+	cateNo varchar(4) primary key,		-- 카테고리 번호
+	cName varchar(100) not NULL			-- 카테고리 이름
+);
+
 CREATE TABLE review(
     rno INT PRIMARY KEY AUTO_INCREMENT,             	-- 리뷰 번호 : 자동증가
     par INT NOT NULL,											-- 해당 리뷰사용 번호
@@ -101,15 +107,17 @@ CREATE TABLE lecture(
 	endDate TIMESTAMP,								-- 강의 종료 기간 - 오프라인 사용
 	daily VARCHAR(200),								-- 강의 하루 일정 - 오프라인 사용
 	prono INT,											-- 강의 서적
+	cateNo VARCHAR(4) NOT NULL,					-- 강의 카테고리
 	teacherId VARCHAR(20) NOT NULL,				-- 강의 담당 선생 아이디
    lPrice INT,											-- 강의 가격
    useYn BOOLEAN DEFAULT TRUE               	-- 판매 여부
 );
 
 CREATE VIEW lectureView AS (SELECT l.lno AS lno, l.title AS title, l.subTitle AS subTitle, l.content AS content, l.lectureType AS lectureType, l.studentCnt AS studentCnt,
-l.startDate AS startDate, l.endDate AS endDate, l.daily AS daily, l.prono AS prono, l.teacherId AS teacherId, l.lPrice AS lPrice, l.useYn AS useYn,
+l.startDate AS startDate, l.endDate AS endDate, l.daily AS daily, l.prono AS prono, l.cateNo AS cateNo, l.teacherId AS teacherId, l.lPrice AS lPrice, l.useYn AS useYn,
 f.saveFolder AS saveFolder, f.originNm AS originNm, f.saveNm AS saveNm,
-m.nm AS nm FROM lecture l, member m, files f WHERE l.teacherId = m.id AND f.par = l.lno AND f.toUse LIKE 'lecture' order BY l.lno ASC);
+cate.cName AS cateName,
+m.nm AS nm FROM lecture l, member m, files f, category cate WHERE l.teacherId = m.id AND f.par = l.lno AND cate.cateNo = l.cateNo AND f.toUse LIKE 'lecture' order BY l.lno ASC);
 
 CREATE TABLE lectureList(
 	llno INT AUTO_INCREMENT PRIMARY KEY,		-- 온라인 강의 번호 : 자동증가
@@ -129,13 +137,9 @@ CREATE TABLE study(
 );
 
 CREATE TABLE product(
-   prono INT AUTO_INCREMENT PRIMARY KEY,					-- 도서 번호 : 자동증가
+   proNo INT AUTO_INCREMENT PRIMARY KEY,					-- 도서 번호 : 자동증가
    proNm VARCHAR(100) NOT NULL,                 		-- 도서 이름
    proPrice INT DEFAULT 1000,               				-- 상품 가격
-   proComment VARCHAR(2000) NOT NULL,						-- 상품 설명
-   proList VARCHAR(2000),                            	-- 상품 목차
-   thumbnail INT,                							-- 상품 섬네일 fno 입력
-   useyn BOOLEAN DEFAULT TRUE,                    		-- 판매 여부
    resDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP()		-- 상품 등록일
 );
 

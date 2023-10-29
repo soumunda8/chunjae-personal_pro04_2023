@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletContext;
@@ -32,6 +33,9 @@ public class AdminCtrl {
     private MemberService memberService;
 
     @Autowired
+    private MemberMgnService memberMgnService;
+
+    @Autowired
     private BoardMgnService boardMgnService;
 
     @Autowired
@@ -45,6 +49,12 @@ public class AdminCtrl {
 
     @Autowired
     private LectureService lectureService;
+
+    @Autowired
+    private CategoryService categoryService;
+
+    @Autowired
+    private ProductService productService;
 
     @GetMapping("/")
     public String home(Model model) throws Exception {
@@ -76,6 +86,39 @@ public class AdminCtrl {
         return "/admin/memberList";
     }
 
+    @GetMapping("/memberMgnConf.do")
+    public String memberMgnList(HttpServletRequest request, Model model) throws Exception {
+        String type = request.getParameter("type") != null ? request.getParameter("type") : "";
+        String keyword = request.getParameter("keyword") != null ? request.getParameter("keyword") : "";
+        int curPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
+
+        int total = memberMgnService.memberMgnCount();
+
+        Page page = new Page();
+        page.setSearchType(type);
+        page.setSearchKeyword(keyword);
+        page.makeBlock(curPage, total);
+        page.makeLastPageNum(total);
+        page.makePostStart(curPage, total);
+
+        model.addAttribute("type", type);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("page", page);
+        model.addAttribute("curPage", curPage);
+
+        List<MemberMgnVO> memberMgnList = memberMgnService.memberMgnList(page);
+        for(MemberMgnVO member : memberMgnList) {
+            Member mem = memberService.memberGet(member.getAuthor());
+            FileDTO fileDTO = filesService.fileByParForGrade(mem.getMno());
+            if(fileDTO != null) {
+                member.setFno(fileDTO.getFno());
+            }
+        }
+        model.addAttribute("memberMgnList", memberMgnList);
+
+        return "/admin/memberApprove";
+    }
+
     @GetMapping("/boardMgnConf.do")
     public String boardMgnList(HttpServletRequest request, Model model) throws Exception {
         int curPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
@@ -91,7 +134,6 @@ public class AdminCtrl {
 
         List<BoardMgn> boardMgnList = boardMgnService.listBoardMgn(page);
         model.addAttribute("boardMgnList", boardMgnList);
-
 
 
         return "/admin/boardTypeList";
@@ -197,6 +239,10 @@ public class AdminCtrl {
 
     @GetMapping("/lectureAdd.do")
     public String lectureAdd(Model model) throws Exception {
+
+        List<Category> categoryList = categoryService.categoryKeywordList("su");
+        model.addAttribute("categoryList", categoryList);
+
         return "/admin/lectureAdd";
     }
 
@@ -208,7 +254,7 @@ public class AdminCtrl {
         if(uploadThumbnail != null) {
             ServletContext application = request.getSession().getServletContext();
             //String realPath = application.getRealPath("/resources/upload");                                                             // 운영 서버
-            String realPath = "D:\\park\\project\\personal\\personal_pro04_2023\\project04\\src\\main\\webapp\\resources\\upload";	      // 개발 서버
+            String realPath = "C:\\Dev\\IdeaProjects\\project\\personal\\project4\\project04\\src\\main\\webapp\\resources\\upload";	  // 개발 서버
 
             SimpleDateFormat sdf = new SimpleDateFormat("yyy/MM/dd");
             Date date = new Date();
@@ -245,28 +291,206 @@ public class AdminCtrl {
         return "redirect:/admin/lectureConf.do";
     }
 
+    @GetMapping("/categoryConf.do")
+    public String categoryList(HttpServletRequest request, Model model) throws Exception {
+
+        List<Category> categoryList = categoryService.categoryList();
+        model.addAttribute("categoryList", categoryList);
+
+        return "/admin/categoryList";
+    }
+
+    @GetMapping("/categoryAdd.do")
+    public String categoryAdd(Model model) throws Exception {
+        return "/admin/categoryAdd";
+    }
+
+    @PostMapping("/categoryAdd.do")
+    public String categoryAddPro(HttpServletRequest request, Model model) throws Exception {
+
+        Category category = new Category();
+        category.setCateNo(request.getParameter("cateNo"));
+        category.setCName(request.getParameter("cName"));
+        categoryService.categoryInsert(category);
+
+        return "redirect:/admin/categoryConf.do";
+    }
+
+    @GetMapping("/getCategory.do")
+    public String categoryGet(@RequestParam("no") String cateNo, Model model) throws Exception {
+
+        Category category = categoryService.categoryGet(cateNo);
+        model.addAttribute("category", category);
+
+        return "/admin/categoryGet";
+    }
+
+    @GetMapping("/categoryEdit.do")
+    public String categoryUpdate(@RequestParam("no") String cateNo, Model model) throws Exception {
+
+        Category category = categoryService.categoryGet(cateNo);
+        model.addAttribute("category", category);
+
+        return "/admin/categoryUpdate";
+    }
+
+    @PostMapping("/categoryEdit.do")
+    public String categoryUpdatePro(HttpServletRequest request, Model model) throws Exception {
+
+        Category category = new Category();
+        category.setCateNo(request.getParameter("cateNo"));
+        category.setCName(request.getParameter("cName"));
+        categoryService.categoryUpdate(category);
+
+        return "redirect:/admin/getCategory.do?no=" + request.getParameter("cateNo");
+    }
+
+    @GetMapping("/categoryDel.do")
+    public String categoryDeletePro(@RequestParam("no") String cateNo, Model model) throws Exception {
+
+        categoryService.categoryDelete(cateNo);
+
+        return "redirect:/admin/categoryConf.do";
+    }
+
+    @GetMapping("/productConf.do")
+    public String productList(HttpServletRequest request, Model model) throws Exception {
+
+        List<Product> productList = productService.productList();
+        model.addAttribute("productList", productList);
+
+        return "/admin/productList";
+    }
+
+    @GetMapping("/productAdd.do")
+    public String productAdd(Model model) throws Exception {
+        return "/admin/productAdd";
+    }
+
+    @PostMapping("/productAdd.do")
+    public String productAddPro(HttpServletRequest request, Model model, MultipartFile uploadThumbnail) throws Exception {
+
+        Product product = new Product();
+        product.setProNm(request.getParameter("proNm"));
+        product.setProPrice(Integer.parseInt(request.getParameter("proPrice")));
+        Product pro = productService.productInsert(product);
+
+        if(uploadThumbnail != null) {
+            ServletContext application = request.getSession().getServletContext();
+            //String realPath = application.getRealPath("/resources/upload/product");                                                             // 운영 서버
+            String realPath = "C:\\Dev\\IdeaProjects\\project\\personal\\project4\\project04\\src\\main\\webapp\\resources\\upload\\product";	  // 개발 서버
+
+            File uploadPath = new File(realPath);
+            if(!uploadPath.exists()) {uploadPath.mkdirs();}
+
+            String originalFilename = uploadThumbnail.getOriginalFilename();
+            UUID uuid = UUID.randomUUID();
+            String uploadFilename = uuid.toString() + "_" + originalFilename;
+
+            FileDTO fileDTO = new FileDTO();
+            fileDTO.setPar(pro.getProNo());
+            fileDTO.setSaveFolder("product");
+
+            String fileType = uploadThumbnail.getContentType();
+            String[] fileTypeArr = fileType.split("/");
+            fileDTO.setFileType(fileTypeArr[0]);
+
+            fileDTO.setOriginNm(originalFilename);
+            fileDTO.setSaveNm(uploadFilename);
+            fileDTO.setToUse("product");
+
+            uploadThumbnail.transferTo(new File(uploadPath, uploadFilename));     // 서버에 파일 업로드 수행
+            filesService.filesInsert(fileDTO);                                    // DB 등록
+
+        }
+
+        return "redirect:/admin/productConf.do";
+    }
+
+    @GetMapping("/getProduct.do")
+    public String productGet(@RequestParam("no") int proNo, Model model) throws Exception {
+
+        Product product = productService.productGet(proNo);
+        model.addAttribute("product", product);
+
+        FileDTO fileDTO = new FileDTO();
+        fileDTO.setPar(proNo);
+        fileDTO.setToUse("product");
+        List<FileDTO> fileList = filesService.fileListByPar(fileDTO);
+        model.addAttribute("fileList", fileList);
+
+        return "/admin/productGet";
+    }
+
+    @GetMapping("/productEdit.do")
+    public String productUpdate(@RequestParam("no") int proNo, Model model) throws Exception {
+
+        Product product = productService.productGet(proNo);
+        model.addAttribute("product", product);
+
+        FileDTO fileDTO = new FileDTO();
+        fileDTO.setPar(proNo);
+        fileDTO.setToUse("product");
+        List<FileDTO> fileList = filesService.fileListByPar(fileDTO);
+        model.addAttribute("fileList", fileList);
+
+        return "/admin/productUpdate";
+    }
+
+    @PostMapping("/productEdit.do")
+    public String productUpdatePro(HttpServletRequest request, Model model, MultipartFile uploadThumbnail) throws Exception {
+
+        int proNo = request.getParameter("proNo") != null ? Integer.parseInt(request.getParameter("proNo")) : 0;
+
+        Product product = new Product();
+        product.setProPrice(Integer.parseInt(request.getParameter("proPrice")));
+        product.setProNo(proNo);
+        product.setProNm(request.getParameter("proNm"));
+
+        if(uploadThumbnail != null) {
+            ServletContext application = request.getSession().getServletContext();
+            //String realPath = application.getRealPath("/resources/upload/product");                                                             // 운영 서버
+            String realPath = "C:\\Dev\\IdeaProjects\\project\\personal\\project4\\project04\\src\\main\\webapp\\resources\\upload\\product";	  // 개발 서버
+
+            File uploadPath = new File(realPath);
+            if(!uploadPath.exists()) {uploadPath.mkdirs();}
+
+            String originalFilename = uploadThumbnail.getOriginalFilename();
+            UUID uuid = UUID.randomUUID();
+            String uploadFilename = uuid.toString() + "_" + originalFilename;
+
+            FileDTO fileDTO = new FileDTO();
+            fileDTO.setPar(proNo);
+            fileDTO.setSaveFolder("product");
+
+            String fileType = uploadThumbnail.getContentType();
+            String[] fileTypeArr = fileType.split("/");
+            fileDTO.setFileType(fileTypeArr[0]);
+
+            fileDTO.setOriginNm(originalFilename);
+            fileDTO.setSaveNm(uploadFilename);
+            fileDTO.setToUse("product");
+
+            uploadThumbnail.transferTo(new File(uploadPath, uploadFilename));     // 서버에 파일 업로드 수행
+            filesService.filesInsert(fileDTO);                                    // DB 등록
+
+        }
+
+        return "redirect:/admin/getProduct.do?no=" + proNo;
+    }
+
+    @GetMapping("/productDel.do")
+    public String categoryDeletePro(@RequestParam("no") int proNo, Model model) throws Exception {
+
+        productService.productDelete(proNo);
+
+        return "redirect:/admin/productConf.do";
+    }
 
     @GetMapping("/findPro.do")
     public String findPro(HttpServletRequest request, Model model) throws Exception {
-        String type = request.getParameter("type");
-        String keyword = request.getParameter("keyword");
-        int curPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
 
-        Page page = new Page();
-        page.setSearchType(type);
-        page.setSearchKeyword(keyword);
-        int total = 0;
-
-        page.makeBlock(curPage, total);
-        page.makeLastPageNum(total);
-        page.makePostStart(curPage, total);
-
-        model.addAttribute("type", type);
-        model.addAttribute("keyword", keyword);
-        model.addAttribute("page", page);
-        model.addAttribute("curPage", curPage);
-
-        List<Product> proList = new ArrayList<>();
+        List<Product> proList = productService.productList();
         model.addAttribute("proList", proList);
 
         return "/admin/findPro";

@@ -33,15 +33,20 @@
                 </div>
             </c:if>
 
+
             <div class="btn-group d-block text-right mt-5">
-                <a href="${path }/board/list.do?no=${boardMgn.bmNo }" class="btn btn-primary px-4">목록</a>
+                <c:if test="${not empty lno}">
+                <a href="${path }/lecture/boardList.do?no=${boardMgn.bmNo }&lno=${lecture.lno }" class="btn btn-primary px-4">목록</a>
+                </c:if>
+                <c:if test="${empty lno}">
+                    <a href="${path }/board/list.do?no=${boardMgn.bmNo }" class="btn btn-primary px-4">목록</a>
+                </c:if>
                 <button type="submit" class="btn btn-danger px-4"><c:if test="${boardMgn.boardType == 0 }">등록</c:if><c:if test="${boardMgn.boardType == 1 }">문의하기</c:if></button>
             </div>
         </div>
     </form>
 </div>
 
-<jsp:include page="../layout/footer.jsp" />
 <script>
     function addFile() {
         let num = $(".uploadFiles").length + 1;

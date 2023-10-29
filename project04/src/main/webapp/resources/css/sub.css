@@ -33,6 +33,27 @@
 .comment_top .modifyBtn {right:40px}
 .comment_top > button:hover, .comment_top > button:active {text-decoration:underline;}
 
+
+.myPage {background-color:#e1e1e1;}
+
+.left_side, .right_side {background-color:#fff}
+
+.left_top {
+    display: block;
+    width: 100%;
+    text-align: center;
+    height: 80px;
+    line-height: 80px;
+    background-color: var(--main-color);
+    color: #fff;
+    font-weight: 800;
+    font-size: 1.4em;
+    letter-spacing: 4px;
+}
+
+.left_side ul a {display: block;width: 100%;font-weight: 500;}
+.left_side ul a.active {text-decoration:underline;color:#333;}
+
 /*모바일*/
 @media all and (max-width:768px) {
 }
