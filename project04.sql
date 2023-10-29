@@ -145,7 +145,7 @@ CREATE TABLE product(
 
 CREATE TABLE receive(
    rno INT AUTO_INCREMENT PRIMARY KEY,					-- 입고 번호 : 자동증가
-   prono INT NOT NULL,                       		-- 상품 번호
+   proNo INT NOT NULL,                       		-- 상품 번호
    amount INT DEFAULT 1,                     		-- 입고 갯수
    rPrice INT DEFAULT 1000,                  		-- 입고 가격
    resDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP()   -- 입고일
@@ -153,19 +153,19 @@ CREATE TABLE receive(
 
 CREATE TABLE serve(
    sno INT AUTO_INCREMENT PRIMARY KEY,					-- 출고 번호 : 자동증가
-   prono INT NOT NULL,                       		-- 상품 번호
+   proNo INT NOT NULL,                       		-- 상품 번호
    amount INT DEFAULT 1,                     		-- 출고 갯수
    sPrice INT DEFAULT 1000,                  		-- 출고 가격
    resDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP()   -- 출고일
 );
 
-CREATE VIEW serveProfit AS (SELECT prono, sum(sPrice * amount) AS tot FROM serve GROUP BY prono);
-CREATE VIEW receiveProfit AS (SELECT prono, sum(rPrice * amount) AS tot FROM receive GROUP BY prono);
-CREATE VIEW profit AS (SELECT a.prono AS prono, sum(a.tot - b.tot) AS tot FROM serveProfit a, receiveProfit b WHERE a.prono = b.prono GROUP BY a.prono);
+CREATE VIEW serveProfit AS (SELECT proNo, sum(sPrice * amount) AS tot FROM serve GROUP BY proNo);
+CREATE VIEW receiveProfit AS (SELECT proNo, sum(rPrice * amount) AS tot FROM receive GROUP BY proNo);
+CREATE VIEW profit AS (SELECT a.proNo AS proNo, sum(a.tot - b.tot) AS tot FROM serveProfit a, receiveProfit b WHERE a.proNo = b.proNo GROUP BY a.proNo);
 
-CREATE VIEW serveInventory AS (SELECT prono, sum(amount) AS amount FROM serve GROUP BY prono);
-CREATE VIEW receiveInventory AS (SELECT prono, sum(amount) AS amount FROM receive GROUP BY prono);
-CREATE VIEW inventory AS (SELECT a.prono AS prono, (a.amount - b.amount) AS amount FROM receiveInventory a, serveInventory b WHERE a.prono = b.prono);
+CREATE VIEW serveInventory AS (SELECT proNo, sum(amount) AS amount FROM serve GROUP BY proNo);
+CREATE VIEW receiveInventory AS (SELECT proNo, sum(amount) AS amount FROM receive GROUP BY proNo);
+CREATE VIEW inventory AS (SELECT a.proNo AS proNo, (a.amount - b.amount) AS amount FROM receiveInventory a, serveInventory b WHERE a.proNo = b.proNo);
 
 CREATE TABLE delivery(
 	dno INT AUTO_INCREMENT PRIMARY KEY,						-- 배송 번호 : 자동증가
@@ -181,7 +181,7 @@ CREATE TABLE delivery(
 );
 
 CREATE TABLE payment(
-   payno INT AUTO_INCREMENT PRIMARY KEY,					-- 결제 번호 : 자동증가
+   payNo INT AUTO_INCREMENT PRIMARY KEY,					-- 결제 번호 : 자동증가
    author VARCHAR(20) NOT NULL,        					-- 회원 아이디
    sno INT NOT NULL,												-- 수강 번호
    amount INT DEFAULT 1,           							-- 결제 수량
