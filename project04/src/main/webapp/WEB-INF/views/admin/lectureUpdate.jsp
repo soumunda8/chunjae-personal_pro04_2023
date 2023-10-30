@@ -109,6 +109,8 @@
                                             <fmt:parseDate value="${lecture.startDate }" var="startDate" pattern="yyyy-MM-dd HH:mm:ss" />
                                             <fmt:parseDate value="${lecture.endDate }" var="endDate" pattern="yyyy-MM-dd HH:mm:ss" />
                                             <fmt:formatDate value="${startDate }" pattern="yyyy-MM-dd" /> ~ <fmt:formatDate value="${endDate }" pattern="yyyy-MM-dd" /><br />
+                                            <input type="hidden" name="originStartDate" value="${lecture.startDate }" />
+                                            <input type="hidden" name="originEndDate" value="${lecture.endDate }" />
                                             <input type="date" class="form-control mr-1 wid-150 d-inline-block" name="startDate" value="${lecture.startDate }" id="startDate"> ~ <input type="date" class="form-control ml-1 wid-150 d-inline-block" name="endDate" value="${lecture.endDate }" id="endDate">
                                         </div>
                                     </div>
@@ -126,7 +128,7 @@
                                         <div class="form-group">
                                             <label class="floating-label d-block" for="proNo">강의 서적</label>
                                             <input type="text" class="form-control d-inline-block" name="proNm" id="proNm" value="${lecture.proNm }" readonly style="width:calc(100% - 170px)">
-                                            <input type="hidden" name="proNo" id="proNo" value="0" value="${lecture.proNo }">
+                                            <input type="hidden" name="proNo" id="proNo" value="${lecture.proNo }">
                                             <button type="button" class="form-control ml-2 wid-150 d-inline-block" onclick="findPro()">찾기</button>
                                         </div>
                                     </div>
@@ -225,6 +227,25 @@
                 $('input[type="date"]').val("");
             }
         }
+
+        function removeFiles(fno, seq) {
+            if(!confirm("해당 파일을 삭제하시겠습니까?")) {return false;}
+
+            let params = {"fno" : fno};
+            $.ajax({
+                url:"${path }/util/fileRemove.do",
+                type:"post",
+                data:JSON.stringify(params),
+                dataType:"json",
+                contentType:"application/json",
+                success : function(result) {
+                    if(result === true) {
+                        $("#files" + seq).remove();
+                    }
+                },
+            });
+        }
+
         function findPro() {
             let popupOption = "width=650px, height=550px, top=150px, left=300px, scrollbar=yes";
             let popupUrl = "${path }/admin/findPro.do";

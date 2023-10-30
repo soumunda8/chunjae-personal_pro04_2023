@@ -191,6 +191,11 @@
                 </div>
             </div>
             <div class="row justify-content-md-end">
+                <c:if test="${lecture.lectureType == 0 }">
+                    <div class="col-md-2 text-right px-0">
+                        <a href="${path }/admin/addLectureList.do" class="btn btn-success" style="width:60%;">목차 등록</a>
+                    </div>
+                </c:if>
                 <div class="col-md-4">
                     <a href="${path }/admin/lectureConf.do" class="btn btn-primary" style="width:32%;">목록</a>
                     <a href="${path }/admin/lectureEdit.do?no=${lecture.lno }" class="btn btn-success" style="width:32%;">수정</a>

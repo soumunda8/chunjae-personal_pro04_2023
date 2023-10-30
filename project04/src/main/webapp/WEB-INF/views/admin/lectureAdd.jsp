@@ -122,7 +122,7 @@
                                         <div class="form-group">
                                             <label class="floating-label d-block" for="proNo">강의 서적</label>
                                             <input type="text" class="form-control d-inline-block" name="proNm" id="proNm" readonly style="width:calc(100% - 170px)">
-                                            <input type="hidden" name="proNo" id="proNo" value="0">
+                                            <input type="hidden" name="proNo" id="proNo">
                                             <button type="button" class="form-control ml-2 wid-150 d-inline-block" onclick="findPro()">찾기</button>
                                         </div>
                                     </div>

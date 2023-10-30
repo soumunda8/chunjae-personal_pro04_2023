@@ -106,23 +106,26 @@ CREATE TABLE lecture(
 	startDate TIMESTAMP,								-- 강의 시작 기간 - 오프라인 사용
 	endDate TIMESTAMP,								-- 강의 종료 기간 - 오프라인 사용
 	daily VARCHAR(200),								-- 강의 하루 일정 - 오프라인 사용
-	prono INT,											-- 강의 서적
+	proNo INT,											-- 강의 서적
 	cateNo VARCHAR(4) NOT NULL,					-- 강의 카테고리
 	teacherId VARCHAR(20) NOT NULL,				-- 강의 담당 선생 아이디
    lPrice INT,											-- 강의 가격
    useYn BOOLEAN DEFAULT TRUE               	-- 판매 여부
 );
 
-CREATE VIEW lectureView AS (SELECT l.lno AS lno, l.title AS title, l.subTitle AS subTitle, l.content AS content, l.lectureType AS lectureType, l.studentCnt AS studentCnt,
-l.startDate AS startDate, l.endDate AS endDate, l.daily AS daily, l.proNo AS proNo, l.cateNo AS cateNo, l.teacherId AS teacherId, l.lPrice AS lPrice, l.useYn AS useYn,
-cate.cName AS cateName,pro.proNm AS proNm,
-m.nm AS nm FROM lecture l, member m, category cate, product pro WHERE l.teacherId = m.id AND cate.cateNo = l.cateNo AND pro.proNo = l.proNo order BY l.lno ASC);
+CREATE VIEW lectureView AS (
+	SELECT l.lno AS lno, l.title AS title, l.subTitle AS subTitle, l.content AS content, l.lectureType AS lectureType, l.studentCnt AS studentCnt, l.startDate AS startDate, l.endDate AS endDate, l.daily AS daily, l.proNo AS proNo, l.cateNo AS cateNo, l.teacherId AS teacherId, l.lPrice AS lPrice, l.useYn AS useYn, cate.cName AS cateName, pro.proNm AS proNm, m.nm AS nm 
+	FROM lecture l 
+	LEFT JOIN member m ON l.teacherId = m.id
+	LEFT JOIN category cate ON l.cateNo = cate.cateNo
+	LEFT JOIN product pro ON l.proNo = pro.proNo order BY l.lno ASC
+);
 
 CREATE TABLE lectureList(
 	llno INT AUTO_INCREMENT PRIMARY KEY,		-- 온라인 강의 번호 : 자동증가
 	lno INT NOT NULL,									-- 해당 강의 번호
 	title VARCHAR(150) NOT NULL,					-- 온라인 강의 이름
-	totalTIme INT NOT NULL,							-- 총 강의 시간
+	totalTime INT NOT NULL,							-- 총 강의 시간
 	studyYn BOOLEAN DEFAULT FALSE					-- 강의 완료 여부
 );
 
@@ -141,30 +144,6 @@ CREATE TABLE product(
    proPrice INT DEFAULT 1000,               				-- 상품 가격
    resDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP()		-- 상품 등록일
 );
-
-CREATE TABLE receive(
-   rno INT AUTO_INCREMENT PRIMARY KEY,					-- 입고 번호 : 자동증가
-   proNo INT NOT NULL,                       		-- 상품 번호
-   amount INT DEFAULT 1,                     		-- 입고 갯수
-   rPrice INT DEFAULT 1000,                  		-- 입고 가격
-   resDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP()   -- 입고일
-);
-
-CREATE TABLE serve(
-   sno INT AUTO_INCREMENT PRIMARY KEY,					-- 출고 번호 : 자동증가
-   proNo INT NOT NULL,                       		-- 상품 번호
-   amount INT DEFAULT 1,                     		-- 출고 갯수
-   sPrice INT DEFAULT 1000,                  		-- 출고 가격
-   resDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP()   -- 출고일
-);
-
-CREATE VIEW serveProfit AS (SELECT proNo, sum(sPrice * amount) AS tot FROM serve GROUP BY proNo);
-CREATE VIEW receiveProfit AS (SELECT proNo, sum(rPrice * amount) AS tot FROM receive GROUP BY proNo);
-CREATE VIEW profit AS (SELECT a.proNo AS proNo, sum(a.tot - b.tot) AS tot FROM serveProfit a, receiveProfit b WHERE a.proNo = b.proNo GROUP BY a.proNo);
-
-CREATE VIEW serveInventory AS (SELECT proNo, sum(amount) AS amount FROM serve GROUP BY proNo);
-CREATE VIEW receiveInventory AS (SELECT proNo, sum(amount) AS amount FROM receive GROUP BY proNo);
-CREATE VIEW inventory AS (SELECT a.proNo AS proNo, (a.amount - b.amount) AS amount FROM receiveInventory a, serveInventory b WHERE a.proNo = b.proNo);
 
 CREATE TABLE delivery(
 	dno INT AUTO_INCREMENT PRIMARY KEY,						-- 배송 번호 : 자동증가

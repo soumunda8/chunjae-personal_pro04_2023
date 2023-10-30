@@ -49,4 +49,9 @@
     <update id="lectureUpdate">
         UPDATE lecture SET title = #{title}, subTitle = #{subTitle}, content = #{content}, lectureType = #{lectureType}, studentCnt = #{studentCnt}, startDate = #{startDate}, endDate = #{endDate}, daily = #{daily}, proNo = #{proNo}, cateNo = #{cateNo}, teacherId = #{teacherId}, lPrice = #{lPrice}, useYn = #{useYn} WHERE lno = #{lno}
     </update>
+
+    <delete id="lectureDelete">
+        DELETE FROM lecture WHERE lno = #{lno}
+    </delete>
+
 </mapper>

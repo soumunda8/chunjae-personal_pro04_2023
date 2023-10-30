@@ -1,13 +1,7 @@
 package kr.ed.haebeop.controller;
 
-import kr.ed.haebeop.domain.BoardMgn;
-import kr.ed.haebeop.domain.BoardVO;
-import kr.ed.haebeop.domain.Lecture;
-import kr.ed.haebeop.domain.LectureVO;
-import kr.ed.haebeop.service.BoardMgnService;
-import kr.ed.haebeop.service.BoardService;
-import kr.ed.haebeop.service.LectureService;
-import kr.ed.haebeop.service.MemberService;
+import kr.ed.haebeop.domain.*;
+import kr.ed.haebeop.service.*;
 import kr.ed.haebeop.util.BoardPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,8 +31,20 @@ public class lectureCtrl {
     @Autowired
     private MemberService memberService;
 
+    @Autowired
+    private CategoryService categoryService;
+
     @RequestMapping("/list.do")
     public String lectureList(HttpServletRequest request, Model model) throws Exception {
+
+        List<Category> categoryList = categoryService.categoryKeywordList("su");
+        model.addAttribute("categoryList", categoryList);
+
+        return "/lecture/lectureList";
+    }
+
+    @RequestMapping("/get.do")
+    public String lectureGet(HttpServletRequest request, Model model) throws Exception {
 
         int lno = Integer.parseInt(request.getParameter("no"));
 
@@ -72,12 +78,6 @@ public class lectureCtrl {
             model.addAttribute("curPage", curPage);
             List<BoardVO> boardList = boardService.boardList(page);
 
-            for(BoardVO board : boardList){
-                System.out.println("-------------------------");
-                System.out.println(board.toString());
-            }
-            System.out.println("-------------------------");
-
             for(BoardVO boardVO : boardList) {
                 String authorNm = boardVO.getNm();
                 if(!authorNm.equals("관리자")) {
@@ -103,7 +103,7 @@ public class lectureCtrl {
             model.addAttribute("h2Block", " style='display:none'");
         }
 
-        return "/lecture/lectureList";
+        return "/lecture/lectureGet";
     }
 
 }
