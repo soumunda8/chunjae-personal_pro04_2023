@@ -247,48 +247,157 @@ public class AdminCtrl {
     }
 
     @PostMapping("/lectureAdd.do")
-    public String lectureAddPro(HttpServletRequest request,Lecture lecture, Model model, List<MultipartFile> uploadThumbnail) throws Exception {
+    public String lectureAddPro(HttpServletRequest request,Lecture lecture, Model model, MultipartFile uploadThumbnail, MultipartFile uploadVideo) throws Exception {
 
         Lecture lec = lectureService.lectureInsert(lecture);
 
+        ServletContext application = request.getSession().getServletContext();
+        //String realPath = application.getRealPath("/resources/upload");                                                             // 운영 서버
+        String realPath = "D:\\park\\project\\personal\\personal_pro04_2023\\project04\\src\\main\\webapp\\resources\\upload\\lecture";	  // 개발 서버
+        File uploadPath = new File(realPath);
+        if(!uploadPath.exists()) {uploadPath.mkdirs();}
+
         if(uploadThumbnail != null) {
-            ServletContext application = request.getSession().getServletContext();
-            //String realPath = application.getRealPath("/resources/upload");                                                             // 운영 서버
-            String realPath = "C:\\Dev\\IdeaProjects\\project\\personal\\project4\\project04\\src\\main\\webapp\\resources\\upload";	  // 개발 서버
+            String originalFilename = uploadThumbnail.getOriginalFilename();
+            UUID uuid = UUID.randomUUID();
+            String uploadFilename = uuid.toString() + "_" + originalFilename;
 
-            SimpleDateFormat sdf = new SimpleDateFormat("yyy/MM/dd");
-            Date date = new Date();
-            String dateFolder = sdf.format(date);
+            FileDTO fileDTO = new FileDTO();
+            fileDTO.setPar(lec.getLno());
+            fileDTO.setSaveFolder("lecture");
 
-            File uploadPath = new File(realPath, dateFolder);
-            if(!uploadPath.exists()) {uploadPath.mkdirs();}
+            String fileType = uploadThumbnail.getContentType();
+            String[] fileTypeArr = fileType.split("/");
+            fileDTO.setFileType(fileTypeArr[0]);
 
-            for(MultipartFile multipartFile : uploadThumbnail) {
-                if(multipartFile.isEmpty()) {continue;}
+            fileDTO.setOriginNm(originalFilename);
+            fileDTO.setSaveNm(uploadFilename);
+            fileDTO.setToUse("lecture");
 
-                String originalFilename = multipartFile.getOriginalFilename();
-                UUID uuid = UUID.randomUUID();
-                String uploadFilename = uuid.toString() + "_" + originalFilename;
+            uploadThumbnail.transferTo(new File(uploadPath, uploadFilename));     // 서버에 파일 업로드 수행
+            filesService.filesInsert(fileDTO);                                  // DB 등록
+        }
 
-                FileDTO fileDTO = new FileDTO();
-                fileDTO.setPar(lec.getLno());
-                fileDTO.setSaveFolder(String.valueOf(uploadPath));
+        if(uploadVideo != null) {
+            String originalFilename = uploadVideo.getOriginalFilename();
+            UUID uuid = UUID.randomUUID();
+            String uploadFilename = uuid.toString() + "_" + originalFilename;
 
-                String fileType = multipartFile.getContentType();
-                String[] fileTypeArr = fileType.split("/");
-                fileDTO.setFileType(fileTypeArr[0]);
+            FileDTO fileDTO = new FileDTO();
+            fileDTO.setPar(lec.getLno());
+            fileDTO.setSaveFolder("lecture");
 
-                fileDTO.setOriginNm(originalFilename);
-                fileDTO.setSaveNm(uploadFilename);
-                fileDTO.setToUse("lecture");
+            String fileType = uploadVideo.getContentType();
+            String[] fileTypeArr = fileType.split("/");
+            fileDTO.setFileType(fileTypeArr[0]);
 
-                multipartFile.transferTo(new File(uploadPath, uploadFilename));     // 서버에 파일 업로드 수행
-                filesService.filesInsert(fileDTO);                                  // DB 등록
-            }
+            fileDTO.setOriginNm(originalFilename);
+            fileDTO.setSaveNm(uploadFilename);
+            fileDTO.setToUse("lecture");
 
+            uploadThumbnail.transferTo(new File(uploadPath, uploadFilename));     // 서버에 파일 업로드 수행
+            filesService.filesInsert(fileDTO);                                  // DB 등록
         }
 
         return "redirect:/admin/lectureConf.do";
+    }
+
+    @GetMapping("/getLecture.do")
+    public String lectureGet(@RequestParam("no") int lno, Model model) throws Exception {
+
+        LectureVO lecture = lectureService.lectureGet(lno);
+        model.addAttribute("lecture", lecture);
+
+        FileDTO fileDTO = new FileDTO();
+        fileDTO.setPar(lecture.getLno());
+        fileDTO.setToUse("lecture");
+        List<FileDTO> fileList= filesService.fileListByPar(fileDTO);
+        model.addAttribute("fileList", fileList);
+        for(FileDTO file : fileList) {
+            System.out.println(file.toString());
+        }
+
+        List<Category> categoryList = categoryService.categoryKeywordList("su");
+        model.addAttribute("categoryList", categoryList);
+
+        return "/admin/lectureGet";
+    }
+
+    @GetMapping("/lectureEdit.do")
+    public String lectureUpdate(@RequestParam("no") int lno, Model model) throws Exception {
+
+        LectureVO lecture = lectureService.lectureGet(lno);
+        model.addAttribute("lecture", lecture);
+
+        FileDTO fileDTO = new FileDTO();
+        fileDTO.setPar(lecture.getLno());
+        fileDTO.setToUse("lecture");
+        List<FileDTO> fileList= filesService.fileListByPar(fileDTO);
+        model.addAttribute("fileList", fileList);
+        for(FileDTO file : fileList) {
+            System.out.println(file.toString());
+        }
+
+        List<Category> categoryList = categoryService.categoryKeywordList("su");
+        model.addAttribute("categoryList", categoryList);
+
+        return "/admin/lectureUpdate";
+    }
+
+    @PostMapping("/lectureEdit.do")
+    public String lectureUpdatePro(HttpServletRequest request,Lecture lecture, Model model, MultipartFile uploadThumbnail, MultipartFile uploadVideo) throws Exception {
+
+        lectureService.lectureUpdate(lecture);
+
+        ServletContext application = request.getSession().getServletContext();
+        //String realPath = application.getRealPath("/resources/upload");                                                             // 운영 서버
+        String realPath = "D:\\park\\project\\personal\\personal_pro04_2023\\project04\\src\\main\\webapp\\resources\\upload\\lecture";	  // 개발 서버
+        File uploadPath = new File(realPath);
+        if(!uploadPath.exists()) {uploadPath.mkdirs();}
+
+        if(uploadThumbnail != null) {
+            String originalFilename = uploadThumbnail.getOriginalFilename();
+            UUID uuid = UUID.randomUUID();
+            String uploadFilename = uuid.toString() + "_" + originalFilename;
+
+            FileDTO fileDTO = new FileDTO();
+            fileDTO.setPar(lecture.getLno());
+            fileDTO.setSaveFolder("lecture");
+
+            String fileType = uploadThumbnail.getContentType();
+            String[] fileTypeArr = fileType.split("/");
+            fileDTO.setFileType(fileTypeArr[0]);
+
+            fileDTO.setOriginNm(originalFilename);
+            fileDTO.setSaveNm(uploadFilename);
+            fileDTO.setToUse("lecture");
+
+            uploadThumbnail.transferTo(new File(uploadPath, uploadFilename));     // 서버에 파일 업로드 수행
+            filesService.filesInsert(fileDTO);                                  // DB 등록
+        }
+
+        if(uploadVideo != null) {
+            String originalFilename = uploadVideo.getOriginalFilename();
+            UUID uuid = UUID.randomUUID();
+            String uploadFilename = uuid.toString() + "_" + originalFilename;
+
+            FileDTO fileDTO = new FileDTO();
+            fileDTO.setPar(lecture.getLno());
+            fileDTO.setSaveFolder("lecture");
+
+            String fileType = uploadVideo.getContentType();
+            String[] fileTypeArr = fileType.split("/");
+            fileDTO.setFileType(fileTypeArr[0]);
+
+            fileDTO.setOriginNm(originalFilename);
+            fileDTO.setSaveNm(uploadFilename);
+            fileDTO.setToUse("lecture");
+
+            uploadThumbnail.transferTo(new File(uploadPath, uploadFilename));     // 서버에 파일 업로드 수행
+            filesService.filesInsert(fileDTO);                                  // DB 등록
+        }
+
+        return "redirect:/admin/getLecture.do?no=" + lecture.getLno();
     }
 
     @GetMapping("/categoryConf.do")
@@ -378,7 +487,7 @@ public class AdminCtrl {
         if(uploadThumbnail != null) {
             ServletContext application = request.getSession().getServletContext();
             //String realPath = application.getRealPath("/resources/upload/product");                                                             // 운영 서버
-            String realPath = "C:\\Dev\\IdeaProjects\\project\\personal\\project4\\project04\\src\\main\\webapp\\resources\\upload\\product";	  // 개발 서버
+            String realPath = "D:\\park\\project\\personal\\personal_pro04_2023\\project04\\src\\main\\webapp\\resources\\upload\\product";	  // 개발 서버
 
             File uploadPath = new File(realPath);
             if(!uploadPath.exists()) {uploadPath.mkdirs();}
@@ -450,7 +559,7 @@ public class AdminCtrl {
         if(uploadThumbnail != null) {
             ServletContext application = request.getSession().getServletContext();
             //String realPath = application.getRealPath("/resources/upload/product");                                                             // 운영 서버
-            String realPath = "C:\\Dev\\IdeaProjects\\project\\personal\\project4\\project04\\src\\main\\webapp\\resources\\upload\\product";	  // 개발 서버
+            String realPath = "D:\\park\\project\\personal\\personal_pro04_2023\\project04\\src\\main\\webapp\\resources\\upload\\product";	  // 개발 서버
 
             File uploadPath = new File(realPath);
             if(!uploadPath.exists()) {uploadPath.mkdirs();}

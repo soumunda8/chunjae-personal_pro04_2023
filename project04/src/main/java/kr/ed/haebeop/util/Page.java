@@ -1,6 +1,6 @@
 package kr.ed.haebeop.util;
 
-import lombok.Data;
+import lombok.*;
 
 @Data
 public class Page {

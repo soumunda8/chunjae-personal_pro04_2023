@@ -16,7 +16,7 @@ public class LectureVO {
     private String startDate;
     private String endDate;
     private String daily;
-    private int prono;
+    private int proNo;
     private String cateNo;
     private String teacherId;
     private int lPrice;
@@ -25,6 +25,7 @@ public class LectureVO {
     private String originNm;
     private String saveNm;
     private String cateName;
+    private String proNm;
     private String nm;
 
 }

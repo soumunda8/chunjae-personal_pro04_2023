@@ -26,7 +26,7 @@ public class LectureServiceImpl implements LectureService {
     }
 
     @Override
-    public Lecture lectureGet(int lno) throws Exception {
+    public LectureVO lectureGet(int lno) throws Exception {
         return lectureMapper.lectureGet(lno);
     }
 
@@ -35,5 +35,10 @@ public class LectureServiceImpl implements LectureService {
         lectureMapper.lectureInsert(lecture);
         Lecture lec = lectureMapper.lectureListLast();
         return lec;
+    }
+
+    @Override
+    public void lectureUpdate(Lecture lecture) throws Exception {
+        lectureMapper.lectureUpdate(lecture);
     }
 }

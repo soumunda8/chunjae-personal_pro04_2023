@@ -100,7 +100,7 @@ CREATE TABLE lecture(
 	lno INT AUTO_INCREMENT PRIMARY KEY,			-- 강의 번호 : 자동증가
 	title VARCHAR(150) NOT NULL,					-- 강의 제목
 	subTitle VARCHAR(500) NOT NULL,				-- 강의 소제목
-	content VARCHAR(2000) NOT NULL,				-- 강의 내용
+	content VARCHAR(4000) NOT NULL,				-- 강의 내용
 	lectureType INT NOT NULL,						-- 강의 타입 [ 온라인 : 0, 오프라인 : 1 ]
 	studentCnt INT NOT NULL, 						-- 강의 수강 인원
 	startDate TIMESTAMP,								-- 강의 시작 기간 - 오프라인 사용
@@ -114,10 +114,9 @@ CREATE TABLE lecture(
 );
 
 CREATE VIEW lectureView AS (SELECT l.lno AS lno, l.title AS title, l.subTitle AS subTitle, l.content AS content, l.lectureType AS lectureType, l.studentCnt AS studentCnt,
-l.startDate AS startDate, l.endDate AS endDate, l.daily AS daily, l.prono AS prono, l.cateNo AS cateNo, l.teacherId AS teacherId, l.lPrice AS lPrice, l.useYn AS useYn,
-f.saveFolder AS saveFolder, f.originNm AS originNm, f.saveNm AS saveNm,
-cate.cName AS cateName,
-m.nm AS nm FROM lecture l, member m, files f, category cate WHERE l.teacherId = m.id AND f.par = l.lno AND cate.cateNo = l.cateNo AND f.toUse LIKE 'lecture' order BY l.lno ASC);
+l.startDate AS startDate, l.endDate AS endDate, l.daily AS daily, l.proNo AS proNo, l.cateNo AS cateNo, l.teacherId AS teacherId, l.lPrice AS lPrice, l.useYn AS useYn,
+cate.cName AS cateName,pro.proNm AS proNm,
+m.nm AS nm FROM lecture l, member m, category cate, product pro WHERE l.teacherId = m.id AND cate.cateNo = l.cateNo AND pro.proNo = l.proNo order BY l.lno ASC);
 
 CREATE TABLE lectureList(
 	llno INT AUTO_INCREMENT PRIMARY KEY,		-- 온라인 강의 번호 : 자동증가

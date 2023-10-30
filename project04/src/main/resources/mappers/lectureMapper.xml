@@ -38,11 +38,15 @@
         select * from lecture order by lno desc limit 1
     </select>
 
-    <select id="lectureGet" resultType="kr.ed.haebeop.domain.Lecture">
-        select * from lecture where lno = #{lno}
+    <select id="lectureGet" resultType="kr.ed.haebeop.domain.LectureVO">
+        select * from lectureView where lno = #{lno}
     </select>
 
     <insert id="lectureInsert">
-        INSERT INTO lecture VALUES(DEFAULT, #{title}, #{subTitle}, #{content}, #{lectureType}, #{studentCnt}, #{startDate}, #{endDate}, #{daily}, #{prono}, #{cateNo}, #{teacherId}, #{lPrice}, #{useYn})
+        INSERT INTO lecture VALUES(DEFAULT, #{title}, #{subTitle}, #{content}, #{lectureType}, #{studentCnt}, #{startDate}, #{endDate}, #{daily}, #{proNo}, #{cateNo}, #{teacherId}, #{lPrice}, #{useYn})
     </insert>
+
+    <update id="lectureUpdate">
+        UPDATE lecture SET title = #{title}, subTitle = #{subTitle}, content = #{content}, lectureType = #{lectureType}, studentCnt = #{studentCnt}, startDate = #{startDate}, endDate = #{endDate}, daily = #{daily}, proNo = #{proNo}, cateNo = #{cateNo}, teacherId = #{teacherId}, lPrice = #{lPrice}, useYn = #{useYn} WHERE lno = #{lno}
+    </update>
 </mapper>

@@ -3,6 +3,7 @@ package kr.ed.haebeop.controller;
 import kr.ed.haebeop.domain.BoardMgn;
 import kr.ed.haebeop.domain.BoardVO;
 import kr.ed.haebeop.domain.Lecture;
+import kr.ed.haebeop.domain.LectureVO;
 import kr.ed.haebeop.service.BoardMgnService;
 import kr.ed.haebeop.service.BoardService;
 import kr.ed.haebeop.service.LectureService;
@@ -43,7 +44,7 @@ public class lectureCtrl {
 
         String sid = (String) session.getAttribute("sid");
 
-        Lecture lecture = lectureService.lectureGet(lno);
+        LectureVO lecture = lectureService.lectureGet(lno);
         model.addAttribute("lecture", lecture);
         
         BoardMgn boardMgn = boardMgnService.getSubBoardMgn(lno);

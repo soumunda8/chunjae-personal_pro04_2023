@@ -227,7 +227,7 @@ public class MemberCtrl {
 
                 ServletContext application = request.getSession().getServletContext();
                 //String realPath = application.getRealPath("/resources/upload/teacher");                                                             // 운영 서버
-                String realPath = "C:\\Dev\\IdeaProjects\\project\\personal\\project4\\project04\\src\\main\\webapp\\resources\\upload\\teacher";	  // 개발 서버
+                String realPath = "D:\\park\\project\\personal\\personal_pro04_2023\\project04\\src\\main\\webapp\\resources\\upload\\teacher";	  // 개발 서버
 
                 File uploadPath = new File(realPath);
                 if(!uploadPath.exists()) {uploadPath.mkdirs();}
