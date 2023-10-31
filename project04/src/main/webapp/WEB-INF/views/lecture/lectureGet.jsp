@@ -96,6 +96,25 @@
         </div>
     </div>
     <jsp:include page="../layout/footer.jsp" />
+    <script>
+        $(function(){
+            let urlTag = window.location.href.split("#");
+            if(urlTag[1] == null || urlTag[1] == "detail") {
+                $("#detail").show();
+            } else {
+                $(".subTab a").removeClass("active");
+                $("." + urlTag[1] + "Tab").addClass("active");
+                $("#" + urlTag[1]).show();
+            }
 
+            $(".detailTab").on("click", function(){
+                $(".subTab a").removeClass("active");
+                $(".lectureSubCon").hide();
+                $(this).addClass("active");
+                let status = $(this).data('status');
+                $("#" + status).show();
+            });
+        });
+    </script>
 </body>
 </html>

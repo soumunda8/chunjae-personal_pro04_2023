@@ -4,10 +4,7 @@ import kr.ed.haebeop.domain.BoardMgn;
 import kr.ed.haebeop.domain.BoardVO;
 import kr.ed.haebeop.domain.Lecture;
 import kr.ed.haebeop.domain.LectureVO;
-import kr.ed.haebeop.service.BoardMgnService;
-import kr.ed.haebeop.service.BoardService;
-import kr.ed.haebeop.service.LectureService;
-import kr.ed.haebeop.service.MemberService;
+import kr.ed.haebeop.service.*;
 import kr.ed.haebeop.util.BoardPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,6 +33,9 @@ public class lectureCtrl {
 
     @Autowired
     private MemberService memberService;
+
+    @Autowired
+    private CategoryService categoryService;
 
     @RequestMapping("/list.do")
     public String lectureList(HttpServletRequest request, Model model) throws Exception {
