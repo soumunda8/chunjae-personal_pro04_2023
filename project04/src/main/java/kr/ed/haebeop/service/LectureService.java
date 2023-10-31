@@ -13,5 +13,6 @@ public interface LectureService {
     public LectureVO lectureGet(int lno) throws Exception;
     public Lecture lectureInsert(Lecture lecture) throws Exception;
     public void lectureUpdate(Lecture lecture) throws Exception;
+    public void lectureDelete(int lno) throws Exception;
 
 }

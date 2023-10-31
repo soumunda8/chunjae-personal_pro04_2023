@@ -8,111 +8,191 @@
     <title>HEABEOP::강의</title>
     <jsp:include page="../layout/head.jsp" />
     <link rel="stylesheet" href="${path }/resources/css/sub.css">
-    <style>
-        .lectureSubCon {display:none;}
-
-        .star-icon {
-            background-image:url("${path }/resources/image/common/heart0.png");
-            background-repeat:no-repeat;
-            width:20px;
-            height:20px;
-            background-size:cover;
-        }
-        .star-icon.click-star {
-            cursor:pointer;
-        }
-        /* 색칠된 상태 */
-        .star-icon.filled {
-            background-image:url("${path }/resources/image/common/heart1.png");
-        }
-        .star-rating {
-            display:flex;
-            align-items:center;
-        }
-        .star-rating label {
-            margin-right:10px;
-        }
-        .star-icons {
-            display:flex;
-        }
-    </style>
+    <link rel="stylesheet" href="${path }/resources/css/lecture.css">
 </head>
 <body>
     <jsp:include page="../layout/header.jsp" />
-    <div class="container-fluid bg-primary mb-5">
-        <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 400px">
-            <h3 class="display-3 font-weight-bold text-white">커뮤니티</h3>
-            <div class="d-inline-flex text-white">
-                <p class="m-0"><a class="text-white" href="${path }/">Home</a></p>
-                <p class="m-0 px-2">/</p>
-                <p class="m-0">강의</p>
+    <!-- 상단 강의 소개-->
+    <div class="bg-dark py-5">
+        <div class="container px-5">
+            <div class="row gx-5 justify-content-center">
+                <div class="col-lg-6">
+                    <img src="${path }/resources/upload/lecture/lect_sample.png" />
+                </div>
+                <div class="col-lg-6">
+                    <h3 style="color: var(--main-color);">${lecture.title } </h3>
+                    <h1 class="display-5 fw-bolder text-white mb-2">${lecture.title }</h1>
+                    <h3 class="lead text-white-50 mb-4">${lecture.subTitle }</h3>
+                    <h3 class="lead text-white-50 mb-4">${lecture.nm } 선생님</h3>
+                    <a class="btn btn-danger btn-lg px-4 me-sm-3" id="vvv" href="${path }/resources/upload/lecture/lectvideo_sample.mp4" target="_blank" >강의 맛보기</a>
+                    <a class="btn btn-warning btn-lg px-4 ml-2" href="#lect_review" >수강생 후기</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- Page content-->
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-lg-8">
+                <!-- 내부탭 -->
+                <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        <button class="nav-link active" id="tab-content" data-bs-toggle="tab" data-bs-target="#tab-content" type="button" role="tab" aria-selected="true">강의내용</button>
+                        <button class="nav-link" id="tab-curri" data-bs-toggle="tab" data-bs-target="#tab-curri" type="button" role="tab" aria-selected="false">커리큘럼</button>
+                        <button class="nav-link" id="tab-book" data-bs-toggle="tab" data-bs-target="#tab-book" type="button" role="tab" aria-selected="false">강의 교재</button>
+                        <button class="nav-link" id="tab-review" data-bs-toggle="tab" data-bs-target="#tab-review" type="button" role="tab" aria-selected="false">수강후기</button>
+                        <c:if test="${not empty boardMgnList }">
+                            <c:forEach var="boardMgn" items="${boardMgnList }">
+                                <a href="${path }/lecture/boardList.do?no=${boardMgn.bmNo }&lno=${lecture.lno }" class="nav-link">${boardMgn.boardNm }</a>
+                            </c:forEach>
+                        </c:if>
+                    </div>
+                </nav>
+                <!-- 강의 내용 -->
+                <article id="lect_con">
+                    <header class="mb-4">
+                        <h1 class="fw-bolder mb-1" style="margin-top: 2rem;">${lecture.title }</h1>
+                        <div class="text-muted fst-italic mb-2">${lecture.subTitle }</div>
+                    </header>
+                    <section class="mb-5">
+                        ${lecture.content }
+                    </section>
+                </article>
+                <!-- 목차 -->
+                <div id="lect_book">
+                    <ul class="list-group">
+                        <h2> 강의 교재 </h2>
+                        <div class="mt-1">
+                            <img src="${path }/resources/upload/lecture/book_sample.jpg" width="300px">
+                        </div>
+                    </ul>
+                </div>
+                <!-- 목차 -->
+                <div id="lect_list">
+                    <ul class="list-group">
+                        <h2> 목차 </h2>
+                        <c:if test="${not empty curriList }">
+                            <c:forEach var="curri" items="${curriList }">
+                                <li class="list-group-item">${curri.content}</li>
+                            </c:forEach>
+                        </c:if>
+                    </ul>
+                </div>
+                <!-- 수강후기(review) 영역 -->
+                <section class="mb-5" id="lect_review">
+                    <h2> 수강후기 </h2>
+                    <div class="card bg-light">
+                        <div class="card-body">
+                            <!-- 수강후기 리스트 -->
+                            <div>
+                                <c:if test="${not empty reviewList }">
+                                    <c:forEach var="review" items="${reviewList }">
+                                        <div class="d-flex">
+                                            <div class="review_mem">
+                                                <p style="margin: 0 auto;">${review.memId}</p>
+                                            </div>
+                                            <div class="riview_list">
+                                                <div class="star-rating">
+                                                        <%-- 별점 출력 --%>
+                                                    <c:forEach begin="1" end="${review.star}" var="i">
+                                                        <span class="star-icon filled"></span>
+                                                    </c:forEach>
+                                                    <c:forEach begin="${review.star + 1}" end="5" var="i">
+                                                        <span class="star-icon"></span>
+                                                    </c:forEach>
+                                                </div>
+                                                <div>${review.content } </div>
+                                                <div id="reg">
+                                                    <fmt:parseDate value="${review.regdate }" var="regdate" pattern="yyyy-MM-dd HH:mm:ss" />
+                                                    <fmt:formatDate value="${regdate }" pattern="yyyy-MM-dd" />
+                                                </div>
+                                            </div>
+                                            <div>
+                                            </div>
+
+                                        </div>
+                                    </c:forEach>
+                                </c:if>
+                            </div>
+                            <c:if test="${empty reviewList }">
+                                <tr>
+                                    <td colspan="4">수강후기가 존재하지 않습니다.</td>
+                                </tr>
+                            </c:if>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <!-- 우측 탭-->
+            <div class="col-lg-4" id="lect_tab">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h2><fmt:formatNumber value="${lecture.LPrice }" pattern="#,###" />원</h2>
+                        <a href="${path}/payment/payinsert.do?lno=${lecture.lno }" class="btn btn-primary" id="button-search" >바로 수강신청 하기</a>
+                    </div>
+                    <div class="card-body">
+                        <div class="input-group">
+                            <ul>
+                                <li>난이도 : 입문</li>
+                                <li>1개의 코딩 연습</li>
+                                <li>수강기한 : 무제한</li>
+                                <li>수료증 : 발급</li>
+                            </ul>
+                            <div>지식공유자 답변이 제공되는 강의입니다</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="container-fluid mb-5">
-        <div class="container">
-            <h3 class="mb-5 text-center py-2">강의</h3>
-            <div class="d-flex flex-column align-items-center justify-content-center">
-                <table class="table mb-5">
-                    <tbody>
-                    <tr>
-                        <th class="text-center" scope="col">제목</th>
-                        <td class="text-center">${lecture.title }</td>
-                    </tr>
-                    <tr>
-                        <th class="text-center" scope="col">내용</th>
-                        <td class="text-center">${lecture.subTitle }</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="d-flex flex-column align-items-center justify-content-center mb-5">
-                <ul class="nav nav-tabs justify-content-center subTab">
-                    <li class="nav-item">
-                        <a href="#detail" class="nav-link detailTab active" aria-current="page" data-status="detail">상세보기</a>
-                    </li>
-                    <c:if test="${!empty boardList }">
-                        <li class="nav-item">
-                            <a href="#board${boardMgn.bmNo }" class="nav-link detailTab board${boardMgn.bmNo }Tab" data-status="board${boardMgn.bmNo }">${boardMgn.boardNm }</a>
-                        </li>
-                    </c:if>
-                    <%--<li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-                    </li>--%>
-                </ul>
-            </div>
-            <div class="flex-column align-items-center justify-content-center lectureSubCon" id="detail">
-                ${lecture.content }
-            </div>
-            <c:if test="${!empty boardList }">
-            <div class="flex-column align-items-center justify-content-center lectureSubCon" id="board${boardMgn.bmNo }">
-                <jsp:include page="../board/boardListForm.jsp" />
-            </div>
-            </c:if>
-        </div>
-    </div>
     <jsp:include page="../layout/footer.jsp" />
     <script>
-        $(function(){
-            let urlTag = window.location.href.split("#");
-            if(urlTag[1] == null || urlTag[1] == "detail") {
-                $("#detail").show();
+        window.addEventListener("scroll", function() {
+            const scrollingDiv = document.querySelector(".col-lg-4");
+            const scrollY = window.scrollY;
+            if (scrollY >= 500) {
+                // 스크롤 위치가 500px 이상이면 div를 상단에 고정
+                scrollingDiv.style.top = 100 + scrollY + "px";
             } else {
-                $(".subTab a").removeClass("active");
-                $("." + urlTag[1] + "Tab").addClass("active");
-                $("#" + urlTag[1]).show();
+                // 스크롤 위치가 500px 미만이면 초기 위치로 이동
+                scrollingDiv.style.top = "500px";
             }
+        });
 
-            $(".detailTab").on("click", function(){
-                $(".subTab a").removeClass("active");
-                $(".lectureSubCon").hide();
-                $(this).addClass("active");
-                let status = $(this).data('status');
-                $("#" + status).show();
+        // tab click 하면 지정 구역으로 이동
+        document.addEventListener('DOMContentLoaded', function() {
+            const lectureTab = document.getElementById('tab-content');
+            const lectureContent = document.getElementById('lect_con');
+            lectureTab.addEventListener('click', function() {
+                const scrollPosition = lectureContent.offsetTop - 50;
+                window.scrollTo({ top: scrollPosition, behavior: 'smooth' });
+            });
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+            const lectureTab = document.getElementById('tab-curri');
+            const lectureContent = document.getElementById('lect_list');
+            lectureTab.addEventListener('click', function() {
+                const scrollPosition = lectureContent.offsetTop - 50;
+                window.scrollTo({ top: scrollPosition, behavior: 'smooth' });
+            });
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+            const lectureTab = document.getElementById('tab-review');
+            const lectureContent = document.getElementById('lect_review');
+            lectureTab.addEventListener('click', function() {
+                const scrollPosition = lectureContent.offsetTop - 50;
+                window.scrollTo({ top: scrollPosition, behavior: 'smooth' });
+            });
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+            const lectureTab = document.getElementById('tab-book');
+            const lectureContent = document.getElementById('lect_book');
+            lectureTab.addEventListener('click', function() {
+                const scrollPosition = lectureContent.offsetTop - 50;
+                window.scrollTo({ top: scrollPosition, behavior: 'smooth' });
             });
         });
     </script>

@@ -2,6 +2,7 @@ package kr.ed.haebeop.controller;
 
 import kr.ed.haebeop.domain.*;
 import kr.ed.haebeop.service.*;
+import kr.ed.haebeop.util.LecturePage;
 import kr.ed.haebeop.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -217,7 +218,7 @@ public class AdminCtrl {
         String keyword = request.getParameter("keyword");
         int curPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
 
-        Page page = new Page();
+        LecturePage page = new LecturePage();
         page.setSearchType(type);
         page.setSearchKeyword(keyword);
         int total = lectureService.lectureCount(page);
@@ -253,7 +254,7 @@ public class AdminCtrl {
 
         ServletContext application = request.getSession().getServletContext();
         //String realPath = application.getRealPath("/resources/upload");                                                             // 운영 서버
-        String realPath = "D:\\park\\project\\personal\\personal_pro04_2023\\project04\\src\\main\\webapp\\resources\\upload\\lecture";	  // 개발 서버
+        String realPath = "C:\\Dev\\IdeaProjects\\project\\personal\\project4\\project04\\src\\main\\webapp\\resources\\upload\\lecture";	  // 개발 서버
         File uploadPath = new File(realPath);
         if(!uploadPath.exists()) {uploadPath.mkdirs();}
 
@@ -313,9 +314,6 @@ public class AdminCtrl {
         fileDTO.setToUse("lecture");
         List<FileDTO> fileList= filesService.fileListByPar(fileDTO);
         model.addAttribute("fileList", fileList);
-        for(FileDTO file : fileList) {
-            System.out.println(file.toString());
-        }
 
         List<Category> categoryList = categoryService.categoryKeywordList("su");
         model.addAttribute("categoryList", categoryList);
@@ -334,9 +332,6 @@ public class AdminCtrl {
         fileDTO.setToUse("lecture");
         List<FileDTO> fileList= filesService.fileListByPar(fileDTO);
         model.addAttribute("fileList", fileList);
-        for(FileDTO file : fileList) {
-            System.out.println(file.toString());
-        }
 
         List<Category> categoryList = categoryService.categoryKeywordList("su");
         model.addAttribute("categoryList", categoryList);
@@ -347,15 +342,20 @@ public class AdminCtrl {
     @PostMapping("/lectureEdit.do")
     public String lectureUpdatePro(HttpServletRequest request,Lecture lecture, Model model, MultipartFile uploadThumbnail, MultipartFile uploadVideo) throws Exception {
 
+        if(lecture.getLectureType() == 0) {
+            lecture.setStartDate(request.getParameter("originStartDate"));
+            lecture.setEndDate(request.getParameter("originEndDate"));
+        }
+
         lectureService.lectureUpdate(lecture);
 
         ServletContext application = request.getSession().getServletContext();
         //String realPath = application.getRealPath("/resources/upload");                                                             // 운영 서버
-        String realPath = "D:\\park\\project\\personal\\personal_pro04_2023\\project04\\src\\main\\webapp\\resources\\upload\\lecture";	  // 개발 서버
+        String realPath = "C:\\Dev\\IdeaProjects\\project\\personal\\project4\\project04\\src\\main\\webapp\\resources\\upload\\lecture";	  // 개발 서버
         File uploadPath = new File(realPath);
         if(!uploadPath.exists()) {uploadPath.mkdirs();}
 
-        if(uploadThumbnail != null) {
+        if(uploadThumbnail != null && uploadThumbnail.getSize() != 0) {;
             String originalFilename = uploadThumbnail.getOriginalFilename();
             UUID uuid = UUID.randomUUID();
             String uploadFilename = uuid.toString() + "_" + originalFilename;
@@ -376,7 +376,7 @@ public class AdminCtrl {
             filesService.filesInsert(fileDTO);                                  // DB 등록
         }
 
-        if(uploadVideo != null) {
+        if(uploadVideo != null && uploadVideo.getSize() != 0) {
             String originalFilename = uploadVideo.getOriginalFilename();
             UUID uuid = UUID.randomUUID();
             String uploadFilename = uuid.toString() + "_" + originalFilename;
@@ -398,6 +398,30 @@ public class AdminCtrl {
         }
 
         return "redirect:/admin/getLecture.do?no=" + lecture.getLno();
+    }
+
+    @GetMapping("/lectureDel.do")
+    public String lectureDeletePro(HttpServletRequest request, @RequestParam("no") int lno, Model model) throws Exception {
+
+        ServletContext application = request.getSession().getServletContext();
+        //String realPath = application.getRealPath("/resources/upload/");                                                            // 운영 서버
+        String realPath = "C:\\Dev\\IdeaProjects\\project\\personal\\project4\\project04\\src\\main\\webapp\\resources\\upload";	  // 개발 서버
+
+        FileDTO fileDTO = new FileDTO();
+        fileDTO.setToUse("lecture");
+        fileDTO.setPar(lno);
+        List<FileDTO> fileList = filesService.fileListByPar(fileDTO);
+        for(FileDTO files : fileList) {
+            File file = new File( realPath + File.separator + files.getSaveFolder() + File.separator + files.getSaveNm());
+            if (file.exists()) { // 해당 파일이 존재하면
+                file.delete(); // 파일 삭제
+                filesService.filesDelete(files.getFno());
+            }
+        }
+
+        lectureService.lectureDelete(lno);
+
+        return "redirect:/admin/lectureConf.do";
     }
 
     @GetMapping("/categoryConf.do")
@@ -487,7 +511,7 @@ public class AdminCtrl {
         if(uploadThumbnail != null) {
             ServletContext application = request.getSession().getServletContext();
             //String realPath = application.getRealPath("/resources/upload/product");                                                             // 운영 서버
-            String realPath = "D:\\park\\project\\personal\\personal_pro04_2023\\project04\\src\\main\\webapp\\resources\\upload\\product";	  // 개발 서버
+            String realPath = "C:\\Dev\\IdeaProjects\\project\\personal\\project4\\project04\\src\\main\\webapp\\resources\\upload\\product";	  // 개발 서버
 
             File uploadPath = new File(realPath);
             if(!uploadPath.exists()) {uploadPath.mkdirs();}
@@ -559,7 +583,7 @@ public class AdminCtrl {
         if(uploadThumbnail != null) {
             ServletContext application = request.getSession().getServletContext();
             //String realPath = application.getRealPath("/resources/upload/product");                                                             // 운영 서버
-            String realPath = "D:\\park\\project\\personal\\personal_pro04_2023\\project04\\src\\main\\webapp\\resources\\upload\\product";	  // 개발 서버
+            String realPath = "C:\\Dev\\IdeaProjects\\project\\personal\\project4\\project04\\src\\main\\webapp\\resources\\upload\\product";	  // 개발 서버
 
             File uploadPath = new File(realPath);
             if(!uploadPath.exists()) {uploadPath.mkdirs();}
@@ -589,7 +613,23 @@ public class AdminCtrl {
     }
 
     @GetMapping("/productDel.do")
-    public String categoryDeletePro(@RequestParam("no") int proNo, Model model) throws Exception {
+    public String categoryDeletePro(HttpServletRequest request, @RequestParam("no") int proNo, Model model) throws Exception {
+
+        ServletContext application = request.getSession().getServletContext();
+        //String realPath = application.getRealPath("/resources/upload/");                                                            // 운영 서버
+        String realPath = "C:\\Dev\\IdeaProjects\\project\\personal\\project4\\project04\\src\\main\\webapp\\resources\\upload";	  // 개발 서버
+
+        FileDTO fileDTO = new FileDTO();
+        fileDTO.setToUse("product");
+        fileDTO.setPar(proNo);
+        List<FileDTO> fileList = filesService.fileListByPar(fileDTO);
+        for(FileDTO files : fileList) {
+            File file = new File( realPath + File.separator + files.getSaveFolder() + File.separator + files.getSaveNm());
+            if (file.exists()) { // 해당 파일이 존재하면
+                file.delete(); // 파일 삭제
+                filesService.filesDelete(files.getFno());
+            }
+        }
 
         productService.productDelete(proNo);
 
@@ -637,7 +677,7 @@ public class AdminCtrl {
         String keyword = request.getParameter("keyword");
         int curPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
 
-        Page page = new Page();
+        LecturePage page = new LecturePage();
         page.setSearchType(type);
         page.setSearchKeyword(keyword);
         int total = lectureService.lectureCount(page);

@@ -1,11 +1,9 @@
 package kr.ed.haebeop.controller;
 
-import kr.ed.haebeop.domain.BoardMgn;
-import kr.ed.haebeop.domain.BoardVO;
-import kr.ed.haebeop.domain.Lecture;
-import kr.ed.haebeop.domain.LectureVO;
+import kr.ed.haebeop.domain.*;
 import kr.ed.haebeop.service.*;
 import kr.ed.haebeop.util.BoardPage;
+import kr.ed.haebeop.util.LecturePage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,70 +38,46 @@ public class lectureCtrl {
     @RequestMapping("/list.do")
     public String lectureList(HttpServletRequest request, Model model) throws Exception {
 
-        int lno = Integer.parseInt(request.getParameter("no"));
+        String type = request.getParameter("type");
+        String keyword = request.getParameter("keyword");
+        int curPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
+        String cateNo = request.getParameter("cateNo") != null ? request.getParameter("cateNo") : "";
 
-        String sid = (String) session.getAttribute("sid");
+        LecturePage page = new LecturePage();
+        page.setSearchType(type);
+        page.setSearchKeyword(keyword);
+        page.setCateNo(cateNo);
+        int total = lectureService.lectureCount(page);
+
+        page.makeBlock(curPage, total);
+        page.makeLastPageNum(total);
+        page.makePostStart(curPage, total);
+
+        model.addAttribute("type", type);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("page", page);
+        model.addAttribute("curPage", curPage);
+        List<LectureVO> lectureList = lectureService.lectureList(page);
+        model.addAttribute("lectureList", lectureList);
+
+        List<Category> categoryList = categoryService.categoryKeywordList("su");
+        model.addAttribute("categoryList", categoryList);
+
+        model.addAttribute("cateNo", cateNo);
+
+        return "/lecture/lectureList";
+
+    }
+
+    @RequestMapping("/get.do")
+    public String lectureGet(HttpServletRequest request, Model model) throws Exception {
+
+        int lno = Integer.parseInt(request.getParameter("lno"));
 
         LectureVO lecture = lectureService.lectureGet(lno);
         model.addAttribute("lecture", lecture);
-        
-        BoardMgn boardMgn = boardMgnService.getSubBoardMgn(lno);
 
-        System.out.println(boardMgn.toString());
-
-        if(boardMgn != null) {
-            String type = request.getParameter("type");
-            String keyword = request.getParameter("keyword");
-            int curPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
-
-            BoardPage page = new BoardPage();
-            page.setSearchType(type);
-            page.setSearchKeyword(keyword);
-            page.setBmNo(boardMgn.getBmNo());
-            int total = boardService.boardCount(page);
-
-            page.makeBlock(curPage, total);
-            page.makeLastPageNum(total);
-            page.makePostStart(curPage, total);
-
-            model.addAttribute("type", type);
-            model.addAttribute("keyword", keyword);
-            model.addAttribute("page", page);
-            model.addAttribute("curPage", curPage);
-            List<BoardVO> boardList = boardService.boardList(page);
-
-            for(BoardVO board : boardList){
-                System.out.println("-------------------------");
-                System.out.println(board.toString());
-            }
-            System.out.println("-------------------------");
-
-            for(BoardVO boardVO : boardList) {
-                String authorNm = boardVO.getNm();
-                if(!authorNm.equals("관리자")) {
-                    String nm = authorNm.substring(0, 1);
-                    for(int i = 0; i < authorNm.length()-2; i++){
-                        nm += "*";
-                    }
-                    nm += authorNm.substring(authorNm.length() - 1);
-                    boardVO.setNm(nm);
-                }
-            }
-
-            model.addAttribute("boardList", boardList);
-            model.addAttribute("boardMgn", boardMgn);
-
-            // 권한 관련 - 등록
-            boolean addCheck = false;
-            if(sid != null && (boardMgn.getAboutAuth() >= memberService.memberGet(sid).getGrade() || sid.equals("admin"))) {
-                addCheck = true;
-            }
-            model.addAttribute("addCheck", addCheck);
-
-            model.addAttribute("h2Block", " style='display:none'");
-        }
-
-        return "/lecture/lectureList";
+        return "/lecture/lectureGet";
     }
 
 }

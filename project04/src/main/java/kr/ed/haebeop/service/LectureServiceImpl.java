@@ -41,4 +41,9 @@ public class LectureServiceImpl implements LectureService {
     public void lectureUpdate(Lecture lecture) throws Exception {
         lectureMapper.lectureUpdate(lecture);
     }
+
+    @Override
+    public void lectureDelete(int lno) throws Exception {
+        lectureMapper.lectureDelete(lno);
+    }
 }
