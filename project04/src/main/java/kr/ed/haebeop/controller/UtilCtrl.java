@@ -35,8 +35,7 @@ public class UtilCtrl {
         FileDTO files = filesService.fileByFno(no);
 
         ServletContext application = request.getSession().getServletContext();
-        //String realPath = application.getRealPath("/resources/upload/");                                                            // 운영 서버
-        String realPath = "C:\\Dev\\IdeaProjects\\project\\personal\\project4\\project04\\src\\main\\webapp\\resources\\upload/";	  // 개발 서버
+        String realPath = application.getRealPath("/resources/upload/");                                                            // 운영 서버
 
         String saveFolder = realPath + files.getSaveFolder();
         String originalFile = files.getOriginNm();
@@ -85,8 +84,7 @@ public class UtilCtrl {
         int fno = fileDTO.getFno();
 
         ServletContext application = request.getSession().getServletContext();
-        //String realPath = application.getRealPath("/resources/upload/");                                                            // 운영 서버
-        String realPath = "C:\\Dev\\IdeaProjects\\project\\personal\\project4\\project04\\src\\main\\webapp\\resources\\upload";	  // 개발 서버
+        String realPath = application.getRealPath("/resources/upload/");                                                            // 운영 서버
 
         FileDTO files = filesService.fileByFno(fno);
         File file = new File( realPath + File.separator + files.getSaveFolder() + File.separator + files.getSaveNm());

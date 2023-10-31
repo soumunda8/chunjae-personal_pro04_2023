@@ -11,26 +11,26 @@
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
             <div class="navbar-nav font-weight-bold mx-auto py-0">
-                <div class="nav-item dropdown">
+                <%--<div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">소개</a>
                     <div class="dropdown-menu rounded-0 m-0">
                         <a href="#" class="dropdown-item">인사말</a>
                         <a href="#" class="dropdown-item">연혁</a>
                         <a href="#" class="dropdown-item">오시는 길</a>
                     </div>
-                </div>
+                </div>--%>
                 <a href="${path }/lecture/list.do" class="nav-item nav-link">강의</a>
                 <div class="nav-item dropdown board_drop_menu">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">커뮤니티</a>
                     <div class="dropdown-menu rounded-0 m-0" id="boardMenuArea"></div>
                 </div>
-                <div class="nav-item dropdown">
+                <%--<div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">이벤트</a>
                     <div class="dropdown-menu rounded-0 m-0">
                         <a href="#" class="dropdown-item">출석체크</a>
                         <a href="#" class="dropdown-item">설문조사</a>
                     </div>
-                </div>
+                </div>--%>
             </div>
             <c:if test="${sid != null}">
                 <a href="${path }/user/logout.do" class="btn btn-primary px-4 mr-2"><i class="fas fa-sign-out-alt pr-2" style="color:#ffffff;"></i> 로그아웃</a>

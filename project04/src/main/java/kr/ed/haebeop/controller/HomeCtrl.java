@@ -27,9 +27,4 @@ public class HomeCtrl {
         return "/index";
     }
 
-    @RequestMapping(value = "/sample")
-    public String sample(Model model) {
-        return "/sample";
-    }
-
 }

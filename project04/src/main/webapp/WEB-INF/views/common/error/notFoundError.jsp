@@ -10,7 +10,7 @@
     <jsp:include page="../../layout/head.jsp" />
     <style>
         html,body {overflow:hidden;}
-        body {background-image:url(${path }/resources/image/common/error.png);background-position:center center;position:relative;background-repeat:no-repeat;background-size:contain;}
+        body {background-image:url(${path }/resources/image/common/notFoundError.png);background-position:center center;position:relative;background-repeat:no-repeat;background-size:contain;}
         a {position:absolute;top:80%;left:50%;width:200px;margin-left:-100px;text-align:center;padding:20px 0;background-color:var(--main-color);color:#fff;font-size:20px;font-weight:600;border-radius:30px;}
     </style>
 </head>

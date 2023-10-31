@@ -25,5 +25,6 @@ public class BoardVO {
     private int aboutAuth;
     private boolean commentUse;
     private boolean fileUse;
+    private String pathGetUrl = "";
 
 }

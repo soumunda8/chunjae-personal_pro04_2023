@@ -13,5 +13,6 @@ public class Study {
     private boolean studyYn;
     private int totalTime;
     private boolean canYn;
+    private String resDate;
 
 }

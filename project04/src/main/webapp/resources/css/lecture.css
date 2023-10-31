@@ -130,7 +130,7 @@
     transition: top 0.5s; /* 부드러운 이동을 위한 트랜지션 */
 }
 
-.col-lg-4.mypageLayout {
+.col-lg-4.myPageLayout {
     top : 10px;
 }
 

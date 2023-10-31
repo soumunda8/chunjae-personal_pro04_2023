@@ -23,16 +23,16 @@
                             </div>
                             <ul class="my-2" style="width:100%;">
                                 <li><a href="${path }/user/myPage.do" class="active px-4 py-2">나의 정보</a></li>
-                                <li><a href="${path }/user/mypageLectList.do" class="px-4 py-2">나의 강의실</a></li>
-                                <li><a href="${path }/user/mypagePaylistMem.do" class="px-4 py-2">나의 결제정보</a></li>
-                                <li><a href="${path }/academy/mypageReservation.do" class="px-4 py-2">나의 예약정보</a></li>
+                                <li><a href="${path }/user/myPageLectList.do" class="px-4 py-2">나의 강의실</a></li>
+                                <li><a href="${path }/user/myPagePaylistMem.do" class="px-4 py-2">나의 결제정보</a></li>
+                                <li><a href="${path }/academy/myPageReservation.do" class="px-4 py-2">나의 예약정보</a></li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-10 p-2">
                         <div class="d-flex flex-column align-items-center justify-content-center right_side">
                             <h5 class="my-4" style="font-size:2.5em;font-weight:600;">회원 비밀번호 수정</h5>
-                            <form action="${path }/user/mypageChangePw.do" method="post" style="width:100%;" onsubmit="return pwCheck(this)">
+                            <form action="${path }/user/myPageChangePw.do" method="post" style="width:100%;" onsubmit="return pwCheck(this)">
 
                                 <div class="container px-5">
                                     <table class="table table-bordered mx-3">

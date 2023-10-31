@@ -14,7 +14,7 @@ public class Delivery {
     private String dTel;
     private int dStatus;
     private String resDate;
-    private String DeliveryDate;
+    private String deliveryDate;
     private String dCode;
     private String author;
 

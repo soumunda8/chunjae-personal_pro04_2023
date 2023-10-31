@@ -36,4 +36,13 @@ public class ApplicationConfig {
     @Bean
     public ProductService productService() {return new ProductServiceImpl();}
 
+    @Bean
+    public PaymentService paymentService() {return new PaymentServiceImpl();}
+
+    @Bean
+    public DeliveryService deliveryService() {return new DeliveryServiceImpl();}
+
+    @Bean
+    public StudyService studyService() {return new StudyServiceImpl();}
+
 }

@@ -114,7 +114,7 @@ CREATE TABLE lecture(
 );
 
 CREATE VIEW lectureView AS (
-	SELECT l.lno AS lno, l.title AS title, l.subTitle AS subTitle, l.content AS content, l.lectureType AS lectureType, l.studentCnt AS studentCnt, l.startDate AS startDate, l.endDate AS endDate, l.daily AS daily, l.proNo AS proNo, l.cateNo AS cateNo, l.teacherId AS teacherId, l.lPrice AS lPrice, l.useYn AS useYn, cate.cName AS cateName, pro.proNm AS proNm, m.nm AS nm 
+	SELECT l.lno AS lno, l.title AS title, l.subTitle AS subTitle, l.content AS content, l.lectureType AS lectureType, l.studentCnt AS studentCnt, l.startDate AS startDate, l.endDate AS endDate, l.daily AS daily, l.proNo AS proNo, l.cateNo AS cateNo, l.teacherId AS teacherId, l.lPrice AS lPrice, l.useYn AS useYn, cate.cName AS cateName, pro.proNm AS proNm, m.nm AS nm, pro.proPrice AS proPrice
 	FROM lecture l 
 	LEFT JOIN member m ON l.teacherId = m.id
 	LEFT JOIN category cate ON l.cateNo = cate.cateNo
@@ -130,12 +130,13 @@ CREATE TABLE lectureList(
 );
 
 CREATE TABLE study(
-	sno INT AUTO_INCREMENT PRIMARY KEY,			-- 수강 번호 : 자동증가
-	lno INT NOT NULL,									-- 수강 강의 번호
-	studentId VARCHAR(20) NOT NULL,				-- 수강생 아이디
-	studyYn BOOLEAN DEFAULT FALSE,				-- 수강 진행 여부
-	totalTime INT NOT NULL,							-- 총 수강 시간
-	canYn BOOLEAN DEFAULT FALSE					-- 수강 가능 여부
+	sno INT AUTO_INCREMENT PRIMARY KEY,						-- 수강 번호 : 자동증가
+	lno INT NOT NULL,												-- 수강 강의 번호
+	studentId VARCHAR(20) NOT NULL,							-- 수강생 아이디
+	studyYn BOOLEAN DEFAULT FALSE,							-- 수강 진행 여부
+	totalTime INT NOT NULL,										-- 총 수강 시간
+	canYn BOOLEAN DEFAULT FALSE,								-- 수강 가능 여부
+   resDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP()		-- 수강 등록일
 );
 
 CREATE TABLE product(
@@ -153,7 +154,7 @@ CREATE TABLE delivery(
    dTel VARCHAR(13),                                  -- 배송회사 전화번호
    dStatus INT DEFAULT 0,										-- 배송상태 - [0:배송전 | 1:배송중 | 2:도착 | 3:구매결정 | 4.구매취소]
 	resDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),     -- 배송 등록일
-   DeliveryDate TIMESTAMP,                            -- 배송 완료일
+   deliveryDate TIMESTAMP,                            -- 배송 완료일
    dCode VARCHAR(30),                                 -- 화물코드
    author VARCHAR(20) NOT NULL                        -- 구매 고객 아이디
 );
@@ -162,14 +163,13 @@ CREATE TABLE payment(
    payNo INT AUTO_INCREMENT PRIMARY KEY,					-- 결제 번호 : 자동증가
    author VARCHAR(20) NOT NULL,        					-- 회원 아이디
    sno INT NOT NULL,												-- 수강 번호
-   amount INT DEFAULT 1,           							-- 결제 수량
    pMethod VARCHAR(10),                					-- 결제 방법 - [1:신용카드 | 2:체크카드 | 3:계좌이체]
    pCom VARCHAR(100),                  					-- 결제 대행사
    pNum VARCHAR(100),                  					-- 결제카드(계좌)번호
    payPrice INT DEFAULT 1000,      							-- 결제 금액
-   payStatus INT DEFAULT 0,           						-- 배송상태 - [0:결제완료 | 1:결제완료 | 2:결제취소]
+   payStatus INT DEFAULT 0,           						-- 배송상태 - [0:결제완료 | 1:결제취소]
    dno INT,							               			-- 배송 번호
    resDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP()     	-- 결제 등록일
 );
 
-CREATE VIEW studyPayList AS (SELECT pay.payNo AS payNo, pay.author AS author, pay.sno AS sno, pay.amount AS amount, pay.pMethod AS pMethod, pay.pCom AS pCom, pay.pNum AS pNum, pay.payPrice AS payPrice, pay.payStatus AS payStatus, l.title AS lectureTitle, f.saveFolder AS thumbnailSaveFolder, f.originNm AS thumbnailOriginNm, f.saveNm AS thumbnailSaveNm, deli.dno AS dno, deli.cusNm AS cusNm, deli.cusTel AS cusTel, deli.cusAddr AS cusAddr, deli.dTel AS dTel, deli.dStatus AS dStatus, deli.resDate AS resDate, deli.DeliveryDate AS DeliveryDate, deli.dCode AS dCode FROM payment pay, delivery deli, lecture l, study s, files f WHERE pay.sno = s.sno AND l.lno = s.lno AND l.thumbnail = f.fno AND pay.dno = deli.dno);
+CREATE VIEW studyPayList AS (SELECT pay.payNo AS payNo, pay.author AS author, pay.sno AS sno, pay.pMethod AS pMethod, pay.pCom AS pCom, pay.pNum AS pNum, pay.payPrice AS payPrice, pay.payStatus AS payStatus, l.title AS lectureTitle, deli.dno AS dno, deli.cusNm AS cusNm, deli.cusTel AS cusTel, deli.cusAddr AS cusAddr, deli.dTel AS dTel, deli.dStatus AS dStatus, deli.resDate AS resDate, deli.DeliveryDate AS DeliveryDate, deli.dCode AS dCode FROM payment pay, delivery deli, lecture l, study s WHERE pay.sno = s.sno AND l.lno = s.lno AND pay.dno = deli.dno);

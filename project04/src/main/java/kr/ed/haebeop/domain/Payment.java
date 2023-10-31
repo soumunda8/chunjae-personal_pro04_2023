@@ -7,10 +7,9 @@ import lombok.*;
 @NoArgsConstructor
 public class Payment {
 
-    private int payno;
+    private int payNo;
     private String author;
     private int sno;
-    private int amount;
     private String pMethod;
     private String pCom;
     private String pNum;

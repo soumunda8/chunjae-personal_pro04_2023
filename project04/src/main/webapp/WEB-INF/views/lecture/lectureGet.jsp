@@ -9,6 +9,10 @@
     <jsp:include page="../layout/head.jsp" />
     <link rel="stylesheet" href="${path }/resources/css/sub.css">
     <link rel="stylesheet" href="${path }/resources/css/lecture.css">
+    <style>
+        .nav-tabs .nav-link {background-color:#fff;}
+        a.nav-link {color:#333}
+    </style>
 </head>
 <body>
     <jsp:include page="../layout/header.jsp" />
@@ -24,12 +28,10 @@
                     <h1 class="display-5 fw-bolder text-white mb-2">${lecture.title }</h1>
                     <h3 class="lead text-white-50 mb-4">${lecture.subTitle }</h3>
                     <h3 class="lead text-white-50 mb-4">${lecture.nm } 선생님</h3>
-                    <a class="btn btn-danger btn-lg px-4 me-sm-3" id="vvv" href="${path }/resources/upload/lecture/lectvideo_sample.mp4" target="_blank" >강의 맛보기</a>
-                    <a class="btn btn-warning btn-lg px-4 ml-2" href="#lect_review" >수강생 후기</a>
+                    <a class="btn btn-primary btn-lg px-4 me-sm-3" href="${path }/resources/upload/lecture/lectvideo_sample.mp4" target="_blank" >강의 맛보기</a>
                 </div>
             </div>
         </div>
-    </div>
     </div>
 
     <!-- Page content-->
@@ -39,10 +41,10 @@
                 <!-- 내부탭 -->
                 <nav>
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                        <button class="nav-link active" id="tab-content" data-bs-toggle="tab" data-bs-target="#tab-content" type="button" role="tab" aria-selected="true">강의내용</button>
-                        <button class="nav-link" id="tab-curri" data-bs-toggle="tab" data-bs-target="#tab-curri" type="button" role="tab" aria-selected="false">커리큘럼</button>
-                        <button class="nav-link" id="tab-book" data-bs-toggle="tab" data-bs-target="#tab-book" type="button" role="tab" aria-selected="false">강의 교재</button>
-                        <button class="nav-link" id="tab-review" data-bs-toggle="tab" data-bs-target="#tab-review" type="button" role="tab" aria-selected="false">수강후기</button>
+                        <button class="nav-link active" id="tab-content" data-bs-target="#tab-content" type="button">강의내용</button>
+                        <button class="nav-link" id="tab-curri" data-bs-target="#tab-curri" type="button">커리큘럼</button>
+                        <button class="nav-link" id="tab-book" data-bs-target="#tab-book" type="button">강의 교재</button>
+                        <button class="nav-link" id="tab-review" data-bs-target="#tab-review" type="button">수강후기</button>
                         <c:if test="${not empty boardMgnList }">
                             <c:forEach var="boardMgn" items="${boardMgnList }">
                                 <a href="${path }/lecture/boardList.do?no=${boardMgn.bmNo }&lno=${lecture.lno }" class="nav-link">${boardMgn.boardNm }</a>
@@ -129,8 +131,8 @@
             <div class="col-lg-4" id="lect_tab">
                 <div class="card mb-4">
                     <div class="card-header">
-                        <h2><fmt:formatNumber value="${lecture.LPrice }" pattern="#,###" />원</h2>
-                        <a href="${path}/payment/payinsert.do?lno=${lecture.lno }" class="btn btn-primary" id="button-search" >바로 수강신청 하기</a>
+                        <h2><fmt:formatNumber value="${lecture.LPrice + lecture.proPrice }" pattern="#,###" />원</h2>
+                        <a href="${path}/payment/pay.do?no=${lecture.lno }" class="btn btn-primary" id="button-search" >바로 수강신청 하기</a>
                     </div>
                     <div class="card-body">
                         <div class="input-group">

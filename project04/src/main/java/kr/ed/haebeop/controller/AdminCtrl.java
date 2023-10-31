@@ -7,10 +7,7 @@ import kr.ed.haebeop.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletContext;
@@ -56,6 +53,12 @@ public class AdminCtrl {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private PaymentService paymentService;
+
+    @Autowired
+    private DeliveryService deliveryService;
 
     @GetMapping("/")
     public String home(Model model) throws Exception {
@@ -253,8 +256,7 @@ public class AdminCtrl {
         Lecture lec = lectureService.lectureInsert(lecture);
 
         ServletContext application = request.getSession().getServletContext();
-        //String realPath = application.getRealPath("/resources/upload");                                                             // 운영 서버
-        String realPath = "C:\\Dev\\IdeaProjects\\project\\personal\\project4\\project04\\src\\main\\webapp\\resources\\upload\\lecture";	  // 개발 서버
+        String realPath = application.getRealPath("/resources/upload/lecture");                                                             // 운영 서버
         File uploadPath = new File(realPath);
         if(!uploadPath.exists()) {uploadPath.mkdirs();}
 
@@ -350,8 +352,8 @@ public class AdminCtrl {
         lectureService.lectureUpdate(lecture);
 
         ServletContext application = request.getSession().getServletContext();
-        //String realPath = application.getRealPath("/resources/upload");                                                             // 운영 서버
-        String realPath = "C:\\Dev\\IdeaProjects\\project\\personal\\project4\\project04\\src\\main\\webapp\\resources\\upload\\lecture";	  // 개발 서버
+        String realPath = application.getRealPath("/resources/upload/lecture");                                                             // 운영 서버
+
         File uploadPath = new File(realPath);
         if(!uploadPath.exists()) {uploadPath.mkdirs();}
 
@@ -404,8 +406,7 @@ public class AdminCtrl {
     public String lectureDeletePro(HttpServletRequest request, @RequestParam("no") int lno, Model model) throws Exception {
 
         ServletContext application = request.getSession().getServletContext();
-        //String realPath = application.getRealPath("/resources/upload/");                                                            // 운영 서버
-        String realPath = "C:\\Dev\\IdeaProjects\\project\\personal\\project4\\project04\\src\\main\\webapp\\resources\\upload";	  // 개발 서버
+        String realPath = application.getRealPath("/resources/upload/");                                                            // 운영 서버
 
         FileDTO fileDTO = new FileDTO();
         fileDTO.setToUse("lecture");
@@ -510,8 +511,7 @@ public class AdminCtrl {
 
         if(uploadThumbnail != null) {
             ServletContext application = request.getSession().getServletContext();
-            //String realPath = application.getRealPath("/resources/upload/product");                                                             // 운영 서버
-            String realPath = "C:\\Dev\\IdeaProjects\\project\\personal\\project4\\project04\\src\\main\\webapp\\resources\\upload\\product";	  // 개발 서버
+            String realPath = application.getRealPath("/resources/upload/product");                                                             // 운영 서버
 
             File uploadPath = new File(realPath);
             if(!uploadPath.exists()) {uploadPath.mkdirs();}
@@ -582,8 +582,7 @@ public class AdminCtrl {
 
         if(uploadThumbnail != null) {
             ServletContext application = request.getSession().getServletContext();
-            //String realPath = application.getRealPath("/resources/upload/product");                                                             // 운영 서버
-            String realPath = "C:\\Dev\\IdeaProjects\\project\\personal\\project4\\project04\\src\\main\\webapp\\resources\\upload\\product";	  // 개발 서버
+            String realPath = application.getRealPath("/resources/upload/product");                                                             // 운영 서버
 
             File uploadPath = new File(realPath);
             if(!uploadPath.exists()) {uploadPath.mkdirs();}
@@ -616,8 +615,7 @@ public class AdminCtrl {
     public String categoryDeletePro(HttpServletRequest request, @RequestParam("no") int proNo, Model model) throws Exception {
 
         ServletContext application = request.getSession().getServletContext();
-        //String realPath = application.getRealPath("/resources/upload/");                                                            // 운영 서버
-        String realPath = "C:\\Dev\\IdeaProjects\\project\\personal\\project4\\project04\\src\\main\\webapp\\resources\\upload";	  // 개발 서버
+        String realPath = application.getRealPath("/resources/upload/");                                                            // 운영 서버
 
         FileDTO fileDTO = new FileDTO();
         fileDTO.setToUse("product");
@@ -634,6 +632,25 @@ public class AdminCtrl {
         productService.productDelete(proNo);
 
         return "redirect:/admin/productConf.do";
+    }
+
+    @GetMapping("/paymentConf.do")
+    public String paymentList(HttpServletRequest request, Model model) throws Exception {
+
+        List<PaymentVO> paymentList = paymentService.paymentList();
+        model.addAttribute("paymentList", paymentList);
+
+        return "/admin/paymentList";
+    }
+
+    @PostMapping("updateDStatus.do")
+    @ResponseBody
+    public boolean updatePayDeliveryStatus(@RequestParam("type") int num, @RequestParam("no") int dno) throws Exception {
+        Delivery delivery = new Delivery();
+        delivery.setDStatus(num);
+        delivery.setDno(dno);
+        deliveryService.deliveryStatusUpdate(delivery);
+        return true;
     }
 
     @GetMapping("/findPro.do")

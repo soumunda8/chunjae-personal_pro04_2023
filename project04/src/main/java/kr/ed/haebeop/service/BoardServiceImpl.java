@@ -31,12 +31,20 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public BoardVO boardGet(int bno, String sid) throws Exception {
+    public BoardVO boardGet(boolean hasCookie, int bno, String sid) throws Exception {
         BoardVO boardVO = boardMapper.boardGet(bno);
         if(!sid.equals(boardVO.getAuthor()) && !sid.equals("admin")) {
-            boardMapper.boardVisitedUpdate(bno);
-            boardVO.setVisited(boardVO.getVisited() + 1);
+            if(!hasCookie){
+                boardMapper.boardVisitedUpdate(bno);
+                boardVO.setVisited(boardVO.getVisited() + 1); //확인필요
+            }
         }
+        return boardVO;
+    }
+
+    @Override
+    public BoardVO boardGetInfo(int bno) throws Exception {
+        BoardVO boardVO = boardMapper.boardGet(bno);
         return boardVO;
     }
 
@@ -60,4 +68,5 @@ public class BoardServiceImpl implements BoardService {
     public void boardDelete(int bno) throws Exception {
         boardMapper.boardDelete(bno);
     }
+
 }

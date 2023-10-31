@@ -23,9 +23,9 @@
                             </div>
                             <ul class="my-2" style="width:100%;">
                                 <li><a href="${path }/user/myPage.do" class="active px-4 py-2">나의 정보</a></li>
-                                <li><a href="${path }/user/mypageLectList.do" class="px-4 py-2">나의 강의실</a></li>
-                                <li><a href="${path }/user/mypagePaylistMem.do" class="px-4 py-2">나의 결제정보</a></li>
-                                <li><a href="${path }/academy/mypageReservation.do" class="px-4 py-2">나의 예약정보</a></li>
+                                <li><a href="${path }/user/myPageLectList.do" class="px-4 py-2">나의 강의실</a></li>
+                                <li><a href="${path }/user/myPagePaylistMem.do" class="px-4 py-2">나의 결제정보</a></li>
+                                <li><a href="${path }/academy/myPageReservation.do" class="px-4 py-2">나의 예약정보</a></li>
                             </ul>
                         </div>
                     </div>
@@ -50,7 +50,7 @@
                                     </tr>
                                     <tr>
                                         <th class="text-center">비밀번호</th>
-                                        <td><c:if test="${sid ne 'admin'}"><a href="${path }/user/mypageChangePw.do?id=${member.id }">비밀번호 변경</a></c:if></td>
+                                        <td><c:if test="${sid ne 'admin'}"><a href="${path }/user/myPageChangePw.do?id=${member.id }">비밀번호 변경</a></c:if></td>
                                     </tr>
                                     <tr>
                                         <th class="text-center">이메일</th>
@@ -82,7 +82,7 @@
                                             </c:choose>
                                             <c:if test="${member.grade == 2 }"> -
                                                 <c:if test="${!canUpgrade }"><span style="color:var(--main-color);">선생님 신청 진행 중</span></c:if>
-                                                <c:if test="${canUpgrade }"><a href="${path }/user/mypageChangeGrade.do">선생님 신청하기</a></c:if>
+                                                <c:if test="${canUpgrade }"><a href="${path }/user/myPageChangeGrade.do">선생님 신청하기</a></c:if>
                                             </c:if>
                                         </td>
                                     </tr>
@@ -92,7 +92,7 @@
 
                             <div class="d-flex justify-content-end">
                                 <a href="${path }/user/myPageEdit.do" class="btn btn-primary px-3 py-2 my-4 mr-2">수정하기</a>
-                                <c:if test="${sid ne 'admin'}"><a href="${path }/user/mypageRemoveUser.do?id=${sid }" class="btn btn-success px-3 py-2 my-4">탈퇴하기</a></c:if>
+                                <c:if test="${sid ne 'admin'}"><a href="${path }/user/myPageRemoveUser.do?id=${sid }" class="btn btn-success px-3 py-2 my-4">탈퇴하기</a></c:if>
                             </div>
                         </div>
                     </div>

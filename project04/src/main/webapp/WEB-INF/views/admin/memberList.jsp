@@ -85,7 +85,7 @@
                                                 <td class="text-center">
                                                     <c:if test="${member.useYn == true}">
                                                         <div class="buttons are-small is-centered">
-                                                            <a href="${path }/user/mypageRemoveUser.do?id=${member.id }" class="btn btn-primary btn-sm">회원탈퇴</a>
+                                                            <a href="${path }/user/myPageRemoveUser.do?id=${member.id }" class="btn btn-primary btn-sm">회원탈퇴</a>
                                                         </div>
                                                     </c:if>
                                                 </td>

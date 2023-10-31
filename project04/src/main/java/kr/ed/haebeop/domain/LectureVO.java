@@ -26,6 +26,7 @@ public class LectureVO {
     private String saveNm;
     private String cateName;
     private String proNm;
+    private int proPrice;
     private String nm;
 
 }

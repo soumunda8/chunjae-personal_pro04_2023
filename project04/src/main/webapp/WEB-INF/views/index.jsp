@@ -18,11 +18,10 @@
                 <h4 class="text-white mb-4 mt-5 mt-lg-0">에듀 강의 교육 센터</h4>
                 <h1 class="display-4 font-weight-bold text-white">새로운 학습 관련 홈페이지</h1>
                 <p class="text-white mb-4">
-                    뭐 이렇게 주절주절 써놓고 나중에 바꿔놓을게요. <br />
-                    솔직히 뭔말을 써야 할지도 모르겟고 <br />
-                    그만 쓰꼬 싶스빈다. <br />
+                    많은 강의를 확인해보세요.<br />
+                    새롭고 신기한 강의들이 많이 있습니다.<br />
+                    많이 활용하세요.<br />
                 </p>
-                <a href="#" class="btn btn-secondary mt-1 py-3 px-5">강의 배우기</a>
             </div>
             <div class="col-lg-6 text-center">
                 <img class="img-fluid2 my-5" src="${path }/resources/image/main/header.png" alt="메인 썸네일 이미지" />
@@ -30,11 +29,15 @@
         </div>
     </div>
 
-    <div class="container-fluid mb-5">
+    <div class="container text-center mb-5" style="height:30vh;line-height:30vh;font-size:5rem;font-weight:bold;">
+        홈페이지 준비중입니다.
+    </div>
+
+    <%--<div class="container-fluid mb-5">
         <div class="container">
             <div class="text-center pb-2">
                 <p class="section-title px-5"><span class="px-2">AN UPCOMING LECTURE</span></p>
-                <h1 class="mb-4">마지막 기회를 놓치지 마세요.</h1>
+                <h1 class="mb-4">많은 강의들을 확인하세요.</h1>
             </div>
             <div class="row">
                 <div class="col-lg-4">
@@ -43,8 +46,8 @@
                         <div class="card-body text-center">
                             <h4 class="card-title">강의1</h4>
                             <p class="card-text">
-                                강의1에 관한 설명입니다<br />
-                                강의1은 이것저것입니당.
+                                강의1에 관한 설명입니다.<br />
+                                강의1은 이것저것입니다.
                             </p>
                         </div>
                         <div class="card-footer bg-transparent py-4 px-5">
@@ -244,7 +247,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>--%>
 
     <jsp:include page="./layout/footer.jsp" />
     <script src="${path }/resources/js/owl.carousel.min.js"></script>

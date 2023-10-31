@@ -1,11 +1,11 @@
 package kr.ed.haebeop.config;
 
+import kr.ed.haebeop.util.AdminInterceptor;
+import kr.ed.haebeop.util.UserInterceptor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
@@ -31,6 +31,20 @@ public class ServletContext implements WebMvcConfigurer {
         registry.addResourceHandler("/member/**").addResourceLocations("/WEB-INF/views/member");
         registry.addResourceHandler("/lecture/**").addResourceLocations("/WEB-INF/views/lecture");
         registry.addResourceHandler("/common/**").addResourceLocations("/WEB-INF/views/common");
+        registry.addResourceHandler("/payment/**").addResourceLocations("/WEB-INF/views/payment");
+        registry.addResourceHandler("/layout/**").addResourceLocations("/WEB-INF/views/layout");
+    }
+
+    @Bean
+    public AdminInterceptor adminInterceptor() {return new AdminInterceptor();}
+
+    @Bean
+    public UserInterceptor userInterceptor() {return new UserInterceptor();}
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(adminInterceptor());
+        registry.addInterceptor(userInterceptor());
     }
 
 }

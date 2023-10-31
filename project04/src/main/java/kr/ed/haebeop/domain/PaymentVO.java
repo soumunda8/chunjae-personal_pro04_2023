@@ -9,19 +9,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PaymentVO {
     
-    private int payno;
+    private int payNo;
     private String author;
     private int sno;
-    private int amount;
     private String pMethod;
     private String pCom;
     private String pNum;
     private int payPrice;
     private int payStatus;
     private String lectureTitle;
-    private String thumbnailSaveFolder;
-    private String thumbnailOriginNm;
-    private String thumbnailSaveNm;
     private int dno;
     private String cusNm;
     private String cusTel;

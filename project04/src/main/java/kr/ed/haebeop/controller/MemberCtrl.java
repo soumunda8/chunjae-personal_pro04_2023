@@ -132,7 +132,7 @@ public class MemberCtrl {
         return "redirect:/user/myPage.do";
     }
 
-    @GetMapping("/mypageRemoveUser.do")
+    @GetMapping("/myPageRemoveUser.do")
     public String memberDeletePost(HttpServletRequest request, Model model) throws Exception {
         String sid = (String) session.getAttribute("sid");
         String id = request.getParameter("id");
@@ -144,7 +144,7 @@ public class MemberCtrl {
         }
     }
 
-    @GetMapping("/mypageChangePw.do")
+    @GetMapping("/myPageChangePw.do")
     public String memberUpdatePw(Model model) throws Exception {
         String sid = (String) session.getAttribute("sid");
         Member member = memberService.memberGet(sid);
@@ -152,7 +152,7 @@ public class MemberCtrl {
         return "/member/myPageEditPw";
     }
 
-    @PostMapping("/mypageChangePw.do")
+    @PostMapping("/myPageChangePw.do")
     public String memberUpdatePwPro(HttpServletRequest request, Model model, RedirectAttributes rttr) throws Exception {
         String sid = (String) session.getAttribute("sid");
 
@@ -171,14 +171,14 @@ public class MemberCtrl {
                 return "redirect:/user/myPage.do";
             } else {
                 rttr.addFlashAttribute("msg", "fail");
-                return "redirect:/user/mypageChangePw.do";
+                return "redirect:/user/myPageChangePw.do";
             }
         } else {
             return "redirect:/user/myPage.do";
         }
     }
 
-    @GetMapping("/mypageChangeGrade.do")
+    @GetMapping("/myPageChangeGrade.do")
     public String memberUpgrade(Model model) throws Exception {
         String sid = (String) session.getAttribute("sid");
         Member member = memberService.memberGet(sid);
@@ -195,7 +195,7 @@ public class MemberCtrl {
         return "/member/myPageUpgrade";
     }
 
-    @PostMapping("/mypageChangeGrade.do")
+    @PostMapping("/myPageChangeGrade.do")
     public String memberUpgradePro(HttpServletRequest request, List<MultipartFile> uploadFiles) throws Exception {
         String sid = (String) session.getAttribute("sid");
         //String checkTeacher = request.getParameter("checkTeacher") != null ? request.getParameter("checkTeacher") : "'";
@@ -226,8 +226,7 @@ public class MemberCtrl {
             if(uploadFiles != null) {
 
                 ServletContext application = request.getSession().getServletContext();
-                //String realPath = application.getRealPath("/resources/upload/teacher");                                                             // 운영 서버
-                String realPath = "C:\\Dev\\IdeaProjects\\project\\personal\\project4\\project04\\src\\main\\webapp\\resources\\upload\\teacher";	  // 개발 서버
+                String realPath = application.getRealPath("/resources/upload/teacher");                                                             // 운영 서버
 
                 File uploadPath = new File(realPath);
                 if(!uploadPath.exists()) {uploadPath.mkdirs();}
