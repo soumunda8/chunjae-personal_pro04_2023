@@ -29,9 +29,112 @@
         </div>
     </div>
 
-    <div class="container text-center mb-5" style="height:30vh;line-height:30vh;font-size:5rem;font-weight:bold;">
-        홈페이지 준비중입니다.
+    <div class="container-fluid mb-5">
+        <div class="container">
+            <div class="text-center pb-2">
+                <p class="section-title px-5"><span class="px-2">AN UPCOMING LECTURE</span></p>
+                <h1 class="mb-4">마지막 기회를 놓치지 마세요.</h1>
+            </div>
+            <div class="row">
+                <c:forEach var="lecture" items="${lectureList }">
+                    <div class="col-lg-4">
+                        <div class="card border-0 bg-light shadow-sm pb-2">
+                            <img class="card-img-top mb-2" src="${path }/resources/upload/lecture/lect_sample.png" alt="샘플썸네일"/>
+                            <div class="card-body text-center">
+                                <h4 class="card-title">${lecture.title }</h4>
+                                <p class="card-text">
+                                        ${lecture.subTitle }<br/>
+                                </p>
+                            </div>
+                            <div class="card-footer bg-transparent py-4 px-5">
+                                <div class="row border-bottom">
+                                    <div class="col-6 py-1 text-right border-right">
+                                        <strong>교육 과목</strong>
+                                    </div>
+                                    <div class="col-6 py-1">${lecture.proNm }</div>
+                                </div>
+                                <div class="row border-bottom">
+                                    <div class="col-6 py-1 text-right border-right">
+                                        <strong>교육 강사</strong>
+                                    </div>
+                                    <div class="col-6 py-1">${lecture.nm }</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6 py-1 text-right border-right">
+                                        <strong>교육 가격</strong>
+                                    </div>
+                                    <div class="col-6 py-1">${lecture.LPrice }</div>
+                                </div>
+                            </div>
+                            <a href="${path}/lecture/get.do?lno=${lecture.lno }" class="btn btn-primary px-4 mx-auto mb-4">신청하기</a>
+                        </div>
+                    </div>
+                </c:forEach>
+            </div>
+            <c:if test="${empty lectureList}">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="card border-0 bg-light shadow-sm pb-2">
+                            <img class="card-img-top mb-2" src="${path }/resources/upload/lecture/lect_sample.png" alt="샘플썸네일"/>
+                            <div class="card-body text-center">
+                                <h4 class="card-title">강의 추가필요</h4>
+                                <p class="card-text">
+                                    미정
+                                </p>
+                            </div>
+                            <div class="card-footer bg-transparent py-4 px-5">
+                                <div class="row border-bottom">
+                                    <div class="col-6 py-1 text-right border-right">
+                                        <strong>교육 과목</strong>
+                                    </div>
+                                    <div class="col-6 py-1">미정</div>
+                                </div>
+                                <div class="row border-bottom">
+                                    <div class="col-6 py-1 text-right border-right">
+                                        <strong>교육 강사</strong>
+                                    </div>
+                                    <div class="col-6 py-1">미정</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6 py-1 text-right border-right">
+                                        <strong>교육 가격</strong>
+                                    </div>
+                                    <div class="col-6 py-1">미정</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </c:if>
+        </div>
     </div>
+
+    <c:if test="${not empty teacherList }">
+        <div class="container-fluid mb-5">
+            <div class="container">
+                <div class="text-center pb-2">
+                    <p class="section-title px-5">
+                        <span class="px-2">Our Teachers</span>
+                    </p>
+                    <h1 class="mb-4">강사님들을 만나보세요.</h1>
+                </div>
+                <div class="row">
+                    <c:forEach var="teacher" items="${teacherList }" varStatus="status">
+                        <div class="col-md-6 col-lg-3 text-center team">
+                            <div class="position-relative overflow-hidden mb-4" style="border-radius: 100%">
+                                <img class="img-fluid w-100" src="${path }/resources/image/lecture/teacher1.png" alt="강사 이미지" />
+                                <div class="team-social d-flex align-items-center justify-content-center w-100 h-100 position-absolute">
+                                    <a class="btn btn-outline-light text-center mr-2 px-0" style="width: 38px; height: 38px" href="tel:${teacher.tel }"><i class="fas fa-phone-alt"></i></a>
+                                    <a class="btn btn-outline-light text-center px-0" style="width: 38px; height: 38px" href="email:${teacher.email }" ><i class="fas fa-envelope"></i></a>
+                                </div>
+                            </div>
+                            <h4 class="mb-0">${teacher.nm }</h4>
+                        </div>
+                    </c:forEach>
+                </div>
+            </div>
+        </div>
+    </c:if>
 
     <%--<div class="container-fluid mb-5">
         <div class="container">
