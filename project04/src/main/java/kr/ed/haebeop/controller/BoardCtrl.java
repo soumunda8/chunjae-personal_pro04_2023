@@ -75,7 +75,11 @@ public class BoardCtrl {
         model.addAttribute("curPage", curPage);
         List<BoardVO> boardList = boardService.boardList(page);
 
+        String pathGetUrl = "";
         for(BoardVO boardVO : boardList) {
+
+            pathGetUrl = "/board/get.do?bno=" + boardVO.getBno();
+            boardVO.setPathGetUrl(pathGetUrl);
             String authorNm = boardVO.getNm();
             if(!authorNm.equals("관리자")) {
                 String nm = authorNm.substring(0, 1);
@@ -99,6 +103,12 @@ public class BoardCtrl {
         }
 
         model.addAttribute("addCheck", addCheck);
+
+        String pathUrl = "/board/list.do";
+        model.addAttribute("pathUrl", pathUrl);
+
+        String pathPageUrl = "/board/list.do?no=" + bmNo;
+        model.addAttribute("pathPageUrl", pathPageUrl);
 
         return "/board/boardList";
     }
@@ -226,6 +236,15 @@ public class BoardCtrl {
         }
         model.addAttribute("commentList", commentList);
 
+        String pathUrl = "/board/list.do?no=" + board.getBmNo();
+        model.addAttribute("pathUrl", pathUrl);
+
+        String pathUpdateUrl = "/board/update.do?bno=" + bno;
+        model.addAttribute("pathUpdateUrl", pathUpdateUrl);
+
+        BoardMgn boardMgn = boardMgnService.getBoardMgn(board.getBmNo());
+        model.addAttribute("boardMgn", boardMgn);
+
         return "/board/boardGet";
     }
 
@@ -270,6 +289,9 @@ public class BoardCtrl {
         List<FileDTO> fileList = filesService.fileListByPar(fileDTO);
         model.addAttribute("fileList", fileList);
 
+        String pathUrl = "/board/list.do?no=" + board.getBmNo();
+        model.addAttribute("pathUrl", pathUrl);
+
         return "/board/boardUpdate";
     }
 
@@ -279,6 +301,9 @@ public class BoardCtrl {
         int bno = Integer.parseInt(request.getParameter("bno"));
         String title = request.getParameter("title");
         String content = request.getParameter("content");
+
+        BoardVO boardVO = boardService.boardGetInfo(bno);
+        BoardMgn boardMgn = boardMgnService.getBoardMgn(boardVO.getBmNo());
 
         Board board = new Board();
         board.setBno(bno);
@@ -321,37 +346,25 @@ public class BoardCtrl {
             }
 
         }
-        return "redirect:/board/get.do?bno=" + bno;
+
+        if(boardMgn.getDepth() != 1) {
+            return "redirect:/lecture/boardGet.do?bno=" + bno;
+        } else {
+            return "redirect:/board/get.do?bno=" + bno;
+        }
+
     }
 
     @GetMapping("/delete.do")
-    public String boardDeletePro(HttpServletRequest request, RedirectAttributes rttr, HttpServletResponse response) throws Exception {
+    public String boardDeletePro(HttpServletRequest request, RedirectAttributes rttr) throws Exception {
         String sid = session.getAttribute("sid") != null ? (String) session.getAttribute("sid") : "";
         int bno = Integer.parseInt(request.getParameter("bno"));
 
-        Cookie[] cookies = request.getCookies();
-        boolean hasCookie = false;
-        if (cookies != null) {
-            String bcookie = "board"+bno;
-            for (Cookie cookie : cookies) {
-                if (bcookie.equals(cookie.getName())) {
-                    hasCookie = true;
-                    break;
-                }
-            }
-            if(!hasCookie){
-                Cookie cookie = new Cookie(bcookie, bcookie);
-                cookie.setMaxAge(3600); // 초 단위, 1시간
-
-                // 응답 헤더에 쿠키 추가
-                response.addCookie(cookie);
-            }
-        }
-
-        BoardVO boardVO = boardService.boardGet(hasCookie, bno, sid);
-
+        BoardVO boardVO = boardService.boardGet(true, bno, sid);
+        int bmNo = boardVO.getBmNo();
+        BoardMgn boardMgn = boardMgnService.getBoardMgn(bmNo);
         if(sid.equals(boardVO.getAuthor()) || sid.equals("admin")) {
-            int bmNo = boardVO.getBmNo();
+
             FileDTO fileDTO = new FileDTO();
             fileDTO.setPar(bno);
             fileDTO.setToUse(toUseFileByBoard);
@@ -363,13 +376,21 @@ public class BoardCtrl {
                     filesService.filesDeleteAll(bno);
                 }
             }
-
             commentService.commentDeleteAll(bno);
             boardService.boardDelete(bno);
-            return "redirect:/board/list.do?no=" + bmNo;
+
+            if(boardMgn.getDepth() != 1) {
+                return "redirect:/lecture/boardList.do?no=" + bmNo + "&lno=" + boardMgn.getPar();
+            } else {
+                return "redirect:/board/list.do?no=" + bmNo;
+            }
         } else {
             rttr.addFlashAttribute("msg", "fail");
-            return "redirect:/board/get.do?bno=" + bno;
+            if(boardMgn.getDepth() != 1) {
+                return "redirect:/lecture/boardGet.do?bno=" + bno;
+            } else {
+                return "redirect:/board/get.do?bno=" + bno;
+            }
         }
     }
 

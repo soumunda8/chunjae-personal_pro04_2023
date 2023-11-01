@@ -70,4 +70,8 @@
         DELETE FROM lecture WHERE lno = #{lno}
     </delete>
 
+    <select id="lectureListMain" resultType="kr.ed.haebeop.domain.LectureVO">
+        select * from lectureView ORDER BY lno desc limit 3
+    </select>
+
 </mapper>

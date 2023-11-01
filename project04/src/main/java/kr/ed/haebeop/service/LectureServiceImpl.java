@@ -46,4 +46,10 @@ public class LectureServiceImpl implements LectureService {
     public void lectureDelete(int lno) throws Exception {
         lectureMapper.lectureDelete(lno);
     }
+
+    @Override
+    public List<LectureVO> lectureListMain() throws Exception{
+        return lectureMapper.lectureListMain();
+    }
+
 }

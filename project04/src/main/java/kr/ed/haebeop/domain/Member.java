@@ -22,5 +22,7 @@ public class Member {
     private int visited;
     private boolean useYn;
     private int grade = 2;
+    private String fileNm = "";
+    private String saveFolder = "";
 
 }

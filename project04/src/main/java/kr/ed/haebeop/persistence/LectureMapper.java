@@ -17,5 +17,6 @@ public interface LectureMapper {
     public void lectureInsert(Lecture lecture) throws Exception;
     public void lectureUpdate(Lecture lecture) throws Exception;
     public void lectureDelete(int lno) throws Exception;
+    public List<LectureVO> lectureListMain() throws Exception;
 
 }
